@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)file:///C:/Users/masaki/Downloads/english-textbook_1.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中学英語 やり直し参考書</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',sans-serif;background:#f3f2ee;color:#2c2c2a;min-height:100vh}
+#app{max-width:680px;margin:0 auto;padding:12px}
+.hdr{background:linear-gradient(135deg,#7F77DD,#5DCAA5);border-radius:14px;padding:18px 20px;margin-bottom:14px;color:#fff}
+.hdr h1{font-size:16px;font-weight:700;margin-bottom:2px}
+.hdr p{font-size:12px;opacity:.85}
+.pw{margin-top:10px}
+.pl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;opacity:.9}
+.pb{height:8px;background:rgba(255,255,255,.3);border-radius:4px;overflow:hidden}
+.pf{height:100%;background:#fff;border-radius:4px;transition:width .5s}
+.stages{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.sp{padding:5px 11px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:2px solid transparent;transition:all .2s;white-space:nowrap}
+.sp.active{background:#7F77DD;color:#fff;border-color:#7F77DD}
+.sp.done{background:#d1fae5;color:#065f46;border-color:#6ee7b7}
+.sp.locked{background:#e8e6df;color:#b4b2a9;cursor:not-allowed;border-color:#d3d1c7}
+.sp.avail{background:#fff;color:#2c2c2a;border-color:#d3d1c7}
+.sp.avail:hover{border-color:#7F77DD}
+.tr{display:flex;gap:0;border-bottom:2px solid #d3d1c7;margin-bottom:14px}
+.tb{padding:9px 14px;font-size:13px;font-weight:500;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;color:#888780}
+.tb.on{border-bottom-color:#7F77DD;color:#7F77DD}
+.card{background:#fff;border-radius:12px;padding:18px;margin-bottom:12px;border:1px solid #d3d1c7}
+.sl{font-size:11px;font-weight:700;color:#888780;letter-spacing:.08em;margin:16px 0 8px}
+.pt{border-left:4px solid #7F77DD;padding:12px 14px;background:#f3f2ee;border-radius:0 8px 8px 0;margin-bottom:10px}
+.pt-t{font-size:14px;font-weight:700;margin-bottom:6px}
+.pt-b{font-size:13px;color:#5f5e5a;line-height:1.8}
+.rule{background:#EEEDFE;color:#3C3489;border-radius:6px;padding:6px 10px;display:block;margin:6px 0;font-weight:600;font-size:13px}
+.nt{color:#D85A30;font-size:12px;margin-top:5px;display:block}
+.fw{background:#f3f2ee;border-radius:10px;padding:12px;margin:10px 0;border:1px solid #d3d1c7}
+.fl{font-size:11px;font-weight:700;color:#888780;margin-bottom:8px;letter-spacing:.06em}
+.extbl{width:100%;border-collapse:collapse;font-size:13px}
+.extbl tr{border-bottom:1px solid #d3d1c7}
+.extbl tr:last-child{border-bottom:none}
+.extbl td{padding:7px 4px;vertical-align:top;line-height:1.5}
+.ej{color:#5f5e5a;width:40%;padding-right:8px}
+.ee{font-weight:500}
+.enote{font-size:11px;color:#888780;display:block;margin-top:1px}
+.bm{width:100%;padding:11px;background:#7F77DD;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;margin-top:14px;transition:background .2s}
+.bm:hover{background:#534AB7}
+.qw{background:#f3f2ee;border-radius:10px;padding:14px;margin-bottom:10px;border:1px solid #d3d1c7}
+.qn{font-size:11px;font-weight:700;color:#7F77DD;margin-bottom:5px}
+.qt{font-size:14px;font-weight:600;margin-bottom:10px;line-height:1.6}
+.os{display:flex;flex-direction:column;gap:6px}
+.op{text-align:left;padding:9px 12px;border-radius:7px;border:1.5px solid #d3d1c7;background:#fff;color:#2c2c2a;font-size:13px;cursor:pointer;transition:all .2s;line-height:1.4}
+.op:hover:not(:disabled){border-color:#7F77DD;background:#EEEDFE}
+.op.ok{background:#d1fae5!important;border-color:#34d399!important;color:#065f46!important}
+.op.ng{background:#fee2e2!important;border-color:#f87171!important;color:#991b1b!important}
+.ep{margin-top:9px;padding:9px 13px;border-radius:8px;background:#EEEDFE;font-size:13px;line-height:1.75;color:#3C3489}
+.et2{font-weight:700;margin-bottom:3px;font-size:13px}
+.rs{text-align:center;padding:24px 16px;background:#fff;border-radius:12px;margin-top:4px;border:1px solid #d3d1c7}
+.tb2{background:#fffbeb;border:1.5px solid #f59e0b;border-radius:12px;padding:14px 18px;margin-bottom:12px}
+.sn{font-size:11px;color:#888780;text-align:center;margin-top:10px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="hdr">
+    <h1>📚 中学英語 やり直し参考書</h1>
+    <p>偏差値40からの大学受験英語｜中1〜中3完全版</p>
+    <div class="pw">
+      <div class="pl"><span>全体の進捗</span><span id="ptxt">0%</span></div>
+      <div class="pb"><div class="pf" id="pfil" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="stages" id="sbar"><div class="sp active" onclick="go(0)">中1①</div><div class="sp locked" onclick="go(1)">🔒 中1②</div><div class="sp locked" onclick="go(2)">🔒 中1③</div><div class="sp locked" onclick="go(3)">🔒 中1④</div><div class="sp locked" onclick="go(4)">🔒 📝 中1まとめ</div><div class="sp locked" onclick="go(5)">🔒 中2①</div><div class="sp locked" onclick="go(6)">🔒 中2②</div><div class="sp locked" onclick="go(7)">🔒 中2③</div><div class="sp locked" onclick="go(8)">🔒 📝 中2まとめ</div><div class="sp locked" onclick="go(9)">🔒 中3①</div><div class="sp locked" onclick="go(10)">🔒 中3②</div><div class="sp locked" onclick="go(11)">🔒 📝 中3まとめ</div></div>
+  <div id="main"><div class="tr"><div class="tb on" onclick="setTab(&#39;lesson&#39;)">📖 レッスン</div><div class="tb " onclick="setTab(&#39;quiz&#39;)">✏️ 小テスト（4問）</div></div><div class="card"><div style="font-size:16px;font-weight:700;margin-bottom:3px">be動詞の基本</div><div style="font-size:12px;color:#5f5e5a;margin-bottom:14px">am / is / are の使い分け</div><div class="sl">ポイント解説</div><div class="pt"><div class="pt-t">📌 be動詞とは何か</div><div class="pt-b">英語の動詞は「be動詞」と「一般動詞」の2種類があります。be動詞は「〜です・〜にいる」という状態を表します。主語によって am / is / are を使い分けます。<span class="rule">I → am　／　he・she・it → is　／　you・we・they → are</span><span class="nt">⚠️ 「あなたは」= you でも are を使います。am ではありません！</span></div></div><div class="pt"><div class="pt-t">📌 否定文：be動詞の直後に not</div><div class="pt-b">「〜ではありません」は be動詞の直後に not を置くだけです。<span class="rule">I am not a student. / She is not happy. / They are not friends.</span>短縮形：is not → isn't　／　are not → aren't<span class="nt">⚠️ am not の短縮形は「I'm not」が一般的です。</span></div></div><div class="pt"><div class="pt-t">📌 疑問文：be動詞を文頭へ</div><div class="pt-b">「〜ですか？」は be動詞を文の先頭に移動します。<span class="rule">You are a student. → Are you a student?</span>答え方：Yes, I am. / No, I'm not. / Yes, she is. / No, she isn't.<span class="nt">💡 答えるときは必ず be動詞で返します。「Yes, I do.」は間違い！</span></div></div><div class="fw"><div class="fl">図解</div><svg width="100%" viewBox="0 0 640 220" role="img"><title>be動詞の使い分け</title><defs><marker id="a0" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></marker></defs>
+ <text x="60" y="14" text-anchor="middle" font-size="11" fill="#888780" font-weight="600">主語</text>
+ <text x="200" y="14" text-anchor="middle" font-size="11" fill="#888780" font-weight="600">be動詞</text>
+ <text x="430" y="14" text-anchor="middle" font-size="11" fill="#888780" font-weight="600">例文</text>
+ <rect x="10" y="20" width="100" height="36" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.5"></rect><text x="60" y="43" text-anchor="middle" font-size="15" font-weight="700" fill="#3C3489">I</text>
+ <rect x="10" y="68" width="100" height="44" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"></rect><text x="60" y="87" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">he / she</text><text x="60" y="103" text-anchor="middle" font-size="13" fill="#085041">it / 名前</text>
+ <rect x="10" y="124" width="100" height="44" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"></rect><text x="60" y="143" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">you / we</text><text x="60" y="159" text-anchor="middle" font-size="13" fill="#92400e">they</text>
+ <rect x="162" y="20" width="76" height="36" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="2"></rect><text x="200" y="43" text-anchor="middle" font-size="17" font-weight="700" fill="#3C3489">am</text>
+ <rect x="162" y="68" width="76" height="44" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"></rect><text x="200" y="95" text-anchor="middle" font-size="17" font-weight="700" fill="#085041">is</text>
+ <rect x="162" y="124" width="76" height="44" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"></rect><text x="200" y="151" text-anchor="middle" font-size="17" font-weight="700" fill="#92400e">are</text>
+ <line x1="110" y1="38" x2="162" y2="38" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a0)"></line>
+ <line x1="110" y1="90" x2="162" y2="90" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a0)"></line>
+ <line x1="110" y1="146" x2="162" y2="146" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a0)"></line>
+ <line x1="238" y1="38" x2="276" y2="38" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a0)"></line>
+ <line x1="238" y1="90" x2="276" y2="90" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a0)"></line>
+ <line x1="238" y1="146" x2="276" y2="146" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a0)"></line>
+ <rect x="278" y="20" width="350" height="36" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"></rect><text x="290" y="43" font-size="13" font-weight="600" fill="#3C3489">I am a student.（私は学生です）</text>
+ <rect x="278" y="68" width="350" height="44" rx="7" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="1"></rect><text x="290" y="89" font-size="13" font-weight="600" fill="#085041">She is a teacher. / He is busy.</text>
+ <rect x="278" y="124" width="350" height="44" rx="7" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"></rect><text x="290" y="145" font-size="13" font-weight="600" fill="#92400e">They are friends. / Are you OK?</text>
+ <text x="320" y="195" text-anchor="middle" font-size="12" fill="#888780">否定文：I am not... / She is not... / They are not...</text>
+ <text x="320" y="212" text-anchor="middle" font-size="12" fill="#888780">疑問文：Am I...? / Is she...? / Are they...?</text>
+ </svg></div><div class="sl">例文で確認（8文）</div><table class="extbl"><tbody><tr><td class="ej">私は高校生です</td><td class="ee">I am a high school student.<span class="enote">I → am</span></td></tr><tr><td class="ej">彼は医者です</td><td class="ee">He is a doctor.<span class="enote">he → is</span></td></tr><tr><td class="ej">彼女はとても親切です</td><td class="ee">She is very kind.<span class="enote">she → is</span></td></tr><tr><td class="ej">私たちは同じクラスです</td><td class="ee">We are in the same class.<span class="enote">we → are</span></td></tr><tr><td class="ej">彼らは日本人ではありません</td><td class="ee">They are not Japanese.<span class="enote">not で否定</span></td></tr><tr><td class="ej">その本はおもしろいです</td><td class="ee">The book is interesting.<span class="enote">もの → is</span></td></tr><tr><td class="ej">あなたは疲れていますか？</td><td class="ee">Are you tired?<span class="enote">areを先頭へ</span></td></tr><tr><td class="ej">彼女は学生ではありません</td><td class="ee">She is not a student.<span class="enote">is not = isn't</span></td></tr></tbody></table><button class="bm" onclick="setTab(&#39;quiz&#39;)">小テストに進む →</button></div></div>
+  <div class="sn">📦 進捗はブラウザに自動保存されます</div>
+</div>
+
+<script>
+const D=[
+{id:0,label:"中1①",title:"be動詞の基本",sub:"am / is / are の使い分け",
+ pts:[
+  {t:"📌 be動詞とは何か",b:`英語の動詞は「be動詞」と「一般動詞」の2種類があります。be動詞は「〜です・〜にいる」という状態を表します。主語によって am / is / are を使い分けます。<span class="rule">I → am　／　he・she・it → is　／　you・we・they → are</span><span class="nt">⚠️ 「あなたは」= you でも are を使います。am ではありません！</span>`},
+  {t:"📌 否定文：be動詞の直後に not",b:`「〜ではありません」は be動詞の直後に not を置くだけです。<span class="rule">I am not a student. / She is not happy. / They are not friends.</span>短縮形：is not → isn't　／　are not → aren't<span class="nt">⚠️ am not の短縮形は「I'm not」が一般的です。</span>`},
+  {t:"📌 疑問文：be動詞を文頭へ",b:`「〜ですか？」は be動詞を文の先頭に移動します。<span class="rule">You are a student. → Are you a student?</span>答え方：Yes, I am. / No, I'm not. / Yes, she is. / No, she isn't.<span class="nt">💡 答えるときは必ず be動詞で返します。「Yes, I do.」は間違い！</span>`}
+ ],
+ fig:`<svg width="100%" viewBox="0 0 640 220" role="img"><title>be動詞の使い分け</title><defs><marker id="a0" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+ <text x="60" y="14" text-anchor="middle" font-size="11" fill="#888780" font-weight="600">主語</text>
+ <text x="200" y="14" text-anchor="middle" font-size="11" fill="#888780" font-weight="600">be動詞</text>
+ <text x="430" y="14" text-anchor="middle" font-size="11" fill="#888780" font-weight="600">例文</text>
+ <rect x="10" y="20" width="100" height="36" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.5"/><text x="60" y="43" text-anchor="middle" font-size="15" font-weight="700" fill="#3C3489">I</text>
+ <rect x="10" y="68" width="100" height="44" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/><text x="60" y="87" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">he / she</text><text x="60" y="103" text-anchor="middle" font-size="13" fill="#085041">it / 名前</text>
+ <rect x="10" y="124" width="100" height="44" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/><text x="60" y="143" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">you / we</text><text x="60" y="159" text-anchor="middle" font-size="13" fill="#92400e">they</text>
+ <rect x="162" y="20" width="76" height="36" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="2"/><text x="200" y="43" text-anchor="middle" font-size="17" font-weight="700" fill="#3C3489">am</text>
+ <rect x="162" y="68" width="76" height="44" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/><text x="200" y="95" text-anchor="middle" font-size="17" font-weight="700" fill="#085041">is</text>
+ <rect x="162" y="124" width="76" height="44" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="200" y="151" text-anchor="middle" font-size="17" font-weight="700" fill="#92400e">are</text>
+ <line x1="110" y1="38" x2="162" y2="38" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a0)"/>
+ <line x1="110" y1="90" x2="162" y2="90" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a0)"/>
+ <line x1="110" y1="146" x2="162" y2="146" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a0)"/>
+ <line x1="238" y1="38" x2="276" y2="38" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a0)"/>
+ <line x1="238" y1="90" x2="276" y2="90" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a0)"/>
+ <line x1="238" y1="146" x2="276" y2="146" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a0)"/>
+ <rect x="278" y="20" width="350" height="36" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="290" y="43" font-size="13" font-weight="600" fill="#3C3489">I am a student.（私は学生です）</text>
+ <rect x="278" y="68" width="350" height="44" rx="7" fill="#E1F5EE" stroke="#5DCAA5" stroke-width="1"/><text x="290" y="89" font-size="13" font-weight="600" fill="#085041">She is a teacher. / He is busy.</text>
+ <rect x="278" y="124" width="350" height="44" rx="7" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/><text x="290" y="145" font-size="13" font-weight="600" fill="#92400e">They are friends. / Are you OK?</text>
+ <text x="320" y="195" text-anchor="middle" font-size="12" fill="#888780">否定文：I am not... / She is not... / They are not...</text>
+ <text x="320" y="212" text-anchor="middle" font-size="12" fill="#888780">疑問文：Am I...? / Is she...? / Are they...?</text>
+ </svg>`,
+ exs:[
+  {jp:"私は高校生です",en:"I am a high school student.",nt:"I → am"},
+  {jp:"彼は医者です",en:"He is a doctor.",nt:"he → is"},
+  {jp:"彼女はとても親切です",en:"She is very kind.",nt:"she → is"},
+  {jp:"私たちは同じクラスです",en:"We are in the same class.",nt:"we → are"},
+  {jp:"彼らは日本人ではありません",en:"They are not Japanese.",nt:"not で否定"},
+  {jp:"その本はおもしろいです",en:"The book is interesting.",nt:"もの → is"},
+  {jp:"あなたは疲れていますか？",en:"Are you tired?",nt:"areを先頭へ"},
+  {jp:"彼女は学生ではありません",en:"She is not a student.",nt:"is not = isn't"}
+ ],
+ qs:[
+  {q:"次のうち正しい英文はどれ？",opts:["I are happy.","She am sad.","He is busy.","They is students."],ans:2,exp:"he・she・it のときは is。He is busy. が正解。"},
+  {q:"「私は日本人ではありません」を英語にすると？",opts:["I not am Japanese.","I am not Japanese.","Am I not Japanese.","I is not Japanese."],ans:1,exp:"否定文は「be動詞＋not」の順。I am not Japanese. が正解。"},
+  {q:"「あなたは学生ですか？」を英語にすると？",opts:["You are a student?","Are you a student?","Do you are a student?","Is you a student?"],ans:1,exp:"be動詞の疑問文は are を文頭へ。Are you a student? が正解。"},
+  {q:"「彼女は先生ではありません」の英語は？",opts:["She not is a teacher.","She is not a teacher.","She does not a teacher.","She isn't not a teacher."],ans:1,exp:"否定はbe動詞の直後にnot。She is not a teacher. が正解。"}
+ ]},
+{id:1,label:"中1②",title:"一般動詞の基本",sub:"三単現のs・否定・疑問",
+ pts:[
+  {t:"📌 一般動詞とは",b:`be動詞以外の動詞を「一般動詞」といいます。<span class="rule">like / play / eat / go / have / study / watch / speak / live / know</span>基本の語順：主語 ＋ 動詞 ＋ 目的語　例：I like music.`},
+  {t:"📌 三単現のs",b:`主語が he・she・it（または人名1人）のとき動詞に s/es をつけます。<span class="rule">通常→s：like→likes / 語尾ch/sh/o→es：watch→watches, go→goes / 子音＋y→ies：study→studies</span><span class="nt">⚠️ 三単現のsは試験で頻出！</span>`},
+  {t:"📌 否定・疑問は do / does",b:`一般動詞の否定・疑問には do / does を使います。<span class="rule">否定：I don't like... / She doesn't watch...<br>疑問：Do you play...? / Does he study...?</span><span class="nt">💡 does を使うとき動詞は必ず原形に戻ります。</span>`}
+ ],
+ fig:`<svg width="100%" viewBox="0 0 640 170" role="img"><title>三単現のs</title><defs><marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+ <rect x="10" y="20" width="140" height="50" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/><text x="80" y="41" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">I / you / we / they</text><text x="80" y="58" text-anchor="middle" font-size="11" fill="#92400e">1・2人称 / 複数</text>
+ <rect x="10" y="88" width="140" height="50" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.5"/><text x="80" y="109" text-anchor="middle" font-size="12" font-weight="700" fill="#3C3489">he / she / it</text><text x="80" y="126" text-anchor="middle" font-size="11" fill="#3C3489">3人称単数</text>
+ <line x1="150" y1="45" x2="190" y2="45" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a1)"/>
+ <line x1="150" y1="113" x2="190" y2="113" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a1)"/>
+ <rect x="192" y="25" width="120" height="36" rx="7" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/><text x="252" y="48" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">動詞そのまま</text>
+ <rect x="192" y="95" width="120" height="36" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="252" y="118" text-anchor="middle" font-size="13" font-weight="700" fill="#3C3489">動詞＋s / es</text>
+ <line x1="312" y1="43" x2="350" y2="43" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a1)"/>
+ <line x1="312" y1="113" x2="350" y2="113" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a1)"/>
+ <rect x="352" y="18" width="278" height="50" rx="7" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/><text x="364" y="39" font-size="13" font-weight="600" fill="#92400e">I like music. / Do you like...?</text><text x="364" y="57" font-size="12" fill="#92400e">I don't like...</text>
+ <rect x="352" y="88" width="278" height="50" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="364" y="109" font-size="13" font-weight="600" fill="#3C3489">She likes music. / Does she like...?</text><text x="364" y="127" font-size="12" fill="#3C3489">She doesn't like...</text>
+ <text x="320" y="158" text-anchor="middle" font-size="12" fill="#D85A30" font-weight="600">⚠️ does のあとは必ず動詞の原形！</text>
+ </svg>`,
+ exs:[
+  {jp:"私は音楽が好きです",en:"I like music.",nt:"I → sは不要"},
+  {jp:"彼は毎日走ります",en:"He runs every day.",nt:"he → runs"},
+  {jp:"彼女は英語を話します",en:"She speaks English.",nt:"she → speaks"},
+  {jp:"私たちは放課後サッカーをします",en:"We play soccer after school.",nt:"we → sは不要"},
+  {jp:"彼は朝食を食べません",en:"He doesn't eat breakfast.",nt:"doesn't＋原形"},
+  {jp:"私は納豆が好きではありません",en:"I don't like natto.",nt:"don't＋原形"},
+  {jp:"あなたは英語を勉強しますか？",en:"Do you study English?",nt:"Do＋主語＋原形"},
+  {jp:"彼女はピアノを弾きますか？",en:"Does she play the piano?",nt:"Does＋主語＋原形"}
+ ],
+ qs:[
+  {q:"「彼女は猫が好きです」を英語にすると？",opts:["She like cats.","She likes cats.","She do like cats.","She does likes cats."],ans:1,exp:"she（3人称単数）なので like → likes。"},
+  {q:"「私はテレビを見ません」の英語は？",opts:["I not watch TV.","I don't watch TV.","I doesn't watch TV.","I am not watch TV."],ans:1,exp:"I の否定は don't＋動詞の原形。"},
+  {q:"「彼は野球をしますか？」の英語は？",opts:["Do he play baseball?","Does he plays baseball?","Does he play baseball?","Is he play baseball?"],ans:2,exp:"3人称単数の疑問文は Does＋主語＋動詞の原形。"},
+  {q:"「彼女は毎朝何時に起きますか？」の英語は？",opts:["What time do she get up?","What time does she gets up?","What time does she get up?","What time is she get up?"],ans:2,exp:"3人称単数なので Does＋主語＋動詞の原形。"}
+ ]},
+{id:2,label:"中1③",title:"過去形の基本",sub:"規則動詞・不規則動詞・did",
+ pts:[
+  {t:"📌 規則動詞の過去形",b:`過去のことを言うとき動詞を過去形に変えます。<span class="rule">通常→ed：play→played / e終わり→d：like→liked / 子音＋y→ied：study→studied / 短母音＋子音→重ねてed：stop→stopped</span><span class="nt">💡 過去形は主語が何でも形は同じ。</span>`},
+  {t:"📌 不規則動詞（要暗記）",b:`<span class="rule">go→went / come→came / see→saw / eat→ate / have→had<br>get→got / make→made / write→wrote / know→knew / speak→spoke</span><span class="nt">⚠️ 不規則動詞は丸暗記！毎日少しずつ覚えましょう。</span>`},
+  {t:"📌 過去の否定・疑問は did",b:`<span class="rule">否定：didn't＋動詞の原形　例：I didn't go.<br>疑問：Did＋主語＋動詞の原形？　例：Did you eat?</span><span class="nt">⚠️ didn't の後は必ず原形！「didn't went」は間違い。</span>`}
+ ],
+ fig:`<svg width="100%" viewBox="0 0 640 155" role="img"><title>過去形まとめ</title><defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+ <rect x="10" y="10" width="110" height="36" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/><text x="65" y="33" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">規則動詞</text>
+ <rect x="10" y="58" width="110" height="36" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.5"/><text x="65" y="81" text-anchor="middle" font-size="13" font-weight="700" fill="#3C3489">不規則動詞</text>
+ <line x1="120" y1="28" x2="158" y2="28" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a2)"/>
+ <line x1="120" y1="76" x2="158" y2="76" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a2)"/>
+ <rect x="160" y="10" width="100" height="36" rx="7" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/><text x="210" y="33" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">語尾に ed</text>
+ <rect x="160" y="58" width="100" height="36" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="210" y="81" text-anchor="middle" font-size="13" font-weight="700" fill="#3C3489">形が変わる</text>
+ <line x1="260" y1="28" x2="298" y2="28" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a2)"/>
+ <line x1="260" y1="76" x2="298" y2="76" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a2)"/>
+ <rect x="300" y="10" width="330" height="36" rx="7" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/><text x="312" y="33" font-size="12" font-weight="600" fill="#085041">play→played / watch→watched / study→studied</text>
+ <rect x="300" y="58" width="330" height="36" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="312" y="81" font-size="12" font-weight="600" fill="#3C3489">go→went / eat→ate / see→saw / have→had</text>
+ <rect x="10" y="110" width="620" height="36" rx="8" fill="#fee2e2" stroke="#f87171" stroke-width="1.5"/><text x="320" y="128" text-anchor="middle" font-size="12" font-weight="700" fill="#991b1b">否定：didn't＋原形　I didn't go. / She didn't eat.</text><text x="320" y="144" text-anchor="middle" font-size="12" fill="#991b1b">疑問：Did＋主語＋原形？　Did you go? / Did she eat?</text>
+ </svg>`,
+ exs:[
+  {jp:"昨日、私は映画を見ました",en:"I watched a movie yesterday.",nt:"watch→watched"},
+  {jp:"彼は先週京都に行きました",en:"He went to Kyoto last week.",nt:"go→went"},
+  {jp:"私たちは昨夜夕食を食べました",en:"We ate dinner last night.",nt:"eat→ate"},
+  {jp:"彼女は昨日手紙を書きました",en:"She wrote a letter yesterday.",nt:"write→wrote"},
+  {jp:"私は昨晩8時間寝ました",en:"I slept for eight hours last night.",nt:"sleep→slept"},
+  {jp:"彼は昨日来ませんでした",en:"He didn't come yesterday.",nt:"didn't＋原形"},
+  {jp:"あなたは昨日何を食べましたか？",en:"What did you eat yesterday?",nt:"Did＋主語＋原形"},
+  {jp:"彼女はその映画を見ましたか？",en:"Did she see the movie?",nt:"Did＋主語＋原形"}
+ ],
+ qs:[
+  {q:"「私は昨日テニスをしました」の英語は？",opts:["I play tennis yesterday.","I played tennis yesterday.","I did play tennis yesterday.","I was play tennis yesterday."],ans:1,exp:"規則動詞 play の過去形は played。"},
+  {q:"go の過去形は？",opts:["goed","goes","gone","went"],ans:3,exp:"go は不規則動詞で過去形は went。"},
+  {q:"「彼女は昨日来ませんでした」の英語は？",opts:["She didn't came yesterday.","She didn't come yesterday.","She doesn't come yesterday.","She wasn't come yesterday."],ans:1,exp:"didn't の後は必ず原形。came ではなく come。"},
+  {q:"「あなたは昨日何時に起きましたか？」の英語は？",opts:["What time you got up yesterday?","What time did you got up yesterday?","What time did you get up yesterday?","What time do you get up yesterday?"],ans:2,exp:"過去の疑問文は Did＋主語＋動詞の原形。got ではなく get。"}
+ ]},
+{id:3,label:"中1④",title:"現在進行形",sub:"be動詞＋動詞ing",
+ pts:[
+  {t:"📌 現在進行形の意味と形",b:`「今まさに〜しています」という今この瞬間の動作を表します。<span class="rule">am / is / are ＋ 動詞のing形</span><span class="nt">💡 now（今）などと一緒によく使われます。</span>`},
+  {t:"📌 ing形の作り方",b:`<span class="rule">① そのまま：play→playing / eat→eating<br>② e を取る：make→making / write→writing<br>③ 子音字を重ねる：run→running / swim→swimming</span><span class="nt">⚠️ swim→swimming（mを重ねる）、make→making（eを取る）</span>`},
+  {t:"📌 否定・疑問",b:`<span class="rule">否定：be動詞＋not＋ing形　I am not watching TV.<br>疑問：be動詞＋主語＋ing形？　Are you studying now?</span><span class="nt">💡 答え方：Yes, I am. / No, I'm not.</span>`}
+ ],
+ fig:`<svg width="100%" viewBox="0 0 640 150" role="img"><title>ing形の作り方</title><defs><marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+ <rect x="10" y="20" width="100" height="32" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/><text x="60" y="41" text-anchor="middle" font-size="12" font-weight="700" fill="#085041">① そのまま</text>
+ <rect x="10" y="64" width="100" height="32" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.5"/><text x="60" y="85" text-anchor="middle" font-size="12" font-weight="700" fill="#3C3489">② e を取る</text>
+ <rect x="10" y="108" width="100" height="32" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/><text x="60" y="129" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">③ 子音重ねる</text>
+ <line x1="110" y1="36" x2="148" y2="36" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a3)"/>
+ <line x1="110" y1="80" x2="148" y2="80" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a3)"/>
+ <line x1="110" y1="124" x2="148" y2="124" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a3)"/>
+ <rect x="150" y="20" width="200" height="32" rx="7" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/><text x="162" y="41" font-size="13" font-weight="600" fill="#085041">play→playing / eat→eating</text>
+ <rect x="150" y="64" width="200" height="32" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="162" y="85" font-size="13" font-weight="600" fill="#3C3489">make→making / write→writing</text>
+ <rect x="150" y="108" width="200" height="32" rx="7" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/><text x="162" y="129" font-size="13" font-weight="600" fill="#92400e">run→running / swim→swimming</text>
+ <rect x="366" y="20" width="264" height="120" rx="9" fill="#f3f2ee" stroke="#d3d1c7" stroke-width="1"/>
+ <text x="378" y="42" font-size="12" font-weight="700" fill="#2c2c2a">例文</text>
+ <text x="378" y="60" font-size="12" fill="#085041">I am playing tennis now.</text>
+ <text x="378" y="78" font-size="12" fill="#3C3489">She is making lunch.</text>
+ <text x="378" y="96" font-size="12" fill="#92400e">He is running in the park.</text>
+ <text x="378" y="114" font-size="12" fill="#5f5e5a">Are you studying? — Yes, I am.</text>
+ </svg>`,
+ exs:[
+  {jp:"私は今本を読んでいます",en:"I am reading a book now.",nt:"read＋ing"},
+  {jp:"彼は今音楽を聴いています",en:"He is listening to music now.",nt:"he → is"},
+  {jp:"彼女たちは今料理をしています",en:"They are cooking now.",nt:"they → are"},
+  {jp:"私は今テレビを見ていません",en:"I am not watching TV now.",nt:"am not＋ing"},
+  {jp:"彼は今走っていますか？",en:"Is he running now?",nt:"run→running"},
+  {jp:"あなたは今何をしていますか？",en:"What are you doing now?",nt:"be動詞を先頭に"},
+  {jp:"彼女は今手紙を書いています",en:"She is writing a letter now.",nt:"write→writing"},
+  {jp:"彼らは今泳いでいますか？",en:"Are they swimming now?",nt:"swim→swimming"}
+ ],
+ qs:[
+  {q:"「彼は今音楽を聴いています」の英語は？",opts:["He listens music now.","He is listening to music now.","He listening to music now.","He does listening to music now."],ans:1,exp:"現在進行形は be動詞＋動詞ing形。is listening to music now が正解。"},
+  {q:"run のing形は？",opts:["runing","running","runeing","runs"],ans:1,exp:"短母音＋子音字で終わる動詞は語尾を重ねてing。run→running。"},
+  {q:"「あなたは今何をしていますか？」の英語は？",opts:["What do you do now?","What are you doing now?","What you are doing now?","What is you doing now?"],ans:1,exp:"進行形の疑問文は be動詞を先頭に。What are you doing now? が正解。"},
+  {q:"「彼女は今勉強していません」の英語は？",opts:["She doesn't studying now.","She is not study now.","She is not studying now.","She not is studying now."],ans:2,exp:"進行形の否定は be動詞＋not＋ing形。She is not studying now. が正解。"}
+ ]},
+{id:4,label:"中1まとめ",title:"中1まとめテスト",sub:"be動詞・一般動詞・過去形・進行形の総復習",isTest:true,
+ qs:[
+  {q:"「彼らは友達です」の英語は？",opts:["They is friends.","They am friends.","They are friends.","They be friends."],ans:2,exp:"they のbe動詞は are。"},
+  {q:"「彼女は毎朝コーヒーを飲みます」の英語は？",opts:["She drink coffee every morning.","She drinks coffee every morning.","She drank coffee every morning.","She does drinks coffee every morning."],ans:1,exp:"3人称単数現在は動詞にs。drink→drinks。"},
+  {q:"「私たちは昨日公園に行きました」の英語は？",opts:["We go to the park yesterday.","We went to the park yesterday.","We goed to the park yesterday.","We did went to the park yesterday."],ans:1,exp:"go の過去形は went（不規則）。"},
+  {q:"「彼は今電話をしていますか？」の英語は？",opts:["Does he talk on the phone now?","Is he talking on the phone now?","He is talking on the phone now?","Does he talking on the phone now?"],ans:1,exp:"進行形の疑問文は be動詞を先頭に。Is he talking? が正解。"},
+  {q:"「私はその映画を見ませんでした」の英語は？",opts:["I didn't saw the movie.","I don't see the movie.","I didn't see the movie.","I wasn't see the movie."],ans:2,exp:"過去の否定は didn't＋動詞の原形。saw ではなく see。"}
+ ]},
+{id:5,label:"中2①",title:"助動詞 can / will / must",sub:"できる・するつもり・しなければならない",
+ pts:[
+  {t:"📌 can（できる）",b:`<span class="rule">can＋動詞の原形（主語に関係なく同じ形）<br>否定：cannot / can't＋原形<br>疑問：Can＋主語＋原形？</span><span class="nt">⚠️ can の後は必ず動詞の原形。「He can swims.」は間違い！</span>`},
+  {t:"📌 will（するつもり・だろう）",b:`<span class="rule">will＋動詞の原形<br>否定：will not / won't＋原形<br>疑問：Will＋主語＋原形？</span><span class="nt">💡 will は未来を表す。「I will goes」は間違い！</span>`},
+  {t:"📌 must（しなければならない・禁止）",b:`<span class="rule">must＋動詞の原形<br>must not（mustn't）→「してはいけない」（禁止）</span><span class="nt">⚠️ must not は禁止。「しなくていい」は don't have to です。</span>`}
+ ],
+ fig:`<svg width="100%" viewBox="0 0 640 155" role="img"><title>助動詞比較</title><defs><marker id="a5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+ <text x="320" y="14" text-anchor="middle" font-size="12" fill="#888780" font-weight="600">助動詞のあとは必ず動詞の原形</text>
+ <rect x="10" y="22" width="80" height="34" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/><text x="50" y="44" text-anchor="middle" font-size="16" font-weight="700" fill="#085041">can</text>
+ <rect x="10" y="66" width="80" height="34" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="2"/><text x="50" y="88" text-anchor="middle" font-size="16" font-weight="700" fill="#3C3489">will</text>
+ <rect x="10" y="110" width="80" height="34" rx="8" fill="#fee2e2" stroke="#f87171" stroke-width="2"/><text x="50" y="132" text-anchor="middle" font-size="16" font-weight="700" fill="#991b1b">must</text>
+ <line x1="90" y1="39" x2="128" y2="39" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a5)"/>
+ <line x1="90" y1="83" x2="128" y2="83" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a5)"/>
+ <line x1="90" y1="127" x2="128" y2="127" stroke="#f87171" stroke-width="1.5" marker-end="url(#a5)"/>
+ <rect x="130" y="22" width="110" height="34" rx="7" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/><text x="185" y="44" text-anchor="middle" font-size="13" font-weight="600" fill="#085041">〜できる</text>
+ <rect x="130" y="66" width="110" height="34" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="185" y="88" text-anchor="middle" font-size="13" font-weight="600" fill="#3C3489">〜するつもり</text>
+ <rect x="130" y="110" width="110" height="34" rx="7" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/><text x="185" y="132" text-anchor="middle" font-size="13" font-weight="600" fill="#991b1b">〜しなければ</text>
+ <rect x="252" y="22" width="378" height="34" rx="7" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/><text x="264" y="44" font-size="12" fill="#085041">I can swim. / Can she drive? / I can't run.</text>
+ <rect x="252" y="66" width="378" height="34" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="264" y="88" font-size="12" fill="#3C3489">I will go. / Will it rain? / She won't come.</text>
+ <rect x="252" y="110" width="378" height="34" rx="7" fill="#fee2e2" stroke="#fca5a5" stroke-width="1"/><text x="264" y="132" font-size="12" fill="#991b1b">You must study. / You must not run here.（禁止）</text>
+ </svg>`,
+ exs:[
+  {jp:"私はギターを弾けます",en:"I can play the guitar.",nt:"can＋原形"},
+  {jp:"彼女は3言語を話せます",en:"She can speak three languages.",nt:"she でもcan変化なし"},
+  {jp:"あなたは泳げますか？",en:"Can you swim?",nt:"Can＋主語＋原形"},
+  {jp:"私は車を運転できません",en:"I can't drive a car.",nt:"can't=cannot"},
+  {jp:"明日は晴れるでしょう",en:"It will be sunny tomorrow.",nt:"予測のwill"},
+  {jp:"私は今夜早く寝るつもりです",en:"I will go to bed early tonight.",nt:"意志のwill"},
+  {jp:"彼女は来ないでしょう",en:"She won't come.",nt:"won't=will not"},
+  {jp:"ここで走ってはいけません",en:"You must not run here.",nt:"禁止のmust not"}
+ ],
+ qs:[
+  {q:"「彼は車を運転できます」の英語は？",opts:["He can drives a car.","He can drive a car.","He cans drive a car.","He is can drive a car."],ans:1,exp:"助動詞の後は動詞の原形。drives ではなく drive。"},
+  {q:"「私は明日早く起きるつもりです」の英語は？",opts:["I will get up early tomorrow.","I will gets up early tomorrow.","I can get up early tomorrow.","I am will get up early tomorrow."],ans:0,exp:"will＋動詞の原形。get up の原形を使います。"},
+  {q:"「ここで走ってはいけません」の英語は？",opts:["You don't must run here.","You must not run here.","You cannot not run here.","You will not run here."],ans:1,exp:"禁止は must not＋動詞の原形。"},
+  {q:"「彼女は英語を話せますか？」の英語は？",opts:["Does she can speak English?","Can she speaks English?","Can she speak English?","Is she can speak English?"],ans:2,exp:"canの疑問文は Can＋主語＋動詞の原形。"}
+ ]},
+{id:6,label:"中2②",title:"不定詞・動名詞",sub:"to＋動詞の原形 / 動詞ing形の用法",
+ pts:[
+  {t:"📌 不定詞（to＋動詞の原形）の3用法",b:`<span class="rule">① 名詞的用法（〜すること）：I want to study English.<br>② 副詞的用法（〜するために）：I study hard to pass the exam.<br>③ 形容詞的用法（〜するための）：I have homework to do.</span><span class="nt">💡 まず① 名詞的用法をしっかり覚えましょう。</span>`},
+  {t:"📌 動名詞（動詞ing形）",b:`動詞の ing 形を名詞として使う形を「動名詞」といいます。<span class="rule">Swimming is fun.（泳ぐことは楽しい）<br>I enjoy listening to music.（音楽を聴くことを楽しむ）</span><span class="nt">⚠️ enjoy / finish / stop の後は動名詞（ing形）。to＋原形は使えません。</span>`},
+  {t:"📌 不定詞 vs 動名詞",b:`<span class="rule">不定詞が続く：want / hope / decide / plan / wish<br>動名詞が続く：enjoy / finish / stop / mind / give up<br>どちらも可能：like / love / hate / start / begin</span>`}
+ ],
+ fig:`<svg width="100%" viewBox="0 0 640 145" role="img"><title>不定詞と動名詞</title><defs><marker id="a6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+ <rect x="10" y="10" width="130" height="36" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="2"/><text x="75" y="33" text-anchor="middle" font-size="13" font-weight="700" fill="#3C3489">不定詞 to＋原形</text>
+ <rect x="10" y="58" width="130" height="36" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="2"/><text x="75" y="81" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">動名詞 動詞ing</text>
+ <line x1="140" y1="28" x2="178" y2="28" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a6)"/>
+ <line x1="140" y1="76" x2="178" y2="76" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a6)"/>
+ <rect x="180" y="10" width="148" height="36" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="254" y="33" text-anchor="middle" font-size="12" fill="#3C3489">want / hope / decide</text>
+ <rect x="180" y="58" width="148" height="36" rx="7" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/><text x="254" y="81" text-anchor="middle" font-size="12" fill="#085041">enjoy / finish / stop</text>
+ <line x1="328" y1="28" x2="366" y2="28" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a6)"/>
+ <line x1="328" y1="76" x2="366" y2="76" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a6)"/>
+ <rect x="368" y="10" width="262" height="36" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="380" y="33" font-size="12" fill="#3C3489">I want to go. / I decided to study.</text>
+ <rect x="368" y="58" width="262" height="36" rx="7" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/><text x="380" y="81" font-size="12" fill="#085041">I enjoy swimming. / Stop talking!</text>
+ <rect x="10" y="108" width="620" height="28" rx="7" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="320" y="127" text-anchor="middle" font-size="12" fill="#92400e">どちらも可能：like / love / hate / start（I like to play / I like playing）</text>
+ </svg>`,
+ exs:[
+  {jp:"私は英語を勉強したいです",en:"I want to study English.",nt:"want to＋原形"},
+  {jp:"彼女はピアノを弾くことが好きです",en:"She likes to play the piano.",nt:"like to＋原形"},
+  {jp:"私は医者になることを決めました",en:"I decided to become a doctor.",nt:"decide to＋原形"},
+  {jp:"私は音楽を聴くことを楽しんでいます",en:"I enjoy listening to music.",nt:"enjoy＋動名詞"},
+  {jp:"彼は話すのをやめました",en:"He stopped talking.",nt:"stop＋動名詞"},
+  {jp:"泳ぐことは楽しいです",en:"Swimming is fun.",nt:"動名詞が主語"},
+  {jp:"私は合格するために一生懸命勉強しました",en:"I studied hard to pass the exam.",nt:"副詞的用法"},
+  {jp:"私にはやるべき宿題がたくさんあります",en:"I have a lot of homework to do.",nt:"形容詞的用法"}
+ ],
+ qs:[
+  {q:"「私は英語を勉強したいです」の英語は？",opts:["I want studying English.","I want to studying English.","I want to study English.","I want study English."],ans:2,exp:"want の後は to＋動詞の原形。want to study が正解。"},
+  {q:"「彼女は話すのをやめました」の英語は？",opts:["She stopped to talk.","She stopped talking.","She stopped talk.","She stopped to talking."],ans:1,exp:"stop の後は動名詞（ing形）。stopped talking が正解。"},
+  {q:"「泳ぐことは楽しいです」の英語は？",opts:["To swimming is fun.","Swim is fun.","Swimming is fun.","To swim are fun."],ans:2,exp:"「〜することは」は動名詞または不定詞が主語。Swimming is fun. が最も自然。"},
+  {q:"「彼は医者になることを望んでいます」の英語は？",opts:["He hopes becoming a doctor.","He hopes to become a doctor.","He hopes become a doctor.","He is hoping become a doctor."],ans:1,exp:"hope の後は to＋動詞の原形。hopes to become が正解。"}
+ ]},
+{id:7,label:"中2③",title:"比較表現",sub:"〜より・いちばん〜",
+ pts:[
+  {t:"📌 比較級（〜より〜だ）",b:`<span class="rule">通常→er：tall→taller / e終わり→r：large→larger<br>子音＋y→ier：easy→easier<br>長い単語→more＋形容詞：more beautiful</span>例：She is taller than me.<span class="nt">⚠️ 比較するとき than（〜より）を忘れずに！</span>`},
+  {t:"📌 最上級（いちばん〜だ）",b:`<span class="rule">通常→the＋est：the tallest<br>長い単語→the most＋形容詞：the most beautiful</span>例：He is the tallest in our class.<span class="nt">💡 最上級は必ず the をつけます！</span>`},
+  {t:"📌 不規則変化（要暗記）",b:`<span class="rule">good / well → better → best<br>bad → worse → worst<br>many / much → more → most<br>little → less → least</span>`}
+ ],
+ fig:`<svg width="100%" viewBox="0 0 640 158" role="img"><title>比較級と最上級</title><defs><marker id="a7" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+ <rect x="40" y="110" width="60" height="36" rx="4" fill="#9FE1CB" stroke="#1D9E75" stroke-width="1"/><text x="70" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">Ken</text>
+ <rect x="130" y="80" width="60" height="66" rx="4" fill="#5DCAA5" stroke="#1D9E75" stroke-width="1"/><text x="160" y="118" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Tom</text>
+ <rect x="220" y="40" width="60" height="106" rx="4" fill="#1D9E75" stroke="#085041" stroke-width="1"/><text x="250" y="98" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">Mike</text>
+ <text x="70" y="155" text-anchor="middle" font-size="11" fill="#888780">160cm</text>
+ <text x="160" y="155" text-anchor="middle" font-size="11" fill="#888780">170cm</text>
+ <text x="250" y="155" text-anchor="middle" font-size="11" fill="#888780">180cm</text>
+ <line x1="70" y1="100" x2="150" y2="75" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 2"/>
+ <text x="100" y="68" text-anchor="middle" font-size="11" fill="#92400e" font-weight="600">Tom is taller than Ken.</text>
+ <rect x="340" y="18" width="290" height="130" rx="9" fill="#f3f2ee" stroke="#d3d1c7" stroke-width="1"/>
+ <text x="354" y="42" font-size="12" font-weight="700" fill="#2c2c2a">比較級（〜より）</text>
+ <text x="354" y="60" font-size="12" fill="#085041">Tom is taller than Ken.</text>
+ <text x="354" y="78" font-size="12" fill="#3C3489">English is easier than math.</text>
+ <text x="354" y="102" font-size="12" font-weight="700" fill="#2c2c2a">最上級（いちばん〜）</text>
+ <text x="354" y="120" font-size="12" fill="#085041">Mike is the tallest of the three.</text>
+ <text x="354" y="138" font-size="12" fill="#3C3489">This is the most interesting book.</text>
+ </svg>`,
+ exs:[
+  {jp:"彼女は私より背が高いです",en:"She is taller than me.",nt:"tall→taller than"},
+  {jp:"英語は数学より簡単です",en:"English is easier than math.",nt:"easy→easier"},
+  {jp:"彼はクラスで一番背が高いです",en:"He is the tallest in our class.",nt:"tall→the tallest"},
+  {jp:"これは3冊の中で一番おもしろい本です",en:"This is the most interesting book of the three.",nt:"長い単語→the most"},
+  {jp:"彼女の方が上手に英語を話します",en:"She speaks English better than me.",nt:"well→better（不規則）"},
+  {jp:"今日は今年で一番暑い日です",en:"Today is the hottest day of the year.",nt:"hot→hottest"},
+  {jp:"このケーキはあのケーキと同じくらい甘いです",en:"This cake is as sweet as that one.",nt:"as＋原級＋as"},
+  {jp:"彼の成績はクラスで最も悪いです",en:"His grades are the worst in the class.",nt:"bad→worst（不規則）"}
+ ],
+ qs:[
+  {q:"「彼女は私より背が高い」の英語は？",opts:["She is more tall than me.","She is taller than me.","She is tallest than me.","She is the taller than me."],ans:1,exp:"短い形容詞の比較級はerをつけます。tall→taller。"},
+  {q:"「これは3冊の中で一番おもしろい本」の英語は？",opts:["This is most interesting book of the three.","This is the more interesting book of the three.","This is the most interesting book of the three.","This is the most interesting book than the three."],ans:2,exp:"長い形容詞の最上級は the most＋形容詞。the を忘れずに。"},
+  {q:"good の比較級は？",opts:["gooder","more good","better","bester"],ans:2,exp:"good は不規則変化。good→better→best。"},
+  {q:"「このケーキはあのケーキと同じくらい甘い」の英語は？",opts:["This cake is as sweeter as that one.","This cake is as sweet as that one.","This cake is sweet as that one.","This cake is so sweet as that one."],ans:1,exp:"「同じくらい〜」は as＋形容詞の原級＋as。"}
+ ]},
+{id:8,label:"中2まとめ",title:"中2まとめテスト",sub:"助動詞・不定詞・動名詞・比較の総復習",isTest:true,
+ qs:[
+  {q:"「私は速く走ることができます」の英語は？",opts:["I can runs fast.","I can run fast.","I will run fast.","I runs fast."],ans:1,exp:"can＋動詞の原形。runs ではなく run。"},
+  {q:"「彼女は医者になりたいです」の英語は？",opts:["She wants becoming a doctor.","She wants to become a doctor.","She want to become a doctor.","She wants to becomes a doctor."],ans:1,exp:"want to＋動詞の原形。become が原形です。"},
+  {q:"「彼は話すのをやめました」の英語は？",opts:["He stopped to talk.","He stopped talk.","He stopped talking.","He stopped to talking."],ans:2,exp:"stop の後は動名詞（ing形）。stopped talking が正解。"},
+  {q:"「今日は今年で一番暑い日です」の英語は？",opts:["Today is hottest day of the year.","Today is the most hot day of the year.","Today is the hottest day of the year.","Today is hotter day of the year."],ans:2,exp:"最上級は the＋est。hot→hottest（tを重ねる）。the を忘れずに。"},
+  {q:"「彼女は私より上手に英語を話します」の英語は？",opts:["She speaks English more well than me.","She speaks English gooder than me.","She speaks English better than me.","She speaks English weller than me."],ans:2,exp:"well の比較級は better（不規則変化）。"}
+ ]},
+{id:9,label:"中3①",title:"現在完了形",sub:"have / has ＋ 過去分詞",
+ pts:[
+  {t:"📌 現在完了形の3つの用法",b:`<span class="rule">形：have / has ＋ 過去分詞<br>① 経験「〜したことがある」：I have visited Tokyo before.<br>② 継続「ずっと〜している」：I have lived here for 10 years.<br>③ 完了「〜してしまった」：I have just finished my homework.</span><span class="nt">⚠️ 過去形との違い：過去形は「いつのことか」がはっきり。現在完了は「今の状態」に関係する。</span>`},
+  {t:"📌 重要な過去分詞",b:`<span class="rule">go→gone / come→come / see→seen / eat→eaten<br>write→written / read→read / know→known / speak→spoken<br>have→had / get→got(ten) / make→made / take→taken</span><span class="nt">💡 規則動詞の過去分詞は過去形と同じ（edをつけた形）。</span>`},
+  {t:"📌 否定・疑問・キーワード",b:`<span class="rule">否定：haven't / hasn't＋過去分詞<br>疑問：Have / Has＋主語＋過去分詞？<br>経験：ever / never / before<br>継続：for（〜の間）/ since（〜から）<br>完了：just / already / yet</span>`}
+ ],
+ fig:`<svg width="100%" viewBox="0 0 640 162" role="img"><title>現在完了形の3用法</title><defs><marker id="a9" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+ <text x="70" y="14" text-anchor="middle" font-size="11" fill="#888780" font-weight="600">用法</text><text x="200" y="14" text-anchor="middle" font-size="11" fill="#888780" font-weight="600">キーワード</text><text x="460" y="14" text-anchor="middle" font-size="11" fill="#888780" font-weight="600">例文</text>
+ <rect x="10" y="20" width="120" height="36" rx="8" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.5"/><text x="70" y="43" text-anchor="middle" font-size="13" font-weight="700" fill="#3C3489">① 経験</text>
+ <rect x="10" y="66" width="120" height="36" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/><text x="70" y="89" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">② 継続</text>
+ <rect x="10" y="112" width="120" height="36" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/><text x="70" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">③ 完了</text>
+ <line x1="130" y1="38" x2="140" y2="38" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a9)"/>
+ <line x1="130" y1="84" x2="140" y2="84" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a9)"/>
+ <line x1="130" y1="130" x2="140" y2="130" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a9)"/>
+ <rect x="142" y="20" width="120" height="36" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="202" y="43" text-anchor="middle" font-size="12" fill="#3C3489">ever/never/before</text>
+ <rect x="142" y="66" width="120" height="36" rx="7" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/><text x="202" y="89" text-anchor="middle" font-size="12" fill="#085041">for / since</text>
+ <rect x="142" y="112" width="120" height="36" rx="7" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/><text x="202" y="135" text-anchor="middle" font-size="12" fill="#92400e">just/already/yet</text>
+ <line x1="262" y1="38" x2="276" y2="38" stroke="#7F77DD" stroke-width="1.5" marker-end="url(#a9)"/>
+ <line x1="262" y1="84" x2="276" y2="84" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#a9)"/>
+ <line x1="262" y1="130" x2="276" y2="130" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#a9)"/>
+ <rect x="278" y="20" width="352" height="36" rx="7" fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1"/><text x="290" y="43" font-size="12" fill="#3C3489">I have visited Kyoto before.（経験）</text>
+ <rect x="278" y="66" width="352" height="36" rx="7" fill="#E1F5EE" stroke="#9FE1CB" stroke-width="1"/><text x="290" y="89" font-size="12" fill="#085041">I have lived here for 10 years.（継続）</text>
+ <rect x="278" y="112" width="352" height="36" rx="7" fill="#fef3c7" stroke="#fcd34d" stroke-width="1"/><text x="290" y="135" font-size="12" fill="#92400e">I have just finished my homework.（完了）</text>
+ </svg>`,
+ exs:[
+  {jp:"私は以前に東京を訪れたことがあります",en:"I have visited Tokyo before.",nt:"経験：have＋過去分詞"},
+  {jp:"彼女は一度もすしを食べたことがありません",en:"She has never eaten sushi.",nt:"never＋過去分詞"},
+  {jp:"あなたは富士山に登ったことがありますか？",en:"Have you ever climbed Mt. Fuji?",nt:"Have＋主語＋ever＋過去分詞？"},
+  {jp:"私はここに10年間住んでいます",en:"I have lived here for ten years.",nt:"継続：for＋期間"},
+  {jp:"彼は2015年からずっと東京にいます",en:"He has been in Tokyo since 2015.",nt:"継続：since＋時点"},
+  {jp:"私はちょうど宿題を終えたところです",en:"I have just finished my homework.",nt:"完了：just"},
+  {jp:"彼女はもうその本を読みました",en:"She has already read the book.",nt:"完了：already"},
+  {jp:"あなたはもう昼食を食べましたか？",en:"Have you eaten lunch yet?",nt:"疑問文のyet"}
+ ],
+ qs:[
+  {q:"「私は以前に京都を訪れたことがあります」の英語は？",opts:["I visited Kyoto before.","I have visit Kyoto before.","I have visited Kyoto before.","I had visited Kyoto before."],ans:2,exp:"現在完了形は have＋過去分詞。visit の過去分詞は visited。"},
+  {q:"「彼女は一度もすしを食べたことがありません」の英語は？",opts:["She has never eat sushi.","She has never eaten sushi.","She never has eaten sushi.","She doesn't eat sushi never."],ans:1,exp:"has never＋過去分詞。eat の過去分詞は eaten。"},
+  {q:"「あなたはもう宿題を終わらせましたか？」の英語は？",opts:["Did you finish your homework yet?","Have you finished your homework yet?","Have you finished your homework already?","Do you finish your homework yet?"],ans:1,exp:"現在完了形の疑問文は Have＋主語＋過去分詞？。yet は疑問文・否定文で使います。"},
+  {q:"「私は3年間英語を勉強しています」の英語は？",opts:["I study English for three years.","I studied English for three years.","I have studied English for three years.","I have been studied English since three years."],ans:2,exp:"継続の現在完了形は have＋過去分詞＋for＋期間。"}
+ ]},
+{id:10,label:"中3②",title:"受動態",sub:"〜される・〜されている",
+ pts:[
+  {t:"📌 受動態とは",b:`「〜される・〜されている」という、動作を受ける側を主語にした表現です。<span class="rule">受動態の形：be動詞＋過去分詞<br>能動態：Many people love this song.<br>受動態：This song is loved by many people.</span><span class="nt">💡「誰に〜される」は by＋人 を続けます。</span>`},
+  {t:"📌 時制と受動態",b:`<span class="rule">現在：am/is/are＋過去分詞<br>過去：was/were＋過去分詞<br>未来：will be＋過去分詞</span>例：The book was written by him.（過去受動態）<span class="nt">⚠️ 過去受動態のとき be動詞は was / were に変わります。</span>`},
+  {t:"📌 否定・疑問",b:`<span class="rule">否定：be動詞＋not＋過去分詞<br>疑問：be動詞＋主語＋過去分詞？<br>Is this room cleaned every day?</span>`}
+ ],
+ fig:`<svg width="100%" viewBox="0 0 640 148" role="img"><title>受動態の変換</title><defs><marker id="a10" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+ <rect x="10" y="16" width="280" height="44" rx="9" fill="#E1F5EE" stroke="#1D9E75" stroke-width="1.5"/><text x="150" y="34" text-anchor="middle" font-size="11" fill="#085041" font-weight="600">能動態（する側が主語）</text><text x="150" y="52" text-anchor="middle" font-size="13" font-weight="700" fill="#085041">Ken wrote this letter.</text>
+ <line x1="290" y1="38" x2="328" y2="38" stroke="#7F77DD" stroke-width="2" marker-end="url(#a10)"/>
+ <rect x="292" y="20" width="34" height="20" rx="5" fill="#EEEDFE"/><text x="309" y="34" text-anchor="middle" font-size="10" font-weight="700" fill="#3C3489">変換</text>
+ <rect x="330" y="16" width="300" height="44" rx="9" fill="#EEEDFE" stroke="#7F77DD" stroke-width="1.5"/><text x="480" y="34" text-anchor="middle" font-size="11" fill="#3C3489" font-weight="600">受動態（される側が主語）</text><text x="480" y="52" text-anchor="middle" font-size="13" font-weight="700" fill="#3C3489">This letter was written by Ken.</text>
+ <text x="14" y="80" font-size="12" fill="#085041">① Ken が主語　② wrote（過去形）</text>
+ <text x="334" y="80" font-size="12" fill="#3C3489">① This letter が主語</text>
+ <text x="334" y="96" font-size="12" fill="#3C3489">② was written（be動詞＋過去分詞）</text>
+ <text x="334" y="112" font-size="12" fill="#3C3489">③ by Ken（誰によってかを示す）</text>
+ <rect x="10" y="124" width="620" height="20" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="1"/><text x="320" y="138" text-anchor="middle" font-size="11" fill="#92400e">現在：is/are written　過去：was/were written　未来：will be written</text>
+ </svg>`,
+ exs:[
+  {jp:"この歌は多くの人に愛されています",en:"This song is loved by many people.",nt:"現在受動態"},
+  {jp:"この手紙は英語で書かれています",en:"This letter is written in English.",nt:"is written"},
+  {jp:"その本は彼によって書かれました",en:"The book was written by him.",nt:"過去受動態"},
+  {jp:"その建物は100年前に建てられました",en:"The building was built 100 years ago.",nt:"was built"},
+  {jp:"英語は世界中で話されています",en:"English is spoken all over the world.",nt:"speak→spoken"},
+  {jp:"この窓は誰かによって割られました",en:"This window was broken by someone.",nt:"break→broken"},
+  {jp:"その試合は明日行われるでしょう",en:"The game will be held tomorrow.",nt:"未来受動態"},
+  {jp:"この部屋は毎日掃除されますか？",en:"Is this room cleaned every day?",nt:"疑問文：be動詞を先頭に"}
+ ],
+ qs:[
+  {q:"「この歌は多くの人に愛されています」の英語は？",opts:["This song loves by many people.","This song is loved by many people.","This song is love by many people.","This song loved by many people."],ans:1,exp:"受動態は be動詞＋過去分詞。is loved by many people が正解。"},
+  {q:"「その本は彼によって書かれました」の英語は？",opts:["The book was write by him.","The book is written by him.","The book was written by him.","The book were written by him."],ans:2,exp:"過去の受動態は was/were＋過去分詞。write の過去分詞は written。単数なので was。"},
+  {q:"「英語は世界中で話されています」の英語は？",opts:["English speaks all over the world.","English is speak all over the world.","English is speaking all over the world.","English is spoken all over the world."],ans:3,exp:"受動態は be動詞＋過去分詞。speak の過去分詞は spoken。"},
+  {q:"「この部屋は毎日掃除されますか？」の英語は？",opts:["Does this room clean every day?","Is this room cleaned every day?","Is this room clean every day?","Was this room cleaned every day?"],ans:1,exp:"受動態の疑問文は be動詞を先頭に。Is this room cleaned every day? が正解。"}
+ ]},
+{id:11,label:"中3まとめ",title:"中3まとめテスト",sub:"現在完了・受動態の総復習",isTest:true,
+ qs:[
+  {q:"「私は以前に京都を訪れたことがあります」の英語は？",opts:["I visited Kyoto before.","I have visit Kyoto before.","I have visited Kyoto before.","I had visited Kyoto before."],ans:2,exp:"現在完了形は have＋過去分詞。"},
+  {q:"「彼女は一度もすしを食べたことがありません」の英語は？",opts:["She has never eat sushi.","She has never eaten sushi.","She never has eaten sushi.","She doesn't eat sushi never."],ans:1,exp:"has never＋過去分詞。eat の過去分詞は eaten。"},
+  {q:"「この歌は多くの人に愛されています」の英語は？",opts:["This song loves by many people.","This song is loved by many people.","This song is love by many people.","This song loved by many people."],ans:1,exp:"受動態は be動詞＋過去分詞。is loved が正解。"},
+  {q:"「その本は100年前に書かれました」の英語は？",opts:["The book was write 100 years ago.","The book is written 100 years ago.","The book was written 100 years ago.","The book were written 100 years ago."],ans:2,exp:"過去の受動態は was/were＋過去分詞。write の過去分詞は written。"},
+  {q:"「私は3年間英語を勉強しています」の英語は？",opts:["I study English for three years.","I studied English for three years.","I have studied English for three years.","I have been studied English since three years."],ans:2,exp:"継続の現在完了形は have＋過去分詞＋for＋期間。"}
+ ]}
+];
+
+const SK='eng-complete-v1';
+let st={cid:0,tab:'lesson',ans:{},done:[]};
+
+function load(){try{const s=localStorage.getItem(SK);if(s)st={...st,...JSON.parse(s)};}catch(e){}}
+function save(){try{localStorage.setItem(SK,JSON.stringify({ans:st.ans,done:st.done,cid:st.cid}));}catch(e){}}
+
+function unlocked(id){
+  if(id===0)return true;
+  if(id===4)return[0,1,2,3].every(i=>st.done.includes(i));
+  if(id===5)return st.done.includes(4);
+  if(id===8)return[5,6,7].every(i=>st.done.includes(i));
+  if(id===9)return st.done.includes(8);
+  if(id===11)return[9,10].every(i=>st.done.includes(i));
+  return st.done.includes(id-1);
+}
+function done(id){return st.done.includes(id);}
+function score(id){const s=D.find(x=>x.id===id);let c=0;s.qs.forEach((_,i)=>{if(st.ans[id+'_'+i]===s.qs[i].ans)c++;});return{c,t:s.qs.length};}
+function allAns(id){const s=D.find(x=>x.id===id);return s.qs.every((_,i)=>st.ans[id+'_'+i]!==undefined);}
+function pct(){return Math.round(st.done.length/D.length*100);}
+
+function render(){
+  document.getElementById('pfil').style.width=pct()+'%';
+  document.getElementById('ptxt').textContent=pct()+'%';
+  document.getElementById('sbar').innerHTML=D.map(s=>{
+    let cl='avail',ic='';
+    if(!unlocked(s.id)){cl='locked';ic='🔒 ';}
+    else if(done(s.id)){cl='done';ic='✓ ';}
+    else if(s.id===st.cid)cl='active';
+    if(s.isTest)ic+='📝 ';
+    return`<div class="sp ${cl}" onclick="go(${s.id})">${ic}${s.label}</div>`;
+  }).join('');
+  const s=D.find(x=>x.id===st.cid);
+  let h='';
+  if(s.isTest){h=rTest(s);}
+  else{
+    h=`<div class="tr"><div class="tb ${st.tab==='lesson'?'on':''}" onclick="setTab('lesson')">📖 レッスン</div><div class="tb ${st.tab==='quiz'?'on':''}" onclick="setTab('quiz')">✏️ 小テスト（${s.qs.length}問）</div></div>`;
+    h+=st.tab==='lesson'?rLesson(s):rQuiz(s);
+  }
+  document.getElementById('main').innerHTML=h;
+}
+
+function rLesson(s){
+  const pts=s.pts.map(p=>`<div class="pt"><div class="pt-t">${p.t}</div><div class="pt-b">${p.b}</div></div>`).join('');
+  const exs=s.exs.map(e=>`<tr><td class="ej">${e.jp}</td><td class="ee">${e.en}<span class="enote">${e.nt}</span></td></tr>`).join('');
+  return`<div class="card"><div style="font-size:16px;font-weight:700;margin-bottom:3px">${s.title}${done(s.id)?'<span style="display:inline-block;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:6px;background:#d1fae5;color:#065f46">✓ 完了</span>':''}</div><div style="font-size:12px;color:#5f5e5a;margin-bottom:14px">${s.sub}</div><div class="sl">ポイント解説</div>${pts}<div class="fw"><div class="fl">図解</div>${s.fig}</div><div class="sl">例文で確認（${s.exs.length}文）</div><table class="extbl">${exs}</table><button class="bm" onclick="setTab('quiz')">小テストに進む →</button></div>`;
+}
+
+function rQuiz(s){
+  return`<div class="card"><div style="font-size:15px;font-weight:700;margin-bottom:3px">✏️ 小テスト</div><div style="font-size:12px;color:#5f5e5a;margin-bottom:14px">${s.title}（${s.qs.length}問）</div>${s.qs.map((q,i)=>rQ(s,q,i)).join('')}${rRes(s)}</div>`;
+}
+
+function rTest(s){
+  return`<div class="tb2"><h2 style="font-size:15px;font-weight:700;margin-bottom:2px">📝 ${s.title}</h2><p style="font-size:12px;color:#92400e">${s.sub}　|　合格ライン：${Math.ceil(s.qs.length*0.8)}問以上正解</p></div><div class="card">${s.qs.map((q,i)=>rQ(s,q,i)).join('')}${rRes(s)}</div>`;
+}
+
+function rQ(s,q,i){
+  const k=s.id+'_'+i,ua=st.ans[k];
+  const opts=q.opts.map((o,j)=>{let cl='op',di='';if(ua!==undefined){di='disabled';if(j===q.ans)cl+=' ok';else if(j===ua)cl+=' ng';}return`<button class="${cl}" ${di} onclick="ans(${s.id},${i},${j})">${o}</button>`;}).join('');
+  const exp=ua!==undefined?`<div class="ep"><div class="et2">💡 解説</div>${q.exp}</div>`:'';
+  return`<div class="qw"><div class="qn">問題 ${i+1} / ${s.qs.length}</div><div class="qt">${q.q}</div><div class="os">${opts}</div>${exp}</div>`;
+}
+
+function rRes(s){
+  if(!allAns(s.id))return'';
+  const{c,t}=score(s.id);
+  const pl=Math.ceil(t*(s.isTest?.8:.67)),pass=c>=pl;
+  const star=c===t?'🌟':pass?'⭐':'💪';
+  const msg=c===t?'満点！完璧です！':pass?'合格！次へ進もう！':`あと${pl-c}問正解で合格。解説を読み直してみよう！`;
+  const btn=pass&&!done(s.id)?`<button class="bm" style="max-width:220px;margin:0 auto" onclick="comp(${s.id})">次のステージへ →</button>`:done(s.id)?`<p style="color:#065f46;font-size:13px">✓ 完了済み</p>`:'';
+  return`<div class="rs"><div style="font-size:38px;margin-bottom:8px">${star}</div><div style="font-size:22px;font-weight:700;color:#7F77DD;margin-bottom:6px">${c} / ${t} 正解</div><div style="font-size:13px;color:#5f5e5a;margin-bottom:14px">${msg}</div>${btn}</div>`;
+}
+
+function ans(sid,qi,oi){const k=sid+'_'+qi;if(st.ans[k]!==undefined)return;st.ans[k]=oi;save();render();}
+function comp(sid){if(!st.done.includes(sid))st.done.push(sid);const nx=D.find(x=>x.id===sid+1);if(nx){st.cid=nx.id;st.tab=nx.isTest?'quiz':'lesson';}save();render();}
+function go(id){if(!unlocked(id))return;st.cid=id;st.tab=D.find(x=>x.id===id).isTest?'quiz':'lesson';render();}
+function setTab(t){st.tab=t;render();}
+
+load();render();
+</script>
+
+
+</body></html>
