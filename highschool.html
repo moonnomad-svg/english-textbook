@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)file:///C:/Users/masaki/Downloads/english_up_highschool.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英語UP - 高校英語やり直し参考書</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f1035;--bg2:#1a1f4e;--bg3:#242a60;
+  --yellow:#f5d300;--mint:#00d4a1;--coral:#ff4757;
+  --text:#e8eaf6;--text2:#9fa8da;--text3:#5c6bc0;
+  --card:#1e2454;--card2:#252b5c;
+  --radius:12px;--radius-sm:8px;
+}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+h1,h2,h3{font-weight:600}
+
+/* NAV */
+.nav{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:12px 20px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+.nav-logo{font-size:18px;font-weight:700;color:var(--yellow);letter-spacing:-0.5px}
+.nav-logo span{color:var(--mint)}
+.nav-progress{flex:1;display:flex;align-items:center;gap:10px}
+.nav-bar-bg{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.nav-bar-fill{height:100%;background:linear-gradient(90deg,var(--mint),var(--yellow));border-radius:3px;transition:width 0.5s ease}
+.nav-pct{font-size:12px;color:var(--mint);font-weight:700;min-width:36px}
+.btn-back{background:transparent;border:1px solid var(--bg3);color:var(--text2);padding:6px 14px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;display:none}
+.btn-back:hover{border-color:var(--mint);color:var(--mint)}
+
+/* SCREENS */
+.screen{display:none;padding:20px;max-width:820px;margin:0 auto}
+.screen.active{display:block}
+
+/* STAGE MAP */
+.map-title{text-align:center;margin-bottom:24px}
+.map-title h2{font-size:26px;color:var(--yellow);margin-bottom:4px}
+.map-title p{color:var(--text2);font-size:14px}
+
+.grade-section{margin-bottom:32px}
+.grade-label{font-size:11px;font-weight:700;letter-spacing:2px;color:var(--mint);text-transform:uppercase;margin-bottom:12px;padding-left:4px}
+
+.stages-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.stage-card{background:var(--card);border:1px solid var(--bg3);border-radius:var(--radius);padding:16px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.stage-card:hover:not(.locked){transform:translateY(-2px);border-color:var(--mint)}
+.stage-card.locked{opacity:0.45;cursor:not-allowed}
+.stage-card.completed{border-color:var(--mint)}
+.stage-card.completed::after{content:'';position:absolute;top:0;right:0;width:0;height:0;border-top:28px solid var(--mint);border-left:28px solid transparent}
+.stage-icon{font-size:28px;margin-bottom:8px}
+.stage-num{font-size:11px;color:var(--text3);margin-bottom:4px}
+.stage-title{font-size:13px;font-weight:600;color:var(--text);line-height:1.4}
+.stage-stars{display:flex;gap:3px;margin-top:8px}
+.stage-stars span{font-size:14px}
+.lock-icon{position:absolute;top:12px;right:12px;font-size:16px;color:var(--text3)}
+
+/* LESSON */
+.lesson-header{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.lesson-num-badge{background:var(--yellow);color:#000;font-weight:700;font-size:11px;padding:4px 10px;border-radius:20px}
+.lesson-title-main{font-size:22px;color:var(--text)}
+
+.tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--card);padding:4px;border-radius:var(--radius-sm)}
+.tab{flex:1;padding:8px;text-align:center;font-size:13px;font-weight:600;border-radius:6px;cursor:pointer;color:var(--text2);border:none;background:transparent;transition:all 0.2s}
+.tab.active{background:var(--bg2);color:var(--yellow)}
+
+/* GRAMMAR */
+.grammar-section{margin-bottom:24px}
+.grammar-section h3{font-size:15px;color:var(--mint);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--bg3)}
+.grammar-box{background:var(--card);border-left:3px solid var(--yellow);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:14px 16px;margin-bottom:12px;font-size:14px;line-height:1.8}
+.grammar-formula{background:var(--bg2);border:1px solid var(--yellow);border-radius:var(--radius-sm);padding:12px 16px;font-size:15px;font-weight:600;color:var(--yellow);margin:12px 0;text-align:center;letter-spacing:0.5px}
+.grammar-note{background:var(--card2);border-radius:var(--radius-sm);padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.7;margin-top:8px}
+
+/* SVG diagram */
+.svg-container{background:var(--card);border-radius:var(--radius);padding:16px;margin-bottom:16px;overflow-x:auto}
+.svg-container svg{display:block;margin:0 auto}
+
+/* EXAMPLES */
+.examples-list{display:flex;flex-direction:column;gap:10px}
+.example-item{background:var(--card);border-radius:var(--radius-sm);padding:13px 16px}
+.ex-num{font-size:11px;color:var(--text3);margin-bottom:4px}
+.ex-en{font-size:14px;color:var(--text);line-height:1.6;margin-bottom:4px}
+.ex-en .key{color:var(--yellow);font-weight:700}
+.ex-ja{font-size:12px;color:var(--text2)}
+
+/* QUIZ */
+.quiz-progress{display:flex;gap:6px;margin-bottom:20px}
+.quiz-dot{width:10px;height:10px;border-radius:50%;background:var(--bg3);transition:background 0.3s}
+.quiz-dot.done{background:var(--mint)}
+.quiz-dot.current{background:var(--yellow)}
+.quiz-dot.wrong{background:var(--coral)}
+
+.quiz-q{background:var(--card);border-radius:var(--radius);padding:18px;margin-bottom:16px}
+.quiz-q-num{font-size:11px;color:var(--text3);margin-bottom:8px}
+.quiz-q-text{font-size:15px;line-height:1.7;color:var(--text)}
+
+.quiz-choices{display:flex;flex-direction:column;gap:8px}
+.choice-btn{background:var(--card2);border:1px solid var(--bg3);border-radius:var(--radius-sm);padding:12px 16px;text-align:left;cursor:pointer;font-size:13px;color:var(--text);transition:all 0.2s}
+.choice-btn:hover:not(:disabled){border-color:var(--mint);color:var(--mint)}
+.choice-btn.correct{background:rgba(0,212,161,0.15);border-color:var(--mint);color:var(--mint)}
+.choice-btn.wrong{background:rgba(255,71,87,0.15);border-color:var(--coral);color:var(--coral)}
+.choice-btn:disabled{cursor:default}
+
+.quiz-feedback{background:var(--card2);border-radius:var(--radius-sm);padding:14px;margin-top:12px;font-size:13px;line-height:1.7;color:var(--text2);border-left:3px solid var(--mint)}
+.quiz-feedback.wrong-fb{border-left-color:var(--coral)}
+
+.btn-next-q{margin-top:12px;background:var(--yellow);color:#000;border:none;border-radius:var(--radius-sm);padding:10px 24px;font-weight:700;font-size:13px;cursor:pointer;transition:opacity 0.2s}
+.btn-next-q:hover{opacity:0.85}
+
+/* RESULT */
+.result-screen{text-align:center;padding:40px 20px}
+.result-score-circle{width:120px;height:120px;border-radius:50%;background:var(--card);border:4px solid var(--mint);margin:0 auto 20px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.result-score-circle.failed{border-color:var(--coral)}
+.result-score-num{font-size:36px;font-weight:700;color:var(--mint)}
+.result-score-circle.failed .result-score-num{color:var(--coral)}
+.result-score-label{font-size:11px;color:var(--text2)}
+.result-msg{font-size:20px;font-weight:700;margin-bottom:8px}
+.result-sub{font-size:14px;color:var(--text2);margin-bottom:24px}
+.result-btn{background:var(--yellow);color:#000;border:none;border-radius:var(--radius-sm);padding:12px 28px;font-weight:700;font-size:14px;cursor:pointer;margin:6px}
+.result-btn.secondary{background:var(--card);color:var(--text);border:1px solid var(--bg3)}
+
+/* UNLOCK ANIMATION */
+@keyframes unlockPop{0%{transform:translate(-50%,-50%) scale(0.5);opacity:0}60%{transform:translate(-50%,-50%) scale(1.15)}100%{transform:translate(-50%,-50%) scale(1);opacity:1}}
+.unlock-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--card);border:2px solid var(--mint);border-radius:var(--radius);padding:24px 32px;text-align:center;z-index:1000;display:none}
+.unlock-toast.show{display:block;animation:unlockPop 0.5s ease forwards}
+.unlock-toast h3{color:var(--mint);margin-bottom:6px}
+.unlock-toast p{font-size:13px;color:var(--text2)}
+.stars-row{font-size:28px;margin-bottom:8px}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-logo">英語<span>UP</span></div>
+  <div class="nav-progress">
+    <div class="nav-bar-bg"><div class="nav-bar-fill" id="navBar" style="width:0%"></div></div>
+    <div class="nav-pct" id="navPct">0%</div>
+  </div>
+  <button class="btn-back" id="btnBack" onclick="goBack()">← 地図に戻る</button>
+</nav>
+
+<!-- MAP SCREEN -->
+<div class="screen active" id="screenMap">
+  <div class="map-title">
+    <h2>高校英語 ステージマップ</h2>
+    <p>文法をマスターして大学受験を突破しよう！</p>
+  </div>
+  <div id="stageMap"><div class="grade-section"><div class="grade-label">高1基礎</div><div class="stages-grid" id="grid_0"><div class="stage-card"><div class="stage-icon">🎯</div><div class="stage-num">STAGE 1</div><div class="stage-title">不定詞の3用法</div><div class="stage-stars"><span>☆</span><span>☆</span><span>☆</span></div></div><div class="stage-card locked"><div class="stage-icon">⚔️</div><div class="stage-num">STAGE 2</div><div class="stage-title">動名詞 vs 不定詞</div><div class="stage-stars"><span>☆</span><span>☆</span><span>☆</span></div><span class="lock-icon">🔒</span></div></div></div><div class="grade-section"><div class="grade-label">高1標準</div><div class="stages-grid" id="grid_1"><div class="stage-card locked"><div class="stage-icon">🔗</div><div class="stage-num">STAGE 3</div><div class="stage-title">関係代名詞（主格・目的格）</div><div class="stage-stars"><span>☆</span><span>☆</span><span>☆</span></div><span class="lock-icon">🔒</span></div><div class="stage-card locked"><div class="stage-icon">🌀</div><div class="stage-num">STAGE 4</div><div class="stage-title">仮定法過去・過去完了</div><div class="stage-stars"><span>☆</span><span>☆</span><span>☆</span></div><span class="lock-icon">🔒</span></div></div></div><div class="grade-section"><div class="grade-label">高2・受験基礎</div><div class="stages-grid" id="grid_2"><div class="stage-card locked"><div class="stage-icon">🔄</div><div class="stage-num">STAGE 5</div><div class="stage-title">受動態の応用</div><div class="stage-stars"><span>☆</span><span>☆</span><span>☆</span></div><span class="lock-icon">🔒</span></div><div class="stage-card locked"><div class="stage-icon">⏳</div><div class="stage-num">STAGE 6</div><div class="stage-title">完了形の完全マスター</div><div class="stage-stars"><span>☆</span><span>☆</span><span>☆</span></div><span class="lock-icon">🔒</span></div></div></div><div class="grade-section"><div class="grade-label">高3・大学受験</div><div class="stages-grid" id="grid_3"><div class="stage-card locked"><div class="stage-icon">✨</div><div class="stage-num">STAGE 7</div><div class="stage-title">分詞構文</div><div class="stage-stars"><span>☆</span><span>☆</span><span>☆</span></div><span class="lock-icon">🔒</span></div><div class="stage-card locked"><div class="stage-icon">🏆</div><div class="stage-num">STAGE 8</div><div class="stage-title">強調構文・倒置・省略</div><div class="stage-stars"><span>☆</span><span>☆</span><span>☆</span></div><span class="lock-icon">🔒</span></div></div></div></div>
+</div>
+
+<!-- LESSON SCREEN -->
+<div class="screen" id="screenLesson">
+  <div class="lesson-header">
+    <span class="lesson-num-badge" id="lessonBadge">STAGE 1</span>
+    <h1 class="lesson-title-main" id="lessonTitle"></h1>
+  </div>
+  <div class="tabs">
+    <button class="tab active" id="tab0" onclick="switchTab(0)">解説</button>
+    <button class="tab" id="tab1" onclick="switchTab(1)">例文</button>
+    <button class="tab" id="tab2" onclick="switchTab(2)">小テスト</button>
+  </div>
+  <div id="tabContent"></div>
+</div>
+
+<!-- UNLOCK TOAST -->
+<div class="unlock-toast" id="unlockToast">
+  <div class="stars-row">🌟⭐🌟</div>
+  <h3>ステージ解放！</h3>
+  <p id="unlockMsg">次のステージがアンロックされました</p>
+</div>
+
+<script>
+const STAGES = [
+  {
+    grade:'高1基礎',gradeId:'g1a',
+    items:[
+      {
+        id:'s1',title:'不定詞の3用法',icon:'🎯',
+        explanation:{
+          intro:'不定詞（to+動詞原形）は文中で3つの役割を果たします。名詞・形容詞・副詞として使いこなすことが高校英語の第一歩です。',
+          formula:'to + 動詞の原形',
+          uses:[
+            {name:'名詞的用法',desc:'「〜すること」の意味。主語・目的語・補語になる。',ex:'To study English is important. / I want to go to Tokyo.'},
+            {name:'形容詞的用法',desc:'名詞の直後に置いて「〜するための・〜すべき」と名詞を修飾する。',ex:'I have a lot of homework to do. / She needs something to eat.'},
+            {name:'副詞的用法',desc:'目的「〜するために」や原因「〜して」を表す。動詞・形容詞・副詞を修飾する。',ex:"I went to the library to study. / I'm happy to hear that."},
+          ],
+          note:'疑問詞+to不定詞（how to do / what to do）もよく出る重要表現です。',
+          svgType:'infinitive'
+        },
+        examples:[
+          {en:'To speak English fluently is her <span class="key">dream</span>.', ja:'流暢に英語を話すことが彼女の夢です。'},
+          {en:'He decided <span class="key">to study</span> abroad.', ja:'彼は海外留学を決めた。'},
+          {en:'She has many books <span class="key">to read</span>.', ja:'彼女には読むべき本がたくさんある。'},
+          {en:'I went to the gym <span class="key">to exercise</span>.', ja:'運動するためにジムへ行った。'},
+          {en:'It is hard <span class="key">to master</span> two languages.', ja:'2言語をマスターするのは難しい。'},
+          {en:'Give me something <span class="key">to drink</span>, please.', ja:'何か飲み物をください。'},
+          {en:'She was glad <span class="key">to see</span> her old friend.', ja:'彼女は旧友に会えて嬉しかった。'},
+          {en:'Do you know how <span class="key">to use</span> this app?', ja:'このアプリの使い方を知っていますか？'},
+          {en:'He grew up <span class="key">to be</span> a famous doctor.', ja:'彼は成長して有名な医師になった。'},
+          {en:'My goal is <span class="key">to pass</span> the entrance exam.', ja:'私の目標は入試に合格することです。'},
+        ],
+        quiz:[
+          {q:'次の不定詞の用法はどれ？\n"I have a plan to travel to Europe."',choices:['名詞的用法','形容詞的用法','副詞的用法（目的）','副詞的用法（原因）'],ans:1,exp:'plan（名詞）の直後にto不定詞が置かれ、名詞を修飾しています。「ヨーロッパを旅行するための計画」→ 形容詞的用法です。'},
+          {q:'"She studied hard to pass the exam." の to pass の用法は？',choices:['名詞的用法','形容詞的用法','副詞的用法（目的）','副詞的用法（原因）'],ans:2,exp:'「試験に合格するために」と目的を表しています。動詞 studied を修飾しているので副詞的用法（目的）です。'},
+          {q:'"To learn a new language takes time." の主語は？',choices:['language','a new language','To learn a new language','takes'],ans:2,exp:'To learn a new language（新しい言語を学ぶこと）が主語です。不定詞句が名詞的用法で主語になっています。'},
+          {q:'空欄に入るのは？\n"He was surprised ___ the news."',choices:['hear','heard','to hear','hearing'],ans:2,exp:'be surprised to do は「〜して驚く」という感情の原因を表す副詞的用法の定番表現です。'},
+        ]
+      },
+      {
+        id:'s2',title:'動名詞 vs 不定詞',icon:'⚔️',
+        explanation:{
+          intro:'動名詞（doing）と不定詞（to do）はどちらも名詞のように使えますが、後に続く動詞によって使い分けが決まります。これは入試頻出です！',
+          formula:'動名詞 = 動詞のing形（名詞として機能）',
+          uses:[
+            {name:'動名詞のみ取る動詞',desc:'enjoy, finish, stop, avoid, mind, give up, practice など → 過去・現実のニュアンス',ex:'I enjoy playing the guitar. / She stopped smoking.'},
+            {name:'不定詞のみ取る動詞',desc:'want, hope, decide, promise, plan, refuse など → 未来・意志のニュアンス',ex:'I want to visit Paris. / He decided to leave.'},
+            {name:'両方OKだが意味が変わる',desc:'remember/forget/try/stop+動名詞 vs +不定詞で意味が逆転するので注意！',ex:"I remember meeting her. (会ったことを覚えている) vs I must remember to meet her. (会うことを覚えておく)"},
+          ],
+          note:'動名詞は前置詞の後ろに置ける（be good at doing / look forward to doing）という点も重要です。',
+          svgType:'gerund'
+        },
+        examples:[
+          {en:'I <span class="key">enjoy reading</span> novels before bed.', ja:'私は就寝前に小説を読むのが好きだ。'},
+          {en:'She <span class="key">finished writing</span> her essay.', ja:'彼女はエッセイを書き終えた。'},
+          {en:'He <span class="key">wants to become</span> an engineer.', ja:'彼はエンジニアになりたい。'},
+          {en:'They <span class="key">decided to move</span> to another city.', ja:'彼らは別の都市に引っ越すことにした。'},
+          {en:'I <span class="key">remember seeing</span> her at the party.', ja:'パーティーで彼女に会ったのを覚えている。'},
+          {en:'Remember <span class="key">to call</span> me tonight.', ja:'今夜私に電話するのを忘れずに。'},
+          {en:'He is good at <span class="key">speaking</span> in public.', ja:'彼は人前でのスピーチが得意だ。'},
+          {en:'She <span class="key">gave up trying</span> to solve the problem.', ja:'彼女はその問題を解こうとするのをあきらめた。'},
+          {en:'I look forward <span class="key">to meeting</span> you next week.', ja:'来週お会いできるのを楽しみにしています。'},
+          {en:'He tried <span class="key">to open</span> the window but failed.', ja:'彼は窓を開けようとしたが失敗した。'},
+        ],
+        quiz:[
+          {q:'空欄に入る正しい形は？\n"She enjoys ___ to music."',choices:['listen','to listen','listening','listened'],ans:2,exp:'enjoy は動名詞のみを目的語に取る動詞です。enjoy doing の形になります。'},
+          {q:'"I remember ___ the key on the desk." の正しい選択は？（鍵を机に置いたことを覚えている）',choices:['to put','putting','put','puts'],ans:1,exp:'過去の出来事を覚えている場合は remember + 動名詞（doing）。remember to do は「これからすることを覚えておく」という意味になります。'},
+          {q:'"He is looking forward ___ his family." の空欄は？',choices:['to see','to seeing','seeing','see'],ans:1,exp:'look forward to の to は前置詞なので、後ろには動名詞（ing形）が続きます。to seeing が正解です。'},
+          {q:'次のうち間違っているのはどれ？',choices:['I stopped smoking.','She finished to write.','They avoided going there.','He gave up playing tennis.'],ans:1,exp:'finish は動名詞のみを目的語に取ります。finish writing が正しい形です。to write は不可です。'},
+        ]
+      },
+    ]
+  },
+  {
+    grade:'高1標準',gradeId:'g1b',
+    items:[
+      {
+        id:'s3',title:'関係代名詞（主格・目的格）',icon:'🔗',
+        explanation:{
+          intro:'関係代名詞は2つの文をつないで、名詞を後ろから修飾します。先行詞が人か物かで who/which/that を使い分けましょう。',
+          formula:'先行詞 + 関係代名詞 + （主語）+ 動詞',
+          uses:[
+            {name:'主格の関係代名詞',desc:'関係節の中で主語の役割。who（人）、which（物）、that（人・物）',ex:'The man who lives next door is a doctor. / The book which is on the desk is mine.'},
+            {name:'目的格の関係代名詞',desc:'関係節の中で目的語の役割。省略可能！',ex:'The girl (whom) I met yesterday was kind. / The movie (that) we watched was exciting.'},
+            {name:'所有格 whose',desc:'「〜の」の関係を表す。人にも物にも使える。',ex:"The student whose name is Tom is smart. / I saw a house whose roof is red."},
+          ],
+          note:'that しか使えない場合に注意！先行詞が「人+物」の組み合わせ、または最上級・序数・the only・all などが先行詞のとき。',
+          svgType:'relative'
+        },
+        examples:[
+          {en:'The student <span class="key">who</span> won the prize is my friend.', ja:'賞を取った生徒は私の友達です。'},
+          {en:'I know a girl <span class="key">who</span> can speak five languages.', ja:'私は5ヶ国語を話せる女の子を知っている。'},
+          {en:'The book <span class="key">which</span> you lent me was fascinating.', ja:'君が貸してくれた本はとても面白かった。'},
+          {en:'The city <span class="key">that</span> I visited last summer was beautiful.', ja:'昨夏訪れた都市は美しかった。'},
+          {en:'She is the best singer <span class="key">that</span> I have ever heard.', ja:'彼女は私が今まで聴いた中で最高の歌手です。'},
+          {en:'The man <span class="key">whose</span> car was stolen called the police.', ja:'車を盗まれた男性は警察に電話した。'},
+          {en:'Everything <span class="key">that</span> he said turned out to be true.', ja:'彼が言ったことはすべて本当だとわかった。'},
+          {en:'The student <span class="key">whom</span> the teacher praised worked hard.', ja:'先生に褒められた生徒は一生懸命頑張っていた。'},
+          {en:'This is the house <span class="key">which</span> my grandfather built.', ja:'これは私の祖父が建てた家です。'},
+          {en:'I met a woman <span class="key">whose</span> daughter is a famous actress.', ja:'娘が有名女優の女性に会いました。'},
+        ],
+        quiz:[
+          {q:'"The woman ___ is talking to him is a professor."\n空欄に入る関係代名詞は？',choices:['whom','whose','which','who'],ans:3,exp:'先行詞が「人（woman）」で、関係節の中で主語の役割（is talking）を果たしているので、主格の who が正解です。'},
+          {q:'目的格の関係代名詞が省略されているのはどれ？',choices:['The boy who came here was kind.','She has a dog that can do tricks.','The book I borrowed was interesting.','The car whose color is red is mine.'],ans:2,exp:'「The book (that/which) I borrowed」のように、目的格の関係代名詞 that/which が省略されています。「私が借りた本」という構造です。'},
+          {q:'"She is the only person ___ can help us."\n空欄に入るのは？',choices:['who','which','that','whom'],ans:2,exp:'先行詞に the only がつくときは that のみを使います。who も文法的には使えますが、入試では that が正解とされます。'},
+          {q:'"I have a friend ___ father is a famous pianist."\n空欄は？',choices:['who','which','whose','whom'],ans:2,exp:'「友達の父が」という所有の関係なので、所有格の関係代名詞 whose を使います。'},
+        ]
+      },
+      {
+        id:'s4',title:'仮定法過去・過去完了',icon:'🌀',
+        explanation:{
+          intro:'仮定法は現実とは異なる仮定（反実仮想）を表します。「もし〜だったら（現実にはそうでない）」という表現が仮定法過去、「あの時〜だったら」が仮定法過去完了です。',
+          formula:'If S + 過去形, S + would/could/might + 動詞原形',
+          uses:[
+            {name:'仮定法過去（現在の反実仮想）',desc:'現在の事実と反対の仮定。be動詞は were を使う（I were も正式）。',ex:'If I were a bird, I could fly anywhere. （実際は鳥ではない）'},
+            {name:'仮定法過去完了（過去の反実仮想）',desc:'過去の事実と反対の仮定。If+過去完了、would have+過去分詞の形。',ex:'If I had studied harder, I would have passed the exam. （実際は勉強しなかった）'},
+            {name:'I wish / as if / without',desc:'I wish+仮定法、as if+仮定法、without+名詞（=if it were not for）',ex:"I wish I could speak French. / He talks as if he were rich."},
+          ],
+          note:'「if it were not for〜」（〜がなければ）と「if it had not been for〜」（〜がなかったら）は頻出熟語です！',
+          svgType:'subjunctive'
+        },
+        examples:[
+          {en:'If I <span class="key">were</span> you, I would accept the offer.', ja:'もし私があなたなら、そのオファーを受けるのに。'},
+          {en:'If she <span class="key">had more time</span>, she could travel around the world.', ja:'もっと時間があれば、世界中を旅できるのに。'},
+          {en:'If he <span class="key">had studied</span> harder, he would have passed.', ja:'もっと勉強していたら、合格していただろうに。'},
+          {en:'I wish I <span class="key">could play</span> the piano like her.', ja:'彼女のようにピアノが弾けたらいいのに。'},
+          {en:'I wish I <span class="key">had gone</span> to the concert yesterday.', ja:'昨日コンサートに行けばよかった。'},
+          {en:'He talks as if he <span class="key">knew</span> everything.', ja:'彼はまるで何でも知っているかのように話す。'},
+          {en:'<span class="key">Without</span> your help, I couldn\'t have done it.', ja:'あなたの助けがなければ、私にはできなかった。'},
+          {en:'If it <span class="key">were not for</span> water, nothing could live.', ja:'水がなければ、何も生きられない。'},
+          {en:'If I <span class="key">had known</span> her address, I would have sent a card.', ja:'彼女の住所を知っていたら、カードを送ったのに。'},
+          {en:'She acts as if she <span class="key">were</span> the boss.', ja:'彼女はまるで自分がボスであるかのように振る舞う。'},
+        ],
+        quiz:[
+          {q:'"If I ___ rich, I would buy a sports car."\n正しい動詞の形は？',choices:['am','was/were','will be','have been'],ans:1,exp:'仮定法過去は現在の反実仮想です。be動詞は was または were（正式には were）を使います。I were が慣用として正しい形です。'},
+          {q:'"If she had left earlier, she ___ the train."\n空欄は？',choices:['catches','caught','would catch','would have caught'],ans:3,exp:'仮定法過去完了の帰結節は「would/could/might + have + 過去分詞」の形です。would have caught が正解です。'},
+          {q:'"I wish I ___ to the party last night."\n（実際には行かなかった）',choices:['go','went','had gone','have gone'],ans:2,exp:'I wish + 仮定法過去完了（had + 過去分詞）は「過去のことをしておけばよかった」という後悔を表します。had gone が正解です。'},
+          {q:'次の文で仮定法が正しく使われているのはどれ？',choices:["If he is here, I would tell him.","Without you, I can't do this.","I wish I can fly like a bird.","If I were taller, I could reach the shelf."],ans:3,exp:'If I were taller（仮定法過去のbe動詞=were）、I could reach（would/could+動詞原形）の形が正しい仮定法過去の文です。'},
+        ]
+      },
+    ]
+  },
+  {
+    grade:'高2・受験基礎',gradeId:'g2',
+    items:[
+      {
+        id:'s5',title:'受動態の応用',icon:'🔄',
+        explanation:{
+          intro:'受動態（be+過去分詞）の基本は中学で学びました。高校では時制・助動詞・不定詞・進行形との組み合わせが入試のポイントになります。',
+          formula:'be動詞 + 過去分詞（+ by〜）',
+          uses:[
+            {name:'時制との組み合わせ',desc:'過去完了受動：had been done / 未来受動：will be done / 進行形受動：is being done',ex:'The bridge has been built for 100 years. / The report is being written now.'},
+            {name:'助動詞との組み合わせ',desc:'助動詞 + be + 過去分詞の形。',ex:'This problem can be solved easily. / The plan must be changed immediately.'},
+            {name:'知覚動詞・使役動詞の受動態',desc:'能動態：see/hear/make + O + 動詞原形 → 受動態：be seen/heard/made + to 不定詞',ex:'He was seen to enter the building. / She was made to wait for two hours.'},
+          ],
+          note:'by以外の前置詞を使う受動態に注意：be known to（〜に知られている）/ be interested in / be surprised at / be covered with など',
+          svgType:'passive'
+        },
+        examples:[
+          {en:'The Eiffel Tower <span class="key">was built</span> in 1889.', ja:'エッフェル塔は1889年に建設されました。'},
+          {en:'English <span class="key">is spoken</span> all over the world.', ja:'英語は世界中で話されています。'},
+          {en:'The project <span class="key">has been completed</span> successfully.', ja:'プロジェクトは無事完了しました。'},
+          {en:'The new library <span class="key">is being built</span> near the station.', ja:'新しい図書館が駅の近くに建設中です。'},
+          {en:'The document must <span class="key">be signed</span> by tomorrow.', ja:'書類は明日までに署名されなければならない。'},
+          {en:'He <span class="key">was made to apologize</span> to the class.', ja:'彼はクラスに謝罪させられた。'},
+          {en:'She <span class="key">is known to</span> everyone in town.', ja:'彼女は町中のみんなに知られている。'},
+          {en:'I <span class="key">was surprised at</span> the sudden news.', ja:'突然の知らせに驚いた。'},
+          {en:'The mountain <span class="key">is covered with</span> snow all year.', ja:'その山は一年中雪に覆われている。'},
+          {en:'The suspect <span class="key">was seen to leave</span> the building.', ja:'容疑者はビルを出るところを目撃された。'},
+        ],
+        quiz:[
+          {q:'"Someone is repairing the car." を受動態にすると？',choices:['The car is repaired.','The car is being repaired.','The car was being repaired.','The car has been repaired.'],ans:1,exp:'現在進行形（is repairing）の受動態は「is being + 過去分詞」になります。「今まさに修理されている」という意味です。'},
+          {q:'"She was made ___ wait for an hour." 空欄は？',choices:['to','for','wait','waiting'],ans:0,exp:'make+O+動詞原形の受動態では、to不定詞（to+動詞原形）に変わります。was made to wait が正解です。'},
+          {q:'"He ___ interested in classical music." 空欄は？',choices:['is','was','be','has been'],ans:0,exp:'be interested in は決まった前置詞のパターンです。ここでは現在の状態なので is が最適です。'},
+          {q:'次のうち正しい受動態はどれ？',choices:['This book can written by him.','The homework must be finish today.','The song will be sung by the choir.','She been helped by her friend.'],ans:2,exp:'助動詞＋be＋過去分詞の形。「The song will be sung」が正しい未来の受動態です。'},
+        ]
+      },
+      {
+        id:'s6',title:'完了形の完全マスター',icon:'⏳',
+        explanation:{
+          intro:'現在完了・過去完了・未来完了の3種類と、それぞれの完了・経験・継続・結果の4用法を整理しましょう。入試では時制の選択問題として頻出です。',
+          formula:'have/has/had + 過去分詞',
+          uses:[
+            {name:'現在完了の4用法',desc:'完了「〜したところ」/ 経験「〜したことがある」/ 継続「ずっと〜している」/ 結果「〜してしまった（今もその状態）」',ex:"I have just finished. / I have been to Paris. / I have lived here for 5 years. / He has gone to Tokyo."},
+            {name:'過去完了（大過去）',desc:'過去のある時点より前に起きたことを表す。「（その時点までに）〜していた」',ex:'She had already left when I arrived. / I had never seen such a thing before that day.'},
+            {name:'現在完了進行形',desc:'過去から現在まで動作が継続中であることを強調する。',ex:'I have been studying for three hours. / It has been raining since morning.'},
+          ],
+          note:'sinceは「〜以来（起点）」、forは「〜の間（期間）」。agoとsinceの使い方の違いに注意：I left five years ago. / I have been here since five years ago.',
+          svgType:'perfect'
+        },
+        examples:[
+          {en:'I <span class="key">have just finished</span> my homework.', ja:'私はちょうど宿題を終えたところです。'},
+          {en:'She <span class="key">has never been</span> to New York.', ja:'彼女はニューヨークに行ったことが一度もない。'},
+          {en:'He <span class="key">has lived</span> in Japan for ten years.', ja:'彼は10年間日本に住んでいる。'},
+          {en:'My cat <span class="key">has disappeared</span>. I can\'t find it anywhere.', ja:'猫がいなくなってしまった。どこにも見当たらない。'},
+          {en:'When I arrived, the movie <span class="key">had already started</span>.', ja:'私が着いたとき、映画はすでに始まっていた。'},
+          {en:'She <span class="key">had never tried</span> sushi before visiting Japan.', ja:'日本を訪れる前、彼女は寿司を食べたことがなかった。'},
+          {en:'I <span class="key">have been waiting</span> for you for an hour.', ja:'私は1時間もあなたを待っています。'},
+          {en:'It <span class="key">has been raining</span> since yesterday morning.', ja:'昨日の朝からずっと雨が降っている。'},
+          {en:'By next month, she <span class="key">will have studied</span> English for five years.', ja:'来月で彼女は5年間英語を勉強したことになる。'},
+          {en:'I <span class="key">had been working</span> for 12 hours when he called.', ja:'彼が電話してきた時、私は12時間働き続けていた。'},
+        ],
+        quiz:[
+          {q:'"She ___ in Paris since 2018." 空欄に最適なのは？',choices:['lives','lived','has lived','had lived'],ans:2,exp:'since 2018（2018年以来）と過去の起点があり、現在も続いている→現在完了の継続用法。has lived が正解です。'},
+          {q:'"When he arrived, I ___ my lunch." （彼が来た時、私はすでに昼食を食べ終えていた）',choices:['have finished','had finished','finished','was finishing'],ans:1,exp:'過去のある時点（he arrived）より前に完了していたことを表すので過去完了 had finished を使います。'},
+          {q:'"I ___ for this company for 20 years." の正しい選択は？（今も働いている）',choices:['work','worked','have been working','had worked'],ans:2,exp:'過去から現在まで動作が継続中であることを強調するには現在完了進行形 have been working を使います。for 20 years が継続を示しています。'},
+          {q:'現在完了が使えないのはどれ？',choices:['I have seen this film twice.','She has lived here for years.','He has arrived in Paris yesterday.','They have already eaten.'],ans:2,exp:'yesterday（昨日）は過去の特定の時点を示す語。現在完了は過去を示す語（yesterday, last year, ago など）と共に使えません。過去形 arrived が正しいです。'},
+        ]
+      },
+    ]
+  },
+  {
+    grade:'高3・大学受験',gradeId:'g3',
+    items:[
+      {
+        id:'s7',title:'分詞構文',icon:'✨',
+        explanation:{
+          intro:'分詞構文は「〜しながら」「〜したので」「〜すると」など、複数の意味を文脈で表せる表現です。長文読解でも英作文でも必須の高度な文法です。',
+          formula:'Doing / Having done / Being + 過去分詞 + 主文',
+          uses:[
+            {name:'基本の分詞構文',desc:'接続詞節を分詞で書き換え。時・理由・条件・譲歩などの意味になる。',ex:'Walking along the street, I met an old friend. （歩いていると、旧友に会った）'},
+            {name:'完了形の分詞構文',desc:'主節より前のことを表す時はhaving+過去分詞を使う。',ex:'Having finished my work, I went home. （仕事を終えてから、家に帰った）'},
+            {name:'受動の分詞構文',desc:'Being+過去分詞（または過去分詞のみ）で受動の意味を表す。',ex:'Written in simple English, this book is easy to read. （簡単な英語で書かれているので）'},
+          ],
+          note:'慣用的な分詞構文：generally speaking（一般的に言えば）、strictly speaking（厳密に言えば）、frankly speaking（率直に言えば）、judging from（〜から判断すると）',
+          svgType:'participle'
+        },
+        examples:[
+          {en:'<span class="key">Turning left</span> at the corner, you\'ll find the café.', ja:'角を左に曲がると、カフェがあります。'},
+          {en:'<span class="key">Not knowing</span> what to do, she asked for help.', ja:'どうすればいいかわからず、彼女は助けを求めた。'},
+          {en:'<span class="key">Having read</span> the book, I felt inspired.', ja:'その本を読んでから、私はインスピレーションを感じた。'},
+          {en:'<span class="key">Having lived</span> in France for years, he speaks French perfectly.', ja:'フランスに何年も住んでいたので、彼はフランス語が完璧だ。'},
+          {en:'<span class="key">Written</span> in 1850, the novel is still popular today.', ja:'1850年に書かれたその小説は今でも人気がある。'},
+          {en:'<span class="key">Surrounded by</span> mountains, the village was peaceful.', ja:'山々に囲まれて、その村は穏やかだった。'},
+          {en:'<span class="key">Generally speaking</span>, Japanese people are hardworking.', ja:'一般的に言えば、日本人は勤勉です。'},
+          {en:'<span class="key">Judging from</span> his accent, he must be British.', ja:'アクセントから判断すると、彼はイギリス人に違いない。'},
+          {en:'<span class="key">Strictly speaking</span>, that\'s not the correct answer.', ja:'厳密に言えば、それは正しい答えではない。'},
+          {en:'<span class="key">Tired</span> from the long journey, she fell asleep immediately.', ja:'長旅で疲れていたので、彼女はすぐに眠りについた。'},
+        ],
+        quiz:[
+          {q:'"Because he was tired, he went to bed early." を分詞構文にすると？',choices:['Tired, he went to bed early.','Being tired, he went to bed early.','Having tired, he went to bed early.','Tire, he went to bed early.'],ans:1,exp:'Being + 過去分詞（受動）または過去分詞だけで受動の分詞構文を作れます。この選択肢では「Being tired」が最適です。'},
+          {q:'"___ from his appearance, he seems to be around thirty."\n空欄に入るのは？',choices:['Judging','Judged','To judge','Judge'],ans:0,exp:'judging from は「〜から判断すると」という慣用的な分詞構文で、主語とは独立して使います（懸垂分詞）。Judging from が正解です。'},
+          {q:'"Having finished her homework, Lisa ___ to play." の主節の動詞として最適なのは？（宿題を終えてから）',choices:['go','went','goes','going'],ans:1,exp:'Having finished は主節より前に完了した動作を表す完了形の分詞構文。主節は過去形 went が文脈的に適切です。'},
+          {q:'次の分詞構文の意味として最も適切なのは？\n"Walking in the park, I found a wallet."',choices:['公園を歩くために財布を見つけた。','公園を歩いていると財布を見つけた。','財布を見つけたので公園を歩いた。','財布を見つけたけれど公園を歩いた。'],ans:1,exp:'この文は「〜していると・〜した時に」という同時進行・時を表す分詞構文です。「公園を歩いていると（その時に）財布を見つけた」が正解です。'},
+        ]
+      },
+      {
+        id:'s8',title:'強調構文・倒置・省略',icon:'🏆',
+        explanation:{
+          intro:'難関大学の入試で差がつく高度な構文です。強調構文（It is...that）、否定語による倒置、省略の3つをマスターすれば読解・英作の得点が大きくアップします。',
+          formula:'It is [強調したい語句] that ...',
+          uses:[
+            {name:'強調構文',desc:'It is...that構文で文の要素（主語・目的語・副詞句）を強調する。that以降には強調された部分を除いた完全な文が続く。',ex:'It was Tom that broke the window. （窓を割ったのはトムだ）'},
+            {name:'否定語による倒置',desc:'Never, Hardly, Not only, Seldom, Little, No sooner などが文頭に来ると主語と助動詞が倒置する。',ex:'Never have I seen such a beautiful scene. / No sooner had he arrived than it started raining.'},
+            {name:'省略と代用',desc:'接続詞節の中での省略、that の省略、do so / do the same / do it などの代用表現。',ex:'If (it is) possible, come early. / She works harder than he does (work). / "Can you swim?" "Yes, I can (swim)."'},
+          ],
+          note:'No sooner A than B（AするやいなやBした）、Hardly A when B（Aするとすぐにでした）は頻出！どちらも倒置が起きます。',
+          svgType:'emphasis'
+        },
+        examples:[
+          {en:'It was <span class="key">in 1969</span> that humans first landed on the moon.', ja:'人類が初めて月に着陸したのは1969年のことだった。'},
+          {en:'It was <span class="key">Tom</span> that told me the secret.', ja:'私にその秘密を教えたのはトムでした。'},
+          {en:'<span class="key">Never</span> have I heard such beautiful music.', ja:'こんなに美しい音楽を聴いたことがない。'},
+          {en:'<span class="key">Hardly</span> had she fallen asleep when the phone rang.', ja:'彼女がほとんど寝つくかどうかのうちに電話が鳴った。'},
+          {en:'<span class="key">Not only</span> does he play the piano, but he also sings.', ja:'彼はピアノを弾くだけでなく、歌も歌う。'},
+          {en:'<span class="key">No sooner</span> had I sat down than the bell rang.', ja:'座るかどうかのうちにベルが鳴った。'},
+          {en:'<span class="key">Little</span> did she know what was about to happen.', ja:'彼女はこれから何が起きるか、ほとんど知らなかった。'},
+          {en:'"Would you like some coffee?" "<span class="key">Yes, I would.</span>"', ja:'「コーヒーはいかがですか」「はい、ぜひ」（動詞の省略）'},
+          {en:'She can swim faster than he <span class="key">can</span>.', ja:'彼女は彼よりも速く泳ぐことができる。（swims省略）'},
+          {en:'If <span class="key">necessary</span>, you can ask your teacher for help.', ja:'必要であれば、先生に助けを求めることができる。（it is省略）'},
+        ],
+        quiz:[
+          {q:'"Never ___ such a thing in my life!"\n倒置の形で正しいのは？',choices:['I have seen','have I seen','I saw','did I see'],ans:1,exp:'Never が文頭に出ると「助動詞/be動詞 + 主語」の倒置が起きます。Never have I seen が正解です。'},
+          {q:'"It was ___ that she met him for the first time."\n強調構文で強調している部分として適切なのは？',choices:['at the party last year','she met him','him','the first time'],ans:0,exp:'It was ... that 構文で強調できるのは主語・目的語・副詞句です。at the party last year（場所＋時の副詞句）を強調しています。'},
+          {q:'"No sooner had I arrived ___ it started to snow." 空欄は？',choices:['when','than','that','but'],ans:1,exp:'No sooner A than B は「AするやいなやBした」という表現。than が正解です。Hardly A when B と混同しないよう注意しましょう。'},
+          {q:'次の文で省略が起きているのはどれ？',choices:['It is he who is wrong.','Never did she complain.','If possible, call me back.','She is taller than her sister.'],ans:2,exp:'「If possible」は「If it is possible」から「it is」が省略された形です。接続詞節では主語と be 動詞が省略される場合があります。'},
+        ]
+      },
+    ]
+  },
+];
+
+// Storage
+const STORAGE_KEY = 'eikaigo_hs_v1';
+let progress = {};
+try {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if(saved) progress = JSON.parse(saved);
+} catch(e){}
+
+function saveProgress(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(progress)); } catch(e){}
+}
+
+function getStageProgress(id){
+  return progress[id] || {completed:false, stars:0, quizScore:null};
+}
+
+function isStageUnlocked(stageIdx, gradeIdx){
+  const allStages = STAGES.flatMap(g=>g.items);
+  const idx = STAGES.slice(0,gradeIdx).reduce((s,g)=>s+g.items.length,0)+stageIdx;
+  if(idx===0) return true;
+  const prev = allStages[idx-1];
+  return getStageProgress(prev.id).completed;
+}
+
+function calcOverallProgress(){
+  const all = STAGES.flatMap(g=>g.items);
+  const done = all.filter(s=>getStageProgress(s.id).completed).length;
+  return Math.round(done/all.length*100);
+}
+
+function updateNavProgress(){
+  const pct = calcOverallProgress();
+  document.getElementById('navBar').style.width = pct+'%';
+  document.getElementById('navPct').textContent = pct+'%';
+}
+
+function renderMap(){
+  const container = document.getElementById('stageMap');
+  container.innerHTML = '';
+  STAGES.forEach((grade, gi)=>{
+    const sec = document.createElement('div');
+    sec.className = 'grade-section';
+    sec.innerHTML = '<div class="grade-label">'+grade.grade+'</div><div class="stages-grid" id="grid_'+gi+'"></div>';
+    container.appendChild(sec);
+    const grid = sec.querySelector('#grid_'+gi);
+    grade.items.forEach((item,si)=>{
+      const unlocked = isStageUnlocked(si, gi);
+      const prog = getStageProgress(item.id);
+      const card = document.createElement('div');
+      card.className = 'stage-card' + (unlocked?'':' locked') + (prog.completed?' completed':'');
+      card.innerHTML =
+        '<div class="stage-icon">'+item.icon+'</div>'+
+        '<div class="stage-num">STAGE '+(STAGES.slice(0,gi).reduce((s,g)=>s+g.items.length,0)+si+1)+'</div>'+
+        '<div class="stage-title">'+item.title+'</div>'+
+        '<div class="stage-stars">'+[1,2,3].map(n=>'<span>'+((prog.stars||0)>=n?'⭐':'☆')+'</span>').join('')+'</div>'+
+        (!unlocked?'<span class="lock-icon">🔒</span>':'');
+      if(unlocked){
+        const capturedItem = item;
+        const capturedIdx = STAGES.slice(0,gi).reduce((s,g)=>s+g.items.length,0)+si;
+        card.onclick = ()=>openLesson(capturedItem, capturedIdx);
+      }
+      grid.appendChild(card);
+    });
+  });
+  updateNavProgress();
+}
+
+let currentStage = null;
+let currentStageIdx = 0;
+let currentTab = 0;
+let quizState = {};
+
+function openLesson(stage, idx){
+  currentStage = stage;
+  currentStageIdx = idx;
+  currentTab = 0;
+  quizState = {current:0, answers:[], done:false};
+  document.getElementById('lessonBadge').textContent = 'STAGE '+(idx+1);
+  document.getElementById('lessonTitle').textContent = stage.title;
+  document.getElementById('screenMap').classList.remove('active');
+  document.getElementById('screenLesson').classList.add('active');
+  document.getElementById('btnBack').style.display='block';
+  switchTab(0);
+  window.scrollTo(0,0);
+}
+
+function goBack(){
+  document.getElementById('screenLesson').classList.remove('active');
+  document.getElementById('screenMap').classList.add('active');
+  document.getElementById('btnBack').style.display='none';
+  renderMap();
+}
+
+function switchTab(n){
+  currentTab = n;
+  [0,1,2].forEach(i=>{
+    document.getElementById('tab'+i).classList.toggle('active', i===n);
+  });
+  const content = document.getElementById('tabContent');
+  if(n===0) content.innerHTML = renderExplanation(currentStage);
+  else if(n===1) content.innerHTML = renderExamples(currentStage);
+  else content.innerHTML = renderQuiz(currentStage);
+}
+
+function getSVG(type){
+  const svgs = {
+    infinitive:`<svg width="660" height="180" viewBox="0 0 660 180" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="60" width="140" height="60" rx="8" fill="#f5d300" fill-opacity="0.15" stroke="#f5d300" stroke-width="1.5"/>
+      <text x="80" y="86" text-anchor="middle" fill="#f5d300" font-size="13" font-weight="bold">to + 動詞原形</text>
+      <text x="80" y="106" text-anchor="middle" fill="#f5d300" font-size="12">不定詞</text>
+      <line x1="150" y1="90" x2="185" y2="60" stroke="#5c6bc0" stroke-width="1.5" stroke-dasharray="4"/>
+      <line x1="150" y1="90" x2="185" y2="90" stroke="#5c6bc0" stroke-width="1.5" stroke-dasharray="4"/>
+      <line x1="150" y1="90" x2="185" y2="120" stroke="#5c6bc0" stroke-width="1.5" stroke-dasharray="4"/>
+      <rect x="185" y="30" width="140" height="50" rx="8" fill="#00d4a1" fill-opacity="0.15" stroke="#00d4a1" stroke-width="1.5"/>
+      <text x="255" y="53" text-anchor="middle" fill="#00d4a1" font-size="12" font-weight="bold">名詞的用法</text>
+      <text x="255" y="71" text-anchor="middle" fill="#9fa8da" font-size="11">〜すること</text>
+      <rect x="185" y="65" width="140" height="50" rx="8" fill="#5c6bc0" fill-opacity="0.2" stroke="#9fa8da" stroke-width="1.5"/>
+      <text x="255" y="88" text-anchor="middle" fill="#e8eaf6" font-size="12" font-weight="bold">形容詞的用法</text>
+      <text x="255" y="106" text-anchor="middle" fill="#9fa8da" font-size="11">〜するための</text>
+      <rect x="185" y="100" width="140" height="50" rx="8" fill="#ff9f43" fill-opacity="0.15" stroke="#ff9f43" stroke-width="1.5"/>
+      <text x="255" y="123" text-anchor="middle" fill="#ff9f43" font-size="12" font-weight="bold">副詞的用法</text>
+      <text x="255" y="141" text-anchor="middle" fill="#9fa8da" font-size="11">〜するために／〜して</text>
+      <rect x="355" y="20" width="295" height="140" rx="8" fill="#1a1f4e" stroke="#242a60" stroke-width="1"/>
+      <text x="365" y="45" fill="#00d4a1" font-size="11" font-weight="bold">名 To speak English is hard.</text>
+      <text x="365" y="63" fill="#9fa8da" font-size="10">英語を話すことは難しい</text>
+      <text x="365" y="85" fill="#e8eaf6" font-size="11" font-weight="bold">形 I have a plan to visit Paris.</text>
+      <text x="365" y="103" fill="#9fa8da" font-size="10">パリを訪れる計画がある</text>
+      <text x="365" y="125" fill="#ff9f43" font-size="11" font-weight="bold">副 I studied hard to pass.</text>
+      <text x="365" y="143" fill="#9fa8da" font-size="10">合格するために一生懸命勉強した</text>
+    </svg>`,
+    gerund:`<svg width="660" height="180" viewBox="0 0 660 180" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="20" width="295" height="65" rx="8" fill="#f5d300" fill-opacity="0.1" stroke="#f5d300" stroke-width="1.5"/>
+      <text x="20" y="42" fill="#f5d300" font-size="12" font-weight="bold">動名詞のみ（過去・現実）</text>
+      <text x="20" y="60" fill="#9fa8da" font-size="10">enjoy / finish / stop / avoid</text>
+      <text x="20" y="75" fill="#9fa8da" font-size="10">mind / give up / practice / deny</text>
+      <rect x="10" y="100" width="295" height="65" rx="8" fill="#00d4a1" fill-opacity="0.1" stroke="#00d4a1" stroke-width="1.5"/>
+      <text x="20" y="122" fill="#00d4a1" font-size="12" font-weight="bold">不定詞のみ（未来・意志）</text>
+      <text x="20" y="140" fill="#9fa8da" font-size="10">want / hope / decide / promise</text>
+      <text x="20" y="155" fill="#9fa8da" font-size="10">plan / refuse / fail / offer</text>
+      <rect x="330" y="20" width="320" height="140" rx="8" fill="#1a1f4e" stroke="#242a60" stroke-width="1"/>
+      <text x="345" y="45" fill="#ff9f43" font-size="12" font-weight="bold">⚠ 意味が変わる動詞</text>
+      <text x="345" y="68" fill="#f5d300" font-size="11">remember doing → した事を覚えている</text>
+      <text x="345" y="86" fill="#00d4a1" font-size="11">remember to do → する事を覚えておく</text>
+      <text x="345" y="108" fill="#f5d300" font-size="11">stop doing → するのをやめる</text>
+      <text x="345" y="126" fill="#00d4a1" font-size="11">stop to do → するために立ち止まる</text>
+      <text x="345" y="148" fill="#9fa8da" font-size="10">try / forget / regret も同様に注意！</text>
+    </svg>`,
+    relative:`<svg width="660" height="200" viewBox="0 0 660 200" xmlns="http://www.w3.org/2000/svg">
+      <text x="10" y="25" fill="#9fa8da" font-size="12">The student</text>
+      <text x="100" y="25" fill="#f5d300" font-size="12" font-weight="bold">who</text>
+      <text x="125" y="25" fill="#9fa8da" font-size="12">won the prize is my friend.</text>
+      <line x1="10" y1="30" x2="95" y2="30" stroke="#00d4a1" stroke-width="2"/>
+      <text x="30" y="48" fill="#00d4a1" font-size="10">先行詞（人）</text>
+      <line x1="100" y1="30" x2="118" y2="30" stroke="#f5d300" stroke-width="2"/>
+      <text x="95" y="48" fill="#f5d300" font-size="10">主格</text>
+      <rect x="10" y="60" width="640" height="130" rx="8" fill="#1a1f4e" stroke="#242a60" stroke-width="1"/>
+      <text x="25" y="85" fill="#e8eaf6" font-size="11" font-weight="bold">先行詞</text>
+      <text x="105" y="85" fill="#e8eaf6" font-size="11" font-weight="bold">主格</text>
+      <text x="195" y="85" fill="#e8eaf6" font-size="11" font-weight="bold">目的格</text>
+      <text x="300" y="85" fill="#e8eaf6" font-size="11" font-weight="bold">所有格</text>
+      <text x="390" y="85" fill="#e8eaf6" font-size="11" font-weight="bold">注意点</text>
+      <line x1="15" y1="91" x2="645" y2="91" stroke="#242a60" stroke-width="0.5"/>
+      <text x="25" y="112" fill="#00d4a1" font-size="11">人</text>
+      <text x="105" y="112" fill="#f5d300" font-size="11">who</text>
+      <text x="195" y="112" fill="#ff9f43" font-size="11">whom（省略可）</text>
+      <text x="300" y="112" fill="#9fa8da" font-size="11">whose</text>
+      <text x="390" y="112" fill="#9fa8da" font-size="10">thatも使える</text>
+      <text x="25" y="137" fill="#00d4a1" font-size="11">物</text>
+      <text x="105" y="137" fill="#f5d300" font-size="11">which</text>
+      <text x="195" y="137" fill="#ff9f43" font-size="11">which（省略可）</text>
+      <text x="300" y="137" fill="#9fa8da" font-size="11">whose/of which</text>
+      <text x="390" y="137" fill="#9fa8da" font-size="10">thatも使える</text>
+      <text x="25" y="162" fill="#9fa8da" font-size="11">人/物</text>
+      <text x="105" y="162" fill="#ff4757" font-size="11">that</text>
+      <text x="195" y="162" fill="#ff4757" font-size="11">that（省略可）</text>
+      <text x="300" y="162" fill="#9fa8da" font-size="11">—</text>
+      <text x="390" y="162" fill="#ff4757" font-size="10">最上級・only等はthatのみ</text>
+    </svg>`,
+    subjunctive:`<svg width="660" height="200" viewBox="0 0 660 200" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="300" height="80" rx="8" fill="#5c6bc0" fill-opacity="0.15" stroke="#5c6bc0" stroke-width="1.5"/>
+      <text x="160" y="35" text-anchor="middle" fill="#9fa8da" font-size="12" font-weight="bold">仮定法過去（現在の反実）</text>
+      <text x="20" y="58" fill="#f5d300" font-size="11">If + S + 過去形（were）</text>
+      <text x="20" y="75" fill="#00d4a1" font-size="11">→ S + would/could + 動詞原形</text>
+      <rect x="350" y="10" width="300" height="80" rx="8" fill="#ff9f43" fill-opacity="0.12" stroke="#ff9f43" stroke-width="1.5"/>
+      <text x="500" y="35" text-anchor="middle" fill="#9fa8da" font-size="12" font-weight="bold">仮定法過去完了（過去の反実）</text>
+      <text x="360" y="58" fill="#f5d300" font-size="11">If + S + had + 過去分詞</text>
+      <text x="360" y="75" fill="#00d4a1" font-size="11">→ S + would have + 過去分詞</text>
+      <rect x="10" y="105" width="640" height="85" rx="8" fill="#1a1f4e" stroke="#242a60" stroke-width="1"/>
+      <text x="20" y="130" fill="#f5d300" font-size="11">If I were a bird, I could fly.（現在：鳥ではない）</text>
+      <text x="20" y="152" fill="#ff9f43" font-size="11">If she had studied harder, she would have passed.（過去：勉強しなかった）</text>
+      <text x="20" y="174" fill="#9fa8da" font-size="11">I wish I could speak French. / He acts as if he were rich.</text>
+    </svg>`,
+    passive:`<svg width="660" height="180" viewBox="0 0 660 180" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="290" height="70" rx="8" fill="#f5d300" fill-opacity="0.1" stroke="#f5d300" stroke-width="1.5"/>
+      <text x="155" y="35" text-anchor="middle" fill="#f5d300" font-size="12" font-weight="bold">能動態</text>
+      <text x="20" y="58" fill="#9fa8da" font-size="11">They are repairing the car.</text>
+      <text x="20" y="74" fill="#9fa8da" font-size="10">誰かが車を修理している</text>
+      <text x="308" y="50" fill="#9fa8da" font-size="20">→</text>
+      <rect x="340" y="10" width="310" height="70" rx="8" fill="#00d4a1" fill-opacity="0.1" stroke="#00d4a1" stroke-width="1.5"/>
+      <text x="495" y="35" text-anchor="middle" fill="#00d4a1" font-size="12" font-weight="bold">受動態（進行形）</text>
+      <text x="350" y="58" fill="#9fa8da" font-size="11">The car is being repaired.</text>
+      <text x="350" y="74" fill="#9fa8da" font-size="10">車が修理されているところだ</text>
+      <rect x="10" y="95" width="640" height="75" rx="8" fill="#1a1f4e" stroke="#242a60" stroke-width="1"/>
+      <text x="20" y="118" fill="#e8eaf6" font-size="11" font-weight="bold">時制別まとめ</text>
+      <text x="20" y="138" fill="#f5d300" font-size="10">現在進行: is being done　</text>
+      <text x="155" y="138" fill="#00d4a1" font-size="10">現在完了: has been done　</text>
+      <text x="310" y="138" fill="#ff9f43" font-size="10">助動詞: must be done</text>
+      <text x="20" y="158" fill="#9fa8da" font-size="10">知覚・使役の受動: be seen to do / be made to do</text>
+    </svg>`,
+    perfect:`<svg width="660" height="200" viewBox="0 0 660 200" xmlns="http://www.w3.org/2000/svg">
+      <line x1="30" y1="50" x2="630" y2="50" stroke="#242a60" stroke-width="2"/>
+      <text x="30" y="70" fill="#9fa8da" font-size="10">過去</text>
+      <text x="595" y="70" fill="#9fa8da" font-size="10">現在</text>
+      <circle cx="150" cy="50" r="5" fill="#f5d300"/>
+      <circle cx="600" cy="50" r="8" fill="#00d4a1"/>
+      <path d="M150,40 Q375,10 600,40" fill="none" stroke="#f5d300" stroke-width="1.5" stroke-dasharray="5"/>
+      <text x="330" y="22" text-anchor="middle" fill="#f5d300" font-size="11">have/has + 過去分詞</text>
+      <rect x="10" y="80" width="640" height="112" rx="8" fill="#1a1f4e" stroke="#242a60" stroke-width="1"/>
+      <text x="25" y="106" fill="#f5d300" font-size="12" font-weight="bold">完了</text>
+      <text x="75" y="106" fill="#9fa8da" font-size="11">have just / already / yet finished → ちょうど〜したところ</text>
+      <text x="25" y="129" fill="#00d4a1" font-size="12" font-weight="bold">経験</text>
+      <text x="75" y="129" fill="#9fa8da" font-size="11">have ever / never / once been → 〜したことがある</text>
+      <text x="25" y="152" fill="#ff9f43" font-size="12" font-weight="bold">継続</text>
+      <text x="75" y="152" fill="#9fa8da" font-size="11">have lived for 5 years / since 2020 → ずっと〜している</text>
+      <text x="25" y="175" fill="#ff4757" font-size="12" font-weight="bold">結果</text>
+      <text x="75" y="175" fill="#9fa8da" font-size="11">have gone / lost → 〜してしまった（今もその状態）</text>
+    </svg>`,
+    participle:`<svg width="660" height="190" viewBox="0 0 660 190" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="195" height="55" rx="8" fill="#f5d300" fill-opacity="0.12" stroke="#f5d300" stroke-width="1.5"/>
+      <text x="107" y="35" text-anchor="middle" fill="#f5d300" font-size="12" font-weight="bold">現在分詞構文</text>
+      <text x="107" y="55" text-anchor="middle" fill="#9fa8da" font-size="10">Doing ..., S + V</text>
+      <rect x="233" y="10" width="195" height="55" rx="8" fill="#00d4a1" fill-opacity="0.12" stroke="#00d4a1" stroke-width="1.5"/>
+      <text x="330" y="35" text-anchor="middle" fill="#00d4a1" font-size="12" font-weight="bold">完了形分詞構文</text>
+      <text x="330" y="55" text-anchor="middle" fill="#9fa8da" font-size="10">Having done ..., S + V</text>
+      <rect x="456" y="10" width="194" height="55" rx="8" fill="#ff9f43" fill-opacity="0.12" stroke="#ff9f43" stroke-width="1.5"/>
+      <text x="553" y="35" text-anchor="middle" fill="#ff9f43" font-size="12" font-weight="bold">受動の分詞構文</text>
+      <text x="553" y="55" text-anchor="middle" fill="#9fa8da" font-size="10">Done（過去分詞）..., S + V</text>
+      <rect x="10" y="80" width="640" height="100" rx="8" fill="#1a1f4e" stroke="#242a60" stroke-width="1"/>
+      <text x="20" y="105" fill="#f5d300" font-size="11">Walking along the street, I met a friend. → 時・付帯状況</text>
+      <text x="20" y="128" fill="#00d4a1" font-size="11">Having finished my work, I went home. → 主節より前の出来事</text>
+      <text x="20" y="151" fill="#ff9f43" font-size="11">Written in French, the book was hard to read. → 受動の理由</text>
+      <text x="20" y="170" fill="#9fa8da" font-size="10">慣用句: Generally speaking / Judging from / Strictly speaking</text>
+    </svg>`,
+    emphasis:`<svg width="660" height="200" viewBox="0 0 660 200" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="10" width="300" height="80" rx="8" fill="#f5d300" fill-opacity="0.1" stroke="#f5d300" stroke-width="1.5"/>
+      <text x="155" y="35" text-anchor="middle" fill="#f5d300" font-size="12" font-weight="bold">強調構文</text>
+      <text x="20" y="58" fill="#9fa8da" font-size="11">It is [強調語句] that + 残りの文</text>
+      <text x="20" y="76" fill="#00d4a1" font-size="10">It was TOM that broke the window.</text>
+      <rect x="345" y="10" width="305" height="80" rx="8" fill="#ff4757" fill-opacity="0.1" stroke="#ff4757" stroke-width="1.5"/>
+      <text x="497" y="35" text-anchor="middle" fill="#ff4757" font-size="12" font-weight="bold">否定語による倒置</text>
+      <text x="355" y="58" fill="#9fa8da" font-size="11">Never / Hardly / No sooner ...</text>
+      <text x="355" y="76" fill="#00d4a1" font-size="10">Never have I seen such beauty.</text>
+      <rect x="10" y="105" width="640" height="85" rx="8" fill="#1a1f4e" stroke="#242a60" stroke-width="1"/>
+      <text x="20" y="128" fill="#e8eaf6" font-size="11" font-weight="bold">倒置の語順変化</text>
+      <text x="20" y="150" fill="#9fa8da" font-size="11">通常: I have never seen ...    倒置: Never have I seen ...</text>
+      <text x="20" y="170" fill="#9fa8da" font-size="11">No sooner had I sat down than the bell rang.</text>
+      <text x="20" y="187" fill="#ff9f43" font-size="10">Not only / Seldom / Little / Hardly + 助動詞 + 主語 の順</text>
+    </svg>`
+  };
+  return svgs[type] || '';
+}
+
+function renderExplanation(stage){
+  const exp = stage.explanation;
+  const uses = exp.uses.map(u=>
+    '<div class="grammar-box">'+
+    '<strong style="color:var(--yellow)">'+u.name+'</strong><br>'+
+    u.desc+'<br>'+
+    '<div style="margin-top:8px;padding:8px;background:#0f1035;border-radius:6px;font-size:13px;color:#9fa8da">'+u.ex+'</div>'+
+    '</div>'
+  ).join('');
+  return '<div class="grammar-section"><h3>文法のポイント</h3>'+
+    '<div class="grammar-box" style="border-left-color:var(--mint)">'+exp.intro+'</div>'+
+    '<div class="grammar-formula">'+exp.formula+'</div></div>'+
+    '<div class="grammar-section"><h3>図解</h3>'+
+    '<div class="svg-container">'+getSVG(exp.svgType)+'</div></div>'+
+    '<div class="grammar-section"><h3>用法の分類</h3>'+uses+'</div>'+
+    '<div class="grammar-note">'+exp.note+'</div>'+
+    '<div style="text-align:center;margin-top:20px"><button class="btn-next-q" onclick="switchTab(1)">例文を見る →</button></div>';
+}
+
+function renderExamples(stage){
+  const items = stage.examples.map((e,i)=>
+    '<div class="example-item">'+
+    '<div class="ex-num">例文 '+(i+1)+'</div>'+
+    '<div class="ex-en">'+e.en+'</div>'+
+    '<div class="ex-ja">'+e.ja+'</div>'+
+    '</div>'
+  ).join('');
+  return '<div class="grammar-section"><h3>例文一覧（'+stage.examples.length+'文）</h3>'+
+    '<div class="examples-list">'+items+'</div></div>'+
+    '<div style="text-align:center;margin-top:20px"><button class="btn-next-q" onclick="switchTab(2)">小テストに挑戦 →</button></div>';
+}
+
+function renderQuiz(stage){
+  const qs = stage.quiz;
+  const q = quizState;
+  if(q.done){
+    const score = q.answers.filter((a,i)=>a===qs[i].ans).length;
+    const pct = Math.round(score/qs.length*100);
+    const passed = pct >= 75;
+    return '<div class="result-screen">'+
+      '<div class="result-score-circle '+(passed?'':'failed')+'">'+
+      '<div class="result-score-num">'+score+'/'+qs.length+'</div>'+
+      '<div class="result-score-label">'+pct+'%</div></div>'+
+      '<div class="result-msg">'+(passed?'🎉 クリア！':'😓 もう一度')+'</div>'+
+      '<div class="result-sub">'+(passed?'このステージをマスターしました！次へ進もう':'合格ライン75%。もう一度チャレンジ！')+'</div>'+
+      (passed?'<button class="result-btn" onclick="completeStage()">次のステージへ →</button>':'')+
+      '<button class="result-btn secondary" onclick="restartQuiz()">もう一度</button>'+
+      '<button class="result-btn secondary" onclick="switchTab(0)">解説に戻る</button></div>';
+  }
+  if(q.current >= qs.length){ q.done = true; return renderQuiz(stage); }
+  const cur = qs[q.current];
+  const answered = q.answers[q.current] !== undefined;
+  const chosen = q.answers[q.current];
+  const dots = qs.map((_,i)=>'<div class="quiz-dot '+(i<q.current?'done':(i===q.current?'current':''))+(q.answers[i]!==undefined&&q.answers[i]!==qs[i].ans&&i<q.current?' wrong':'')+'"></div>').join('');
+  const choices = cur.choices.map((c,ci)=>{
+    let cls='';
+    if(answered){ if(ci===cur.ans) cls='correct'; else if(ci===chosen) cls='wrong'; }
+    return '<button class="choice-btn '+cls+'" onclick="answerQuiz('+ci+')" '+(answered?'disabled':'')+'>'+c+'</button>';
+  }).join('');
+  const feedback = answered?'<div class="quiz-feedback '+(chosen===cur.ans?'':'wrong-fb')+'">'+(chosen===cur.ans?'✅ 正解！':'❌ 不正解。')+cur.exp+'</div>':'';
+  const nextBtn = answered?'<button class="btn-next-q" onclick="nextQuizQ()">次の問題 →</button>':'';
+  return '<div class="quiz-progress">'+dots+'</div>'+
+    '<div class="quiz-q"><div class="quiz-q-num">問題 '+(q.current+1)+' / '+qs.length+'</div>'+
+    '<div class="quiz-q-text" style="white-space:pre-wrap">'+cur.q+'</div></div>'+
+    '<div class="quiz-choices">'+choices+'</div>'+feedback+nextBtn;
+}
+
+function answerQuiz(choice){
+  if(quizState.answers[quizState.current]!==undefined) return;
+  quizState.answers[quizState.current]=choice;
+  document.getElementById('tabContent').innerHTML=renderQuiz(currentStage);
+}
+
+function nextQuizQ(){
+  quizState.current++;
+  document.getElementById('tabContent').innerHTML=renderQuiz(currentStage);
+}
+
+function restartQuiz(){
+  quizState={current:0,answers:[],done:false};
+  document.getElementById('tabContent').innerHTML=renderQuiz(currentStage);
+}
+
+function completeStage(){
+  const qs = currentStage.quiz;
+  const score = quizState.answers.filter((a,i)=>a===qs[i].ans).length;
+  const pct = Math.round(score/qs.length*100);
+  const stars = pct===100?3:pct>=75?2:1;
+  const prev = getStageProgress(currentStage.id);
+  progress[currentStage.id]={completed:true,stars:Math.max(stars,prev.stars||0),quizScore:pct};
+  saveProgress();
+  const allStages = STAGES.flatMap(g=>g.items);
+  const idx = allStages.findIndex(s=>s.id===currentStage.id);
+  const next = allStages[idx+1];
+  const toast = document.getElementById('unlockToast');
+  if(next){
+    document.getElementById('unlockMsg').textContent = '「'+next.title+'」が解放されました！';
+  } else {
+    document.getElementById('unlockMsg').textContent = '全ステージ制覇！おめでとう！';
+  }
+  toast.classList.add('show');
+  setTimeout(()=>{ toast.classList.remove('show'); goBack(); }, 2200);
+}
+
+renderMap();
+</script>
+
+
+</body></html>
