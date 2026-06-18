@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///C:/Users/masaki/Downloads/english_up_vocab.html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英語UP 単語帳 - 中1〜高3</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f1035;--bg2:#1a1f4e;--bg3:#242a60;
+  --yellow:#f5d300;--mint:#00d4a1;--coral:#ff4757;--orange:#ff9f43;
+  --text:#e8eaf6;--text2:#9fa8da;--text3:#5c6bc0;
+  --card:#1e2454;--card2:#252b5c;
+  --r:12px;--rs:8px;
+}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* ── NAV ── */
+.nav{background:var(--bg2);border-bottom:1px solid var(--bg3);padding:10px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:200}
+.nav-logo{font-size:17px;font-weight:700;color:var(--yellow)}
+.nav-logo span{color:var(--mint)}
+.nav-progress{flex:1;display:flex;align-items:center;gap:8px}
+.npb{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.npb-fill{height:100%;background:linear-gradient(90deg,var(--mint),var(--yellow));border-radius:3px;transition:width .5s}
+.npct{font-size:11px;color:var(--mint);font-weight:700;min-width:32px}
+.btn-back{display:none;background:transparent;border:1px solid var(--bg3);color:var(--text2);padding:5px 12px;border-radius:var(--rs);cursor:pointer;font-size:12px}
+.btn-back:hover{border-color:var(--mint);color:var(--mint)}
+
+/* ── SCREENS ── */
+.screen{display:none;padding:16px;max-width:820px;margin:0 auto}
+.screen.active{display:block}
+
+/* ── HOME MAP ── */
+.map-title{text-align:center;margin-bottom:20px}
+.map-title h2{font-size:22px;color:var(--yellow)}
+.map-title p{font-size:13px;color:var(--text2);margin-top:4px}
+.grade-block{margin-bottom:24px}
+.grade-hd{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.grade-dot{width:10px;height:10px;border-radius:50%}
+.grade-lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.grade-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.grade-card{background:var(--card);border:1px solid var(--bg3);border-radius:var(--r);padding:14px;cursor:pointer;transition:all .2s;position:relative}
+.grade-card:hover{transform:translateY(-2px)}
+.gc-words{font-size:11px;color:var(--text3);margin-bottom:6px}
+.gc-title{font-size:14px;font-weight:600}
+.gc-bar-bg{margin-top:10px;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.gc-bar-fill{height:100%;border-radius:2px;transition:width .4s}
+.gc-pct{font-size:10px;margin-top:4px;color:var(--text3)}
+.gc-mode-row{display:flex;gap:6px;margin-top:10px}
+.gc-mode-btn{flex:1;font-size:11px;padding:5px 0;border-radius:6px;border:1px solid var(--bg3);background:var(--bg2);color:var(--text2);cursor:pointer;transition:all .2s;text-align:center}
+.gc-mode-btn:hover{border-color:var(--mint);color:var(--mint)}
+
+/* ── FLASH CARD ── */
+.fc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.fc-info{font-size:12px;color:var(--text2)}
+.fc-grade-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;color:#fff}
+.fc-progress{display:flex;gap:4px;margin-bottom:16px;flex-wrap:wrap}
+.fc-dot{width:9px;height:9px;border-radius:50%;background:var(--bg3);flex-shrink:0}
+.fc-dot.seen{background:var(--text3)}
+.fc-dot.ok{background:var(--mint)}
+.fc-dot.ng{background:var(--coral)}
+.fc-dot.cur{background:var(--yellow)}
+
+/* card flip */
+.card-wrap{perspective:1000px;margin-bottom:16px;cursor:pointer}
+.card-inner{position:relative;width:100%;height:220px;transition:transform .45s;transform-style:preserve-3d}
+.card-inner.flipped{transform:rotateY(180deg)}
+.card-face{position:absolute;inset:0;border-radius:var(--r);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.card-front{background:var(--card);border:1px solid var(--bg3)}
+.card-back{background:var(--card2);border:1px solid var(--bg3);transform:rotateY(180deg)}
+.card-en{font-size:28px;font-weight:700;color:var(--yellow);text-align:center;margin-bottom:8px}
+.card-hint{font-size:12px;color:var(--text3)}
+.card-ja{font-size:22px;font-weight:600;color:var(--mint);text-align:center;margin-bottom:10px}
+.card-ex{font-size:12px;color:var(--text2);text-align:center;line-height:1.6;font-style:italic}
+.tap-hint{font-size:11px;color:var(--text3);margin-top:12px}
+
+.fc-btns{display:flex;gap:10px;margin-top:4px}
+.fc-btn{flex:1;padding:12px;border-radius:var(--rs);border:none;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.fc-btn-ok{background:rgba(0,212,161,.15);color:var(--mint);border:1.5px solid var(--mint)}
+.fc-btn-ok:hover{background:rgba(0,212,161,.3)}
+.fc-btn-ng{background:rgba(255,71,87,.15);color:var(--coral);border:1.5px solid var(--coral)}
+.fc-btn-ng:hover{background:rgba(255,71,87,.3)}
+.fc-btn-skip{background:var(--card2);color:var(--text2);border:1px solid var(--bg3);font-size:12px;flex:0 0 80px;font-weight:400}
+
+/* ── QUIZ ── */
+.qz-header{margin-bottom:16px}
+.qz-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px}
+.qz-sub{font-size:12px;color:var(--text2)}
+.qz-dots{display:flex;gap:5px;margin-bottom:16px;flex-wrap:wrap}
+.qz-dot{width:9px;height:9px;border-radius:50%;background:var(--bg3)}
+.qz-dot.done-ok{background:var(--mint)}
+.qz-dot.done-ng{background:var(--coral)}
+.qz-dot.cur{background:var(--yellow)}
+.qz-card{background:var(--card);border-radius:var(--r);padding:18px;margin-bottom:14px}
+.qz-num{font-size:11px;color:var(--text3);margin-bottom:6px}
+.qz-q{font-size:18px;font-weight:700;color:var(--yellow)}
+.qz-choices{display:flex;flex-direction:column;gap:8px}
+.qz-choice{background:var(--card2);border:1px solid var(--bg3);border-radius:var(--rs);padding:11px 15px;text-align:left;cursor:pointer;font-size:13px;color:var(--text);transition:all .2s}
+.qz-choice:hover:not(:disabled){border-color:var(--mint);color:var(--mint)}
+.qz-choice.qc-ok{background:rgba(0,212,161,.15);border-color:var(--mint);color:var(--mint)}
+.qz-choice.qc-ng{background:rgba(255,71,87,.15);border-color:var(--coral);color:var(--coral)}
+.qz-choice:disabled{cursor:default}
+.qz-feedback{background:var(--card2);border-radius:var(--rs);padding:12px;margin-top:10px;font-size:13px;color:var(--text2);border-left:3px solid var(--mint);line-height:1.6}
+.qz-feedback.fb-ng{border-left-color:var(--coral)}
+.btn-next{margin-top:10px;background:var(--yellow);color:#000;border:none;border-radius:var(--rs);padding:9px 20px;font-weight:700;font-size:13px;cursor:pointer}
+.btn-next:hover{opacity:.85}
+
+/* ── RESULT ── */
+.result-wrap{text-align:center;padding:32px 16px}
+.result-circle{width:110px;height:110px;border-radius:50%;background:var(--card);border:4px solid var(--mint);margin:0 auto 16px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.result-circle.fail{border-color:var(--coral)}
+.result-score{font-size:32px;font-weight:700;color:var(--mint)}
+.result-circle.fail .result-score{color:var(--coral)}
+.result-lbl{font-size:10px;color:var(--text2)}
+.result-msg{font-size:18px;font-weight:700;margin-bottom:6px}
+.result-sub{font-size:13px;color:var(--text2);margin-bottom:20px}
+.result-wrong-list{background:var(--card);border-radius:var(--r);padding:14px;margin-bottom:20px;text-align:left;max-height:200px;overflow-y:auto}
+.result-wrong-list h4{font-size:12px;color:var(--coral);margin-bottom:8px}
+.wrong-word{font-size:13px;padding:4px 0;border-bottom:1px solid var(--bg3);display:flex;gap:12px}
+.wrong-word:last-child{border:none}
+.ww-en{color:var(--yellow);font-weight:600;min-width:100px}
+.ww-ja{color:var(--text2)}
+.rbtn{background:var(--yellow);color:#000;border:none;border-radius:var(--rs);padding:10px 24px;font-weight:700;font-size:13px;cursor:pointer;margin:5px}
+.rbtn.sec{background:var(--card);color:var(--text);border:1px solid var(--bg3)}
+
+/* ── TOAST ── */
+@keyframes pop{0%{transform:translate(-50%,-50%) scale(.5);opacity:0}60%{transform:translate(-50%,-50%) scale(1.1)}100%{transform:translate(-50%,-50%) scale(1);opacity:1}}
+.toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--card);border:2px solid var(--mint);border-radius:var(--r);padding:20px 28px;text-align:center;z-index:999;display:none}
+.toast.show{display:block;animation:pop .4s ease}
+.toast h3{color:var(--mint);margin-bottom:4px}
+.toast p{font-size:12px;color:var(--text2)}
+
+/* scrollbar */
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-logo">英語<span>UP</span> 単語帳</div>
+  <div class="nav-progress">
+    <div class="npb"><div class="npb-fill" id="navBar" style="width:0%"></div></div>
+    <div class="npct" id="navPct">0%</div>
+  </div>
+  <button class="btn-back" id="btnBack" onclick="goHome()">← 一覧へ</button>
+</nav>
+
+<div class="screen active" id="screenHome">
+  <div class="map-title">
+    <h2>単語帳 中1〜高3</h2>
+    <p>覚えていない単語は何度でも出題！600語完全マスターを目指せ</p>
+  </div>
+  <div id="gradeMap"><div class="grade-block">
+      <div class="grade-hd">
+        <div class="grade-dot" style="background:#4fc3f7"></div>
+        <div class="grade-lbl" style="color:#4fc3f7">中学1年</div>
+      </div>
+      <div class="grade-cards">
+        <div class="grade-card" style="border-color:#4fc3f733">
+          <div class="gc-words">102語収録</div>
+          <div class="gc-title">中学1年 単語帳</div>
+          <div class="gc-bar-bg"><div class="gc-bar-fill" style="width:0%;background:#4fc3f7"></div></div>
+          <div class="gc-pct">0/102語 習得 (0%)</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlash(&#39;g1&#39;)">📖 暗記</div>
+            <div class="gc-mode-btn" onclick="startQuiz(&#39;g1&#39;)">✏️ テスト</div>
+          </div>
+        </div>
+        <div class="grade-card" style="border-color:#ff475733;cursor:default">
+          <div class="gc-words" style="color:var(--coral)">要復習</div>
+          <div class="gc-title">未習得単語</div>
+          <div style="font-size:24px;font-weight:700;color:var(--coral);margin:8px 0">102語</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlashWeak(&#39;g1&#39;)" style="">🔁 弱点のみ</div>
+            <div class="gc-mode-btn" onclick="startQuizWeak(&#39;g1&#39;)" style="">🎯 弱点テスト</div>
+          </div>
+        </div>
+      </div></div><div class="grade-block">
+      <div class="grade-hd">
+        <div class="grade-dot" style="background:#81c784"></div>
+        <div class="grade-lbl" style="color:#81c784">中学2年</div>
+      </div>
+      <div class="grade-cards">
+        <div class="grade-card" style="border-color:#81c78433">
+          <div class="gc-words">99語収録</div>
+          <div class="gc-title">中学2年 単語帳</div>
+          <div class="gc-bar-bg"><div class="gc-bar-fill" style="width:0%;background:#81c784"></div></div>
+          <div class="gc-pct">0/99語 習得 (0%)</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlash(&#39;g2&#39;)">📖 暗記</div>
+            <div class="gc-mode-btn" onclick="startQuiz(&#39;g2&#39;)">✏️ テスト</div>
+          </div>
+        </div>
+        <div class="grade-card" style="border-color:#ff475733;cursor:default">
+          <div class="gc-words" style="color:var(--coral)">要復習</div>
+          <div class="gc-title">未習得単語</div>
+          <div style="font-size:24px;font-weight:700;color:var(--coral);margin:8px 0">99語</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlashWeak(&#39;g2&#39;)" style="">🔁 弱点のみ</div>
+            <div class="gc-mode-btn" onclick="startQuizWeak(&#39;g2&#39;)" style="">🎯 弱点テスト</div>
+          </div>
+        </div>
+      </div></div><div class="grade-block">
+      <div class="grade-hd">
+        <div class="grade-dot" style="background:#ffb74d"></div>
+        <div class="grade-lbl" style="color:#ffb74d">中学3年</div>
+      </div>
+      <div class="grade-cards">
+        <div class="grade-card" style="border-color:#ffb74d33">
+          <div class="gc-words">97語収録</div>
+          <div class="gc-title">中学3年 単語帳</div>
+          <div class="gc-bar-bg"><div class="gc-bar-fill" style="width:0%;background:#ffb74d"></div></div>
+          <div class="gc-pct">0/97語 習得 (0%)</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlash(&#39;g3&#39;)">📖 暗記</div>
+            <div class="gc-mode-btn" onclick="startQuiz(&#39;g3&#39;)">✏️ テスト</div>
+          </div>
+        </div>
+        <div class="grade-card" style="border-color:#ff475733;cursor:default">
+          <div class="gc-words" style="color:var(--coral)">要復習</div>
+          <div class="gc-title">未習得単語</div>
+          <div style="font-size:24px;font-weight:700;color:var(--coral);margin:8px 0">97語</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlashWeak(&#39;g3&#39;)" style="">🔁 弱点のみ</div>
+            <div class="gc-mode-btn" onclick="startQuizWeak(&#39;g3&#39;)" style="">🎯 弱点テスト</div>
+          </div>
+        </div>
+      </div></div><div class="grade-block">
+      <div class="grade-hd">
+        <div class="grade-dot" style="background:#f06292"></div>
+        <div class="grade-lbl" style="color:#f06292">高校1年</div>
+      </div>
+      <div class="grade-cards">
+        <div class="grade-card" style="border-color:#f0629233">
+          <div class="gc-words">101語収録</div>
+          <div class="gc-title">高校1年 単語帳</div>
+          <div class="gc-bar-bg"><div class="gc-bar-fill" style="width:0%;background:#f06292"></div></div>
+          <div class="gc-pct">0/101語 習得 (0%)</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlash(&#39;h1&#39;)">📖 暗記</div>
+            <div class="gc-mode-btn" onclick="startQuiz(&#39;h1&#39;)">✏️ テスト</div>
+          </div>
+        </div>
+        <div class="grade-card" style="border-color:#ff475733;cursor:default">
+          <div class="gc-words" style="color:var(--coral)">要復習</div>
+          <div class="gc-title">未習得単語</div>
+          <div style="font-size:24px;font-weight:700;color:var(--coral);margin:8px 0">101語</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlashWeak(&#39;h1&#39;)" style="">🔁 弱点のみ</div>
+            <div class="gc-mode-btn" onclick="startQuizWeak(&#39;h1&#39;)" style="">🎯 弱点テスト</div>
+          </div>
+        </div>
+      </div></div><div class="grade-block">
+      <div class="grade-hd">
+        <div class="grade-dot" style="background:#ba68c8"></div>
+        <div class="grade-lbl" style="color:#ba68c8">高校2年</div>
+      </div>
+      <div class="grade-cards">
+        <div class="grade-card" style="border-color:#ba68c833">
+          <div class="gc-words">101語収録</div>
+          <div class="gc-title">高校2年 単語帳</div>
+          <div class="gc-bar-bg"><div class="gc-bar-fill" style="width:0%;background:#ba68c8"></div></div>
+          <div class="gc-pct">0/101語 習得 (0%)</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlash(&#39;h2&#39;)">📖 暗記</div>
+            <div class="gc-mode-btn" onclick="startQuiz(&#39;h2&#39;)">✏️ テスト</div>
+          </div>
+        </div>
+        <div class="grade-card" style="border-color:#ff475733;cursor:default">
+          <div class="gc-words" style="color:var(--coral)">要復習</div>
+          <div class="gc-title">未習得単語</div>
+          <div style="font-size:24px;font-weight:700;color:var(--coral);margin:8px 0">101語</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlashWeak(&#39;h2&#39;)" style="">🔁 弱点のみ</div>
+            <div class="gc-mode-btn" onclick="startQuizWeak(&#39;h2&#39;)" style="">🎯 弱点テスト</div>
+          </div>
+        </div>
+      </div></div><div class="grade-block">
+      <div class="grade-hd">
+        <div class="grade-dot" style="background:#ef5350"></div>
+        <div class="grade-lbl" style="color:#ef5350">高校3年・受験</div>
+      </div>
+      <div class="grade-cards">
+        <div class="grade-card" style="border-color:#ef535033">
+          <div class="gc-words">101語収録</div>
+          <div class="gc-title">高校3年・受験 単語帳</div>
+          <div class="gc-bar-bg"><div class="gc-bar-fill" style="width:0%;background:#ef5350"></div></div>
+          <div class="gc-pct">0/101語 習得 (0%)</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlash(&#39;h3&#39;)">📖 暗記</div>
+            <div class="gc-mode-btn" onclick="startQuiz(&#39;h3&#39;)">✏️ テスト</div>
+          </div>
+        </div>
+        <div class="grade-card" style="border-color:#ff475733;cursor:default">
+          <div class="gc-words" style="color:var(--coral)">要復習</div>
+          <div class="gc-title">未習得単語</div>
+          <div style="font-size:24px;font-weight:700;color:var(--coral);margin:8px 0">101語</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlashWeak(&#39;h3&#39;)" style="">🔁 弱点のみ</div>
+            <div class="gc-mode-btn" onclick="startQuizWeak(&#39;h3&#39;)" style="">🎯 弱点テスト</div>
+          </div>
+        </div>
+      </div></div></div>
+</div>
+
+<div class="screen" id="screenFlash">
+  <div class="fc-header">
+    <span class="fc-grade-badge" id="fcBadge">中学1年</span>
+    <span class="fc-info" id="fcInfo">0 / 0</span>
+  </div>
+  <div class="fc-progress" id="fcProgress"></div>
+  <div class="card-wrap" id="cardWrap" onclick="flipCard()">
+    <div class="card-inner" id="cardInner">
+      <div class="card-face card-front">
+        <div class="card-en" id="cardEn">word</div>
+        <div class="tap-hint">タップして意味を見る</div>
+      </div>
+      <div class="card-face card-back">
+        <div class="card-ja" id="cardJa">意味</div>
+        <div class="card-ex" id="cardEx">例文</div>
+      </div>
+    </div>
+  </div>
+  <div id="fcActions"></div>
+</div>
+
+<div class="screen" id="screenQuiz">
+  <div class="qz-header">
+    <div class="qz-title" id="qzTitle">小テスト</div>
+    <div class="qz-sub" id="qzSub"></div>
+  </div>
+  <div class="qz-dots" id="qzDots"></div>
+  <div id="qzContent"></div>
+</div>
+
+<div class="toast" id="toast">
+  <div style="font-size:26px;margin-bottom:6px">🎉</div>
+  <h3 id="toastTitle">クリア！</h3>
+  <p id="toastMsg"></p>
+</div>
+
+<script>
+const GRADES = {"g1": {"label": "中学1年", "color": "#4fc3f7", "accent": "#0288d1", "words": [{"en": "hello", "ja": "こんにちは", "ex": "Hello, I'm Yuki."}, {"en": "goodbye", "ja": "さようなら", "ex": "Goodbye! See you tomorrow."}, {"en": "thank you", "ja": "ありがとう", "ex": "Thank you very much."}, {"en": "please", "ja": "どうか・お願いします", "ex": "Please help me."}, {"en": "sorry", "ja": "ごめんなさい", "ex": "I'm sorry for being late."}, {"en": "name", "ja": "名前", "ex": "My name is Kenji."}, {"en": "friend", "ja": "友達", "ex": "She is my best friend."}, {"en": "school", "ja": "学校", "ex": "I go to school every day."}, {"en": "teacher", "ja": "先生", "ex": "My teacher is very kind."}, {"en": "student", "ja": "生徒", "ex": "I am a junior high school student."}, {"en": "today", "ja": "今日", "ex": "Today is Monday."}, {"en": "yesterday", "ja": "昨日", "ex": "Yesterday was Sunday."}, {"en": "tomorrow", "ja": "明日", "ex": "Tomorrow is my birthday."}, {"en": "morning", "ja": "朝", "ex": "I run every morning."}, {"en": "afternoon", "ja": "午後", "ex": "We have PE in the afternoon."}, {"en": "evening", "ja": "夜・夕方", "ex": "I study in the evening."}, {"en": "year", "ja": "年", "ex": "This year is 2024."}, {"en": "month", "ja": "月", "ex": "April is the fourth month."}, {"en": "week", "ja": "週", "ex": "I practice tennis twice a week."}, {"en": "time", "ja": "時間", "ex": "What time is it now?"}, {"en": "home", "ja": "家", "ex": "I stay home on weekends."}, {"en": "park", "ja": "公園", "ex": "Children play in the park."}, {"en": "library", "ja": "図書館", "ex": "I borrow books from the library."}, {"en": "hospital", "ja": "病院", "ex": "My mother works at a hospital."}, {"en": "station", "ja": "駅", "ex": "The station is near my house."}, {"en": "city", "ja": "都市・市", "ex": "I live in a big city."}, {"en": "town", "ja": "町", "ex": "This is a small town."}, {"en": "country", "ja": "国", "ex": "Japan is a beautiful country."}, {"en": "sea", "ja": "海", "ex": "We swam in the sea."}, {"en": "mountain", "ja": "山", "ex": "Mt. Fuji is a famous mountain."}, {"en": "go", "ja": "行く", "ex": "I go to school by bike."}, {"en": "come", "ja": "来る", "ex": "Please come here."}, {"en": "eat", "ja": "食べる", "ex": "I eat breakfast every morning."}, {"en": "drink", "ja": "飲む", "ex": "She drinks milk every day."}, {"en": "study", "ja": "勉強する", "ex": "I study English at home."}, {"en": "play", "ja": "遊ぶ・演奏する", "ex": "I play soccer with my friends."}, {"en": "run", "ja": "走る", "ex": "He runs very fast."}, {"en": "walk", "ja": "歩く", "ex": "We walk to school together."}, {"en": "read", "ja": "読む", "ex": "I read books before bed."}, {"en": "write", "ja": "書く", "ex": "Please write your name here."}, {"en": "listen", "ja": "聞く", "ex": "I listen to music every day."}, {"en": "speak", "ja": "話す", "ex": "Can you speak English?"}, {"en": "watch", "ja": "見る（じっと）", "ex": "I watch TV after dinner."}, {"en": "look", "ja": "見る（目を向ける）", "ex": "Look at this picture."}, {"en": "sleep", "ja": "眠る", "ex": "I sleep for eight hours."}, {"en": "like", "ja": "好きだ", "ex": "I like cats very much."}, {"en": "love", "ja": "愛する・大好き", "ex": "I love Japanese food."}, {"en": "know", "ja": "知っている", "ex": "Do you know her name?"}, {"en": "think", "ja": "思う", "ex": "I think English is fun."}, {"en": "want", "ja": "欲しい・したい", "ex": "I want a new bike."}, {"en": "big", "ja": "大きい", "ex": "This is a big dog."}, {"en": "small", "ja": "小さい", "ex": "She has a small bag."}, {"en": "long", "ja": "長い", "ex": "This river is very long."}, {"en": "short", "ja": "短い", "ex": "His hair is short."}, {"en": "fast", "ja": "速い", "ex": "He is a fast runner."}, {"en": "slow", "ja": "遅い", "ex": "The turtle is slow."}, {"en": "hot", "ja": "暑い・熱い", "ex": "Today is very hot."}, {"en": "cold", "ja": "寒い・冷たい", "ex": "This water is cold."}, {"en": "new", "ja": "新しい", "ex": "I have a new bag."}, {"en": "old", "ja": "古い・年をとった", "ex": "This is an old temple."}, {"en": "good", "ja": "よい", "ex": "She is a good singer."}, {"en": "bad", "ja": "悪い", "ex": "This is a bad habit."}, {"en": "happy", "ja": "幸せな", "ex": "I am happy today."}, {"en": "sad", "ja": "悲しい", "ex": "He looks sad."}, {"en": "cute", "ja": "かわいい", "ex": "That cat is cute."}, {"en": "kind", "ja": "親切な", "ex": "My teacher is very kind."}, {"en": "busy", "ja": "忙しい", "ex": "My father is very busy."}, {"en": "tired", "ja": "疲れた", "ex": "I am tired today."}, {"en": "hungry", "ja": "空腹な", "ex": "I'm hungry. Let's eat."}, {"en": "beautiful", "ja": "美しい", "ex": "The sunset is beautiful."}, {"en": "food", "ja": "食べ物", "ex": "Japanese food is delicious."}, {"en": "water", "ja": "水", "ex": "Drink more water."}, {"en": "rice", "ja": "ご飯・米", "ex": "I eat rice every day."}, {"en": "bread", "ja": "パン", "ex": "I have bread for breakfast."}, {"en": "fruit", "ja": "果物", "ex": "I like fruit very much."}, {"en": "book", "ja": "本", "ex": "I have many books."}, {"en": "bag", "ja": "かばん", "ex": "She has a red bag."}, {"en": "door", "ja": "ドア", "ex": "Please open the door."}, {"en": "window", "ja": "窓", "ex": "Open the window, please."}, {"en": "desk", "ja": "机", "ex": "My books are on the desk."}, {"en": "chair", "ja": "椅子", "ex": "Please sit on the chair."}, {"en": "pen", "ja": "ペン", "ex": "I write with a pen."}, {"en": "picture", "ja": "絵・写真", "ex": "This is a picture of my family."}, {"en": "family", "ja": "家族", "ex": "I love my family."}, {"en": "father", "ja": "父", "ex": "My father is a doctor."}, {"en": "mother", "ja": "母", "ex": "My mother cooks well."}, {"en": "brother", "ja": "兄・弟", "ex": "I have one brother."}, {"en": "sister", "ja": "姉・妹", "ex": "My sister is ten years old."}, {"en": "boy", "ja": "男の子", "ex": "That boy is my friend."}, {"en": "girl", "ja": "女の子", "ex": "She is a cheerful girl."}, {"en": "man", "ja": "男性", "ex": "That man is a teacher."}, {"en": "woman", "ja": "女性", "ex": "That woman is my aunt."}, {"en": "child", "ja": "子ども", "ex": "The child is playing."}, {"en": "dog", "ja": "犬", "ex": "I have a dog named Koro."}, {"en": "cat", "ja": "猫", "ex": "My cat is white."}, {"en": "bird", "ja": "鳥", "ex": "A bird is singing."}, {"en": "flower", "ja": "花", "ex": "She likes flowers."}, {"en": "music", "ja": "音楽", "ex": "I enjoy listening to music."}, {"en": "sport", "ja": "スポーツ", "ex": "My favorite sport is tennis."}, {"en": "game", "ja": "ゲーム", "ex": "Do you like video games?"}, {"en": "movie", "ja": "映画", "ex": "I watched a great movie."}, {"en": "dream", "ja": "夢", "ex": "My dream is to be a doctor."}]}, "g2": {"label": "中学2年", "color": "#81c784", "accent": "#2e7d32", "words": [{"en": "idea", "ja": "考え・アイデア", "ex": "That's a good idea!"}, {"en": "answer", "ja": "答える・答え", "ex": "Please answer the question."}, {"en": "question", "ja": "質問", "ex": "Do you have any questions?"}, {"en": "reason", "ja": "理由", "ex": "What is the reason?"}, {"en": "plan", "ja": "計画", "ex": "What is your plan?"}, {"en": "problem", "ja": "問題", "ex": "We have a big problem."}, {"en": "result", "ja": "結果", "ex": "What was the result?"}, {"en": "news", "ja": "ニュース", "ex": "Did you watch the news?"}, {"en": "story", "ja": "話・物語", "ex": "Tell me your story."}, {"en": "history", "ja": "歴史", "ex": "I like history class."}, {"en": "culture", "ja": "文化", "ex": "Japanese culture is unique."}, {"en": "environment", "ja": "環境", "ex": "We must protect the environment."}, {"en": "health", "ja": "健康", "ex": "Sleep is important for health."}, {"en": "energy", "ja": "エネルギー", "ex": "We need more energy."}, {"en": "become", "ja": "〜になる", "ex": "I want to become a doctor."}, {"en": "show", "ja": "見せる・番組", "ex": "Show me your homework."}, {"en": "tell", "ja": "伝える・話す", "ex": "Tell me your name."}, {"en": "ask", "ja": "尋ねる", "ex": "May I ask you a question?"}, {"en": "give", "ja": "与える", "ex": "Please give me some water."}, {"en": "take", "ja": "取る・持っていく", "ex": "Take this umbrella with you."}, {"en": "make", "ja": "作る", "ex": "I can make sushi."}, {"en": "help", "ja": "助ける", "ex": "Can you help me?"}, {"en": "need", "ja": "必要とする", "ex": "I need your help."}, {"en": "try", "ja": "試みる", "ex": "Try your best!"}, {"en": "hope", "ja": "望む・希望", "ex": "I hope you feel better."}, {"en": "believe", "ja": "信じる", "ex": "I believe in you."}, {"en": "learn", "ja": "学ぶ", "ex": "I want to learn more English."}, {"en": "teach", "ja": "教える", "ex": "She teaches math."}, {"en": "change", "ja": "変える・変わる", "ex": "Things change over time."}, {"en": "use", "ja": "使う", "ex": "I use a computer every day."}, {"en": "start", "ja": "始める", "ex": "Let's start the lesson."}, {"en": "finish", "ja": "終える", "ex": "I finished my homework."}, {"en": "stop", "ja": "止まる・やめる", "ex": "Please stop talking."}, {"en": "continue", "ja": "続ける", "ex": "Please continue reading."}, {"en": "important", "ja": "重要な", "ex": "Exercise is important."}, {"en": "difficult", "ja": "難しい", "ex": "Math is difficult for me."}, {"en": "easy", "ja": "簡単な", "ex": "This question is easy."}, {"en": "interesting", "ja": "面白い", "ex": "This book is interesting."}, {"en": "popular", "ja": "人気のある", "ex": "Soccer is popular in Japan."}, {"en": "famous", "ja": "有名な", "ex": "She is a famous singer."}, {"en": "different", "ja": "異なる", "ex": "We have different opinions."}, {"en": "same", "ja": "同じ", "ex": "We have the same hobby."}, {"en": "special", "ja": "特別な", "ex": "Today is a special day."}, {"en": "free", "ja": "自由な・無料の", "ex": "Are you free tomorrow?"}, {"en": "always", "ja": "いつも", "ex": "She always smiles."}, {"en": "sometimes", "ja": "ときどき", "ex": "I sometimes eat sushi."}, {"en": "never", "ja": "決して〜ない", "ex": "I never give up."}, {"en": "already", "ja": "すでに", "ex": "I have already eaten."}, {"en": "still", "ja": "まだ・今も", "ex": "She is still studying."}, {"en": "again", "ja": "再び", "ex": "Please say that again."}, {"en": "abroad", "ja": "海外に", "ex": "I want to study abroad."}, {"en": "volunteer", "ja": "ボランティア", "ex": "I do volunteer work."}, {"en": "recycle", "ja": "リサイクルする", "ex": "We should recycle more."}, {"en": "protect", "ja": "守る", "ex": "We must protect nature."}, {"en": "reduce", "ja": "減らす", "ex": "Let's reduce plastic use."}, {"en": "understand", "ja": "理解する", "ex": "Do you understand me?"}, {"en": "introduce", "ja": "紹介する", "ex": "Let me introduce my friend."}, {"en": "practice", "ja": "練習する", "ex": "I practice piano every day."}, {"en": "experience", "ja": "経験", "ex": "Travel gives you experience."}, {"en": "event", "ja": "行事・イベント", "ex": "We have a school event."}, {"en": "contest", "ja": "コンテスト", "ex": "She won the speech contest."}, {"en": "member", "ja": "メンバー", "ex": "I am a member of the team."}, {"en": "leader", "ja": "リーダー", "ex": "She is our team leader."}, {"en": "team", "ja": "チーム", "ex": "We are on the same team."}, {"en": "match", "ja": "試合", "ex": "We won the match."}, {"en": "rule", "ja": "ルール", "ex": "Follow the rules."}, {"en": "trip", "ja": "旅行", "ex": "I went on a trip to Kyoto."}, {"en": "information", "ja": "情報", "ex": "I need more information."}, {"en": "internet", "ja": "インターネット", "ex": "I use the internet every day."}, {"en": "computer", "ja": "コンピュータ", "ex": "I learned to use a computer."}, {"en": "phone", "ja": "電話", "ex": "My phone is broken."}, {"en": "science", "ja": "科学", "ex": "I like science class."}, {"en": "technology", "ja": "技術・テクノロジー", "ex": "Technology is advancing."}, {"en": "nature", "ja": "自然", "ex": "I love nature."}, {"en": "animal", "ja": "動物", "ex": "My favorite animal is the dolphin."}, {"en": "earth", "ja": "地球・土", "ex": "We must protect the earth."}, {"en": "air", "ja": "空気", "ex": "The air here is clean."}, {"en": "weather", "ja": "天気", "ex": "The weather is nice today."}, {"en": "season", "ja": "季節", "ex": "My favorite season is spring."}, {"en": "spring", "ja": "春", "ex": "Spring is warm and beautiful."}, {"en": "summer", "ja": "夏", "ex": "I love summer vacation."}, {"en": "autumn", "ja": "秋", "ex": "Autumn leaves are red."}, {"en": "winter", "ja": "冬", "ex": "Winter is cold."}, {"en": "message", "ja": "メッセージ", "ex": "Please leave a message."}, {"en": "chance", "ja": "チャンス・機会", "ex": "This is a great chance."}, {"en": "map", "ja": "地図", "ex": "Can I see the map?"}, {"en": "place", "ja": "場所", "ex": "This is a nice place."}, {"en": "communicate", "ja": "コミュニケーションする", "ex": "It's important to communicate."}, {"en": "society", "ja": "社会", "ex": "Technology changes society."}, {"en": "power", "ja": "力・電力", "ex": "The power went out."}, {"en": "early", "ja": "早い", "ex": "I wake up early."}, {"en": "late", "ja": "遅い・遅れた", "ex": "Don't be late for school."}, {"en": "together", "ja": "一緒に", "ex": "Let's study together."}, {"en": "next", "ja": "次の", "ex": "Next week is my birthday."}, {"en": "last", "ja": "最後の・前回の", "ex": "Last night I studied hard."}, {"en": "point", "ja": "点・ポイント", "ex": "We need one more point."}, {"en": "example", "ja": "例", "ex": "For example, dogs and cats."}, {"en": "plant", "ja": "植物", "ex": "I have many plants at home."}, {"en": "vegetable", "ja": "野菜", "ex": "Eat more vegetables."}]}, "g3": {"label": "中学3年", "color": "#ffb74d", "accent": "#e65100", "words": [{"en": "achieve", "ja": "達成する", "ex": "She achieved her goal."}, {"en": "affect", "ja": "影響する", "ex": "Stress can affect your health."}, {"en": "allow", "ja": "許可する", "ex": "My parents allow me to stay up late."}, {"en": "appear", "ja": "現れる", "ex": "A rainbow appeared."}, {"en": "avoid", "ja": "避ける", "ex": "Avoid eating too much sugar."}, {"en": "connect", "ja": "つなぐ", "ex": "Connect your phone to wifi."}, {"en": "consider", "ja": "考慮する", "ex": "Consider all the options."}, {"en": "create", "ja": "作る・創造する", "ex": "She created a new app."}, {"en": "decide", "ja": "決める", "ex": "I decided to study harder."}, {"en": "describe", "ja": "描写する", "ex": "Describe your hometown."}, {"en": "develop", "ja": "発展する・開発する", "ex": "The town developed quickly."}, {"en": "discuss", "ja": "議論する", "ex": "Let's discuss this problem."}, {"en": "discover", "ja": "発見する", "ex": "He discovered a new star."}, {"en": "enjoy", "ja": "楽しむ", "ex": "I enjoy reading novels."}, {"en": "explain", "ja": "説明する", "ex": "Please explain the reason."}, {"en": "express", "ja": "表現する", "ex": "Express your opinion clearly."}, {"en": "fail", "ja": "失敗する", "ex": "Don't be afraid to fail."}, {"en": "gather", "ja": "集める・集まる", "ex": "Friends gathered at the park."}, {"en": "happen", "ja": "起こる", "ex": "What happened yesterday?"}, {"en": "imagine", "ja": "想像する", "ex": "Imagine a better future."}, {"en": "improve", "ja": "改善する", "ex": "I want to improve my English."}, {"en": "include", "ja": "含む", "ex": "The price includes tax."}, {"en": "increase", "ja": "増える・増やす", "ex": "The population is increasing."}, {"en": "join", "ja": "参加する", "ex": "Join our club!"}, {"en": "keep", "ja": "保つ・続ける", "ex": "Keep practicing every day."}, {"en": "lose", "ja": "失う・負ける", "ex": "We lost the game."}, {"en": "manage", "ja": "何とかやる・管理する", "ex": "She managed to solve it."}, {"en": "miss", "ja": "逃す・恋しく思う", "ex": "I miss my grandmother."}, {"en": "notice", "ja": "気づく", "ex": "Did you notice anything strange?"}, {"en": "offer", "ja": "提供する", "ex": "She offered her seat."}, {"en": "overcome", "ja": "克服する", "ex": "He overcame his fear."}, {"en": "pass", "ja": "通過する・合格する", "ex": "I passed the exam!"}, {"en": "prepare", "ja": "準備する", "ex": "Prepare for the test."}, {"en": "prevent", "ja": "防ぐ", "ex": "Wash hands to prevent illness."}, {"en": "produce", "ja": "生産する", "ex": "This factory produces cars."}, {"en": "provide", "ja": "提供する", "ex": "The school provides lunch."}, {"en": "reach", "ja": "達する・届く", "ex": "She reached the top."}, {"en": "realize", "ja": "気づく・実現する", "ex": "I realized my mistake."}, {"en": "receive", "ja": "受け取る", "ex": "I received a letter."}, {"en": "remain", "ja": "残る", "ex": "She remained calm."}, {"en": "remember", "ja": "覚えている", "ex": "Remember to bring your book."}, {"en": "respect", "ja": "尊敬する", "ex": "I respect my teacher."}, {"en": "share", "ja": "共有する", "ex": "Share your ideas with us."}, {"en": "solve", "ja": "解く・解決する", "ex": "He solved the math problem."}, {"en": "spread", "ja": "広がる・広める", "ex": "Good news spreads fast."}, {"en": "succeed", "ja": "成功する", "ex": "She succeeded in her business."}, {"en": "support", "ja": "支援する", "ex": "Friends support each other."}, {"en": "ability", "ja": "能力", "ex": "She has great ability."}, {"en": "action", "ja": "行動", "ex": "Take action now."}, {"en": "attitude", "ja": "態度", "ex": "Have a positive attitude."}, {"en": "choice", "ja": "選択", "ex": "It's your choice."}, {"en": "community", "ja": "地域・コミュニティ", "ex": "Our community is friendly."}, {"en": "competition", "ja": "競争・大会", "ex": "She won the competition."}, {"en": "confidence", "ja": "自信", "ex": "She speaks with confidence."}, {"en": "courage", "ja": "勇気", "ex": "It takes courage to speak up."}, {"en": "damage", "ja": "損害・傷つける", "ex": "The storm caused damage."}, {"en": "danger", "ja": "危険", "ex": "There is danger ahead."}, {"en": "decision", "ja": "決断", "ex": "Make a wise decision."}, {"en": "education", "ja": "教育", "ex": "Education is very important."}, {"en": "effect", "ja": "効果・影響", "ex": "Exercise has a good effect."}, {"en": "effort", "ja": "努力", "ex": "Make an effort every day."}, {"en": "emotion", "ja": "感情", "ex": "Music touches our emotions."}, {"en": "equality", "ja": "平等", "ex": "We believe in equality."}, {"en": "freedom", "ja": "自由", "ex": "We value freedom."}, {"en": "future", "ja": "未来", "ex": "The future looks bright."}, {"en": "goal", "ja": "目標", "ex": "Set a clear goal."}, {"en": "growth", "ja": "成長", "ex": "I can see her growth."}, {"en": "issue", "ja": "問題・論点", "ex": "Climate is a serious issue."}, {"en": "knowledge", "ja": "知識", "ex": "Knowledge is power."}, {"en": "opinion", "ja": "意見", "ex": "What is your opinion?"}, {"en": "opportunity", "ja": "機会", "ex": "This is a great opportunity."}, {"en": "peace", "ja": "平和", "ex": "We all want peace."}, {"en": "population", "ja": "人口", "ex": "The population is growing."}, {"en": "poverty", "ja": "貧困", "ex": "We must end poverty."}, {"en": "progress", "ja": "進歩", "ex": "Technology makes progress."}, {"en": "relationship", "ja": "関係", "ex": "A good relationship takes effort."}, {"en": "responsibility", "ja": "責任", "ex": "Take responsibility for your actions."}, {"en": "solution", "ja": "解決策", "ex": "We need a solution."}, {"en": "success", "ja": "成功", "ex": "Success comes with hard work."}, {"en": "traditional", "ja": "伝統的な", "ex": "This is a traditional dance."}, {"en": "value", "ja": "価値・大切にする", "ex": "What do you value most?"}, {"en": "waste", "ja": "無駄にする・廃棄物", "ex": "Don't waste food."}, {"en": "worth", "ja": "価値がある", "ex": "This book is worth reading."}, {"en": "global", "ja": "地球規模の", "ex": "This is a global issue."}, {"en": "human", "ja": "人間", "ex": "All humans are equal."}, {"en": "leadership", "ja": "リーダーシップ", "ex": "She shows great leadership."}, {"en": "politics", "ja": "政治", "ex": "She is interested in politics."}, {"en": "advantage", "ja": "有利な点", "ex": "What are the advantages?"}, {"en": "agreement", "ja": "合意・契約", "ex": "We reached an agreement."}, {"en": "war", "ja": "戦争", "ex": "War causes suffering."}, {"en": "replace", "ja": "取り替える", "ex": "Replace old habits with new ones."}, {"en": "mention", "ja": "言及する", "ex": "He mentioned your name."}, {"en": "mind", "ja": "気にする・心", "ex": "Do you mind if I open the window?"}, {"en": "cancel", "ja": "取り消す", "ex": "The event was cancelled."}, {"en": "complete", "ja": "完成させる", "ex": "Complete the sentence."}, {"en": "depend", "ja": "頼る・よる", "ex": "It depends on the weather."}, {"en": "expect", "ja": "期待する", "ex": "I expect good results."}]}, "h1": {"label": "高校1年", "color": "#f06292", "accent": "#880e4f", "words": [{"en": "abstract", "ja": "抽象的な", "ex": "The painting is very abstract."}, {"en": "accurate", "ja": "正確な", "ex": "The report is accurate."}, {"en": "adapt", "ja": "適応する", "ex": "Animals adapt to their environment."}, {"en": "adequate", "ja": "適切な・十分な", "ex": "Get adequate sleep every night."}, {"en": "admire", "ja": "感嘆する・賞賛する", "ex": "I admire her courage."}, {"en": "adopt", "ja": "採用する", "ex": "They adopted a new policy."}, {"en": "advance", "ja": "進む・前進", "ex": "Science continues to advance."}, {"en": "advertise", "ja": "広告する", "ex": "Companies advertise on TV."}, {"en": "agriculture", "ja": "農業", "ex": "Agriculture is vital for food."}, {"en": "analyze", "ja": "分析する", "ex": "Analyze the data carefully."}, {"en": "ancient", "ja": "古代の", "ex": "We studied ancient Rome."}, {"en": "announce", "ja": "発表する", "ex": "The teacher announced the test."}, {"en": "appropriate", "ja": "適切な", "ex": "Wear appropriate clothes."}, {"en": "approve", "ja": "承認する", "ex": "The plan was approved."}, {"en": "argument", "ja": "議論", "ex": "They had a heated argument."}, {"en": "assume", "ja": "仮定する", "ex": "Don't assume anything."}, {"en": "atmosphere", "ja": "大気・雰囲気", "ex": "The atmosphere is relaxed."}, {"en": "basis", "ja": "基礎・根拠", "ex": "On the basis of the data..."}, {"en": "benefit", "ja": "利益・恩恵", "ex": "Exercise has many benefits."}, {"en": "bias", "ja": "偏見", "ex": "Try to avoid bias."}, {"en": "capable", "ja": "能力がある", "ex": "She is capable of anything."}, {"en": "capture", "ja": "捕らえる", "ex": "The photo captured the moment."}, {"en": "category", "ja": "カテゴリー", "ex": "Which category does it belong to?"}, {"en": "challenge", "ja": "挑戦", "ex": "Accept the challenge."}, {"en": "characteristic", "ja": "特徴", "ex": "What are the key characteristics?"}, {"en": "claim", "ja": "主張する", "ex": "He claims he is innocent."}, {"en": "classify", "ja": "分類する", "ex": "Classify the plants by type."}, {"en": "combine", "ja": "組み合わせる", "ex": "Combine the two ideas."}, {"en": "commit", "ja": "決意する・犯す", "ex": "Commit to your goals."}, {"en": "compare", "ja": "比較する", "ex": "Compare these two sentences."}, {"en": "compete", "ja": "競争する", "ex": "We will compete in the finals."}, {"en": "complex", "ja": "複雑な", "ex": "This is a complex problem."}, {"en": "concentrate", "ja": "集中する", "ex": "Concentrate on your work."}, {"en": "concept", "ja": "概念", "ex": "This concept is difficult."}, {"en": "conclude", "ja": "結論を出す", "ex": "He concluded his speech."}, {"en": "conflict", "ja": "衝突・紛争", "ex": "The conflict lasted years."}, {"en": "consequence", "ja": "結果・影響", "ex": "Think about the consequences."}, {"en": "consume", "ja": "消費する", "ex": "We consume too much energy."}, {"en": "contribute", "ja": "貢献する", "ex": "She contributes a lot to the team."}, {"en": "controversial", "ja": "論争的な", "ex": "This is a controversial issue."}, {"en": "convince", "ja": "説得する", "ex": "He convinced me to join."}, {"en": "cooperate", "ja": "協力する", "ex": "Let's cooperate together."}, {"en": "cope", "ja": "対処する", "ex": "How do you cope with stress?"}, {"en": "critical", "ja": "批判的な・重要な", "ex": "Critical thinking is essential."}, {"en": "crucial", "ja": "非常に重要な", "ex": "This is a crucial moment."}, {"en": "current", "ja": "現在の・流れ", "ex": "What is the current situation?"}, {"en": "decline", "ja": "断る・減少する", "ex": "The population is declining."}, {"en": "define", "ja": "定義する", "ex": "Define the term clearly."}, {"en": "demonstrate", "ja": "実証する・示す", "ex": "Demonstrate how it works."}, {"en": "deny", "ja": "否定する", "ex": "He denied the accusation."}, {"en": "derive", "ja": "引き出す・由来する", "ex": "This word derives from Latin."}, {"en": "determine", "ja": "決定する", "ex": "Determine the cause first."}, {"en": "diverse", "ja": "多様な", "ex": "Japan has a diverse culture."}, {"en": "dominate", "ja": "支配する", "ex": "One team dominated the game."}, {"en": "doubt", "ja": "疑う・疑い", "ex": "I doubt that he is right."}, {"en": "economy", "ja": "経済", "ex": "The economy is growing."}, {"en": "employ", "ja": "雇う", "ex": "The company employs 500 people."}, {"en": "encounter", "ja": "出くわす", "ex": "I encountered a bear."}, {"en": "engage", "ja": "従事する・魅了する", "ex": "Engage your audience."}, {"en": "enhance", "ja": "高める", "ex": "Music enhances my mood."}, {"en": "estimate", "ja": "推定する", "ex": "Estimate the cost first."}, {"en": "evaluate", "ja": "評価する", "ex": "Evaluate your performance."}, {"en": "evidence", "ja": "証拠", "ex": "There is clear evidence."}, {"en": "evolve", "ja": "進化する", "ex": "Languages evolve over time."}, {"en": "examine", "ja": "調べる", "ex": "Examine the data carefully."}, {"en": "expand", "ja": "広がる・拡大する", "ex": "The company is expanding."}, {"en": "factor", "ja": "要因", "ex": "What are the main factors?"}, {"en": "feature", "ja": "特徴・取り上げる", "ex": "What is the main feature?"}, {"en": "flexible", "ja": "柔軟な", "ex": "Be flexible in your thinking."}, {"en": "focus", "ja": "焦点を当てる", "ex": "Focus on what matters."}, {"en": "formal", "ja": "正式な", "ex": "This is a formal event."}, {"en": "function", "ja": "機能・機能する", "ex": "What is its function?"}, {"en": "fundamental", "ja": "基本的な", "ex": "This is a fundamental rule."}, {"en": "generate", "ja": "生み出す", "ex": "Wind generates electricity."}, {"en": "gradual", "ja": "徐々の", "ex": "There was a gradual change."}, {"en": "guarantee", "ja": "保証する", "ex": "I guarantee it will work."}, {"en": "harmful", "ja": "有害な", "ex": "Smoking is harmful to health."}, {"en": "identify", "ja": "識別する", "ex": "Identify the main idea."}, {"en": "imply", "ja": "示唆する", "ex": "What does this imply?"}, {"en": "independent", "ja": "独立した", "ex": "She is very independent."}, {"en": "indicate", "ja": "示す", "ex": "The data indicates growth."}, {"en": "individual", "ja": "個人・個々の", "ex": "Each individual is unique."}, {"en": "influence", "ja": "影響・影響する", "ex": "Music influences our mood."}, {"en": "inherit", "ja": "受け継ぐ", "ex": "She inherited her mother's talent."}, {"en": "innovation", "ja": "革新", "ex": "Innovation drives progress."}, {"en": "insight", "ja": "洞察", "ex": "She has great insight."}, {"en": "inspire", "ja": "鼓舞する", "ex": "Her story inspired me."}, {"en": "interpret", "ja": "解釈する", "ex": "How do you interpret this?"}, {"en": "investigate", "ja": "調査する", "ex": "Police investigated the case."}, {"en": "involve", "ja": "含む・関与させる", "ex": "This involves many people."}, {"en": "justify", "ja": "正当化する", "ex": "Can you justify your decision?"}, {"en": "logical", "ja": "論理的な", "ex": "Give a logical explanation."}, {"en": "maintain", "ja": "維持する", "ex": "Maintain a healthy lifestyle."}, {"en": "methodology", "ja": "方法論", "ex": "Explain your methodology."}, {"en": "minimize", "ja": "最小にする", "ex": "Minimize the risk."}, {"en": "modify", "ja": "修正する", "ex": "Modify the original plan."}, {"en": "monitor", "ja": "監視する", "ex": "Monitor your progress."}, {"en": "motivate", "ja": "動機付ける", "ex": "What motivates you?"}, {"en": "neutral", "ja": "中立の", "ex": "Stay neutral in arguments."}, {"en": "objective", "ja": "目標・客観的な", "ex": "Be objective in your view."}, {"en": "obstacle", "ja": "障害", "ex": "Overcome every obstacle."}]}, "h2": {"label": "高校2年", "color": "#ba68c8", "accent": "#4a148c", "words": [{"en": "abandon", "ja": "見捨てる", "ex": "Don't abandon your goals."}, {"en": "abolish", "ja": "廃止する", "ex": "They abolished the law."}, {"en": "accumulate", "ja": "蓄積する", "ex": "He accumulated great wealth."}, {"en": "acknowledge", "ja": "認める", "ex": "Acknowledge your mistakes."}, {"en": "acquire", "ja": "取得する", "ex": "She acquired new skills."}, {"en": "allocate", "ja": "割り当てる", "ex": "Allocate time wisely."}, {"en": "alter", "ja": "変える", "ex": "The plan was altered."}, {"en": "ambiguous", "ja": "曖昧な", "ex": "The message was ambiguous."}, {"en": "ambition", "ja": "野心", "ex": "She has great ambition."}, {"en": "anticipate", "ja": "予期する", "ex": "Anticipate problems in advance."}, {"en": "assert", "ja": "断言する", "ex": "He asserted his innocence."}, {"en": "assess", "ja": "評価する", "ex": "Assess the risks carefully."}, {"en": "assign", "ja": "割り当てる", "ex": "The teacher assigned homework."}, {"en": "attribute", "ja": "〜のせいにする・特性", "ex": "He attributed success to teamwork."}, {"en": "authentic", "ja": "本物の", "ex": "This is an authentic recipe."}, {"en": "cease", "ja": "止む・やめる", "ex": "The rain finally ceased."}, {"en": "clarify", "ja": "明確にする", "ex": "Please clarify your point."}, {"en": "coherent", "ja": "一貫した", "ex": "Give a coherent explanation."}, {"en": "collapse", "ja": "崩壊する", "ex": "The building collapsed."}, {"en": "compassion", "ja": "思いやり", "ex": "Show compassion to others."}, {"en": "compensate", "ja": "補償する", "ex": "They compensated the victims."}, {"en": "competent", "ja": "有能な", "ex": "She is very competent."}, {"en": "comply", "ja": "従う", "ex": "Please comply with the rules."}, {"en": "comprehensive", "ja": "包括的な", "ex": "A comprehensive study."}, {"en": "compromise", "ja": "妥協する", "ex": "We reached a compromise."}, {"en": "conform", "ja": "従う・適合する", "ex": "Conform to social norms."}, {"en": "controversy", "ja": "論争", "ex": "It caused much controversy."}, {"en": "conviction", "ja": "確信・有罪判決", "ex": "She spoke with conviction."}, {"en": "correlate", "ja": "相関する", "ex": "Income correlates with education."}, {"en": "deduce", "ja": "推論する", "ex": "What can you deduce?"}, {"en": "deliberate", "ja": "意図的な・熟考する", "ex": "It was a deliberate act."}, {"en": "depict", "ja": "描写する", "ex": "The novel depicts poverty."}, {"en": "deprive", "ja": "奪う", "ex": "Don't deprive children of joy."}, {"en": "diminish", "ja": "減少する", "ex": "His enthusiasm did not diminish."}, {"en": "discriminate", "ja": "差別する", "ex": "Never discriminate others."}, {"en": "disrupt", "ja": "妨害する", "ex": "The storm disrupted plans."}, {"en": "distinction", "ja": "区別・優秀さ", "ex": "There is a clear distinction."}, {"en": "dominant", "ja": "支配的な", "ex": "She is a dominant leader."}, {"en": "elaborate", "ja": "詳述する・精巧な", "ex": "Please elaborate on that."}, {"en": "eliminate", "ja": "排除する", "ex": "Eliminate all errors."}, {"en": "emerge", "ja": "現れる", "ex": "A new idea emerged."}, {"en": "empathy", "ja": "共感", "ex": "Show empathy to others."}, {"en": "enforce", "ja": "施行する", "ex": "Enforce the rules strictly."}, {"en": "enormous", "ja": "巨大な", "ex": "The task is enormous."}, {"en": "ethical", "ja": "倫理的な", "ex": "Make ethical choices."}, {"en": "exceed", "ja": "超える", "ex": "Don't exceed the limit."}, {"en": "exclude", "ja": "除外する", "ex": "Nobody should be excluded."}, {"en": "exploit", "ja": "利用する・搾取する", "ex": "Don't exploit others."}, {"en": "explicit", "ja": "明確な・露骨な", "ex": "Give explicit instructions."}, {"en": "expose", "ja": "さらす・暴露する", "ex": "Don't expose your skin."}, {"en": "extensive", "ja": "広範な", "ex": "She has extensive knowledge."}, {"en": "facilitate", "ja": "促進する", "ex": "Technology facilitates learning."}, {"en": "fluctuate", "ja": "変動する", "ex": "Prices fluctuate daily."}, {"en": "formulate", "ja": "策定する", "ex": "Formulate a clear plan."}, {"en": "foster", "ja": "育成する", "ex": "Foster creativity in students."}, {"en": "hierarchy", "ja": "階層", "ex": "The company has a clear hierarchy."}, {"en": "hypothesis", "ja": "仮説", "ex": "Test the hypothesis."}, {"en": "illustrate", "ja": "説明する・例示する", "ex": "Illustrate your point with examples."}, {"en": "immerse", "ja": "没頭させる", "ex": "Immerse yourself in study."}, {"en": "impose", "ja": "課す", "ex": "Don't impose your views."}, {"en": "incentive", "ja": "動機・インセンティブ", "ex": "She needs more incentive."}, {"en": "inevitable", "ja": "避けられない", "ex": "Change is inevitable."}, {"en": "inferior", "ja": "劣った", "ex": "Don't feel inferior."}, {"en": "infrastructure", "ja": "インフラ", "ex": "Upgrade the infrastructure."}, {"en": "inherent", "ja": "固有の", "ex": "These are inherent risks."}, {"en": "integrate", "ja": "統合する", "ex": "Integrate new ideas."}, {"en": "integrity", "ja": "誠実さ", "ex": "Act with integrity."}, {"en": "intervene", "ja": "介入する", "ex": "The teacher intervened."}, {"en": "intuition", "ja": "直感", "ex": "Trust your intuition."}, {"en": "isolate", "ja": "孤立させる", "ex": "Don't isolate yourself."}, {"en": "manifest", "ja": "明らかにする", "ex": "Her talent manifested early."}, {"en": "mechanism", "ja": "仕組み・機構", "ex": "Explain the mechanism."}, {"en": "migrate", "ja": "移住する", "ex": "Birds migrate in winter."}, {"en": "mutual", "ja": "相互の", "ex": "Mutual respect is important."}, {"en": "notion", "ja": "概念", "ex": "I have no notion of time."}, {"en": "objective", "ja": "目標・客観的な", "ex": "Be objective in your view."}, {"en": "obtain", "ja": "入手する", "ex": "Obtain permission first."}, {"en": "obvious", "ja": "明らかな", "ex": "The answer is obvious."}, {"en": "outcome", "ja": "結果", "ex": "The outcome was positive."}, {"en": "overlap", "ja": "重なる", "ex": "Our schedules overlap."}, {"en": "perceive", "ja": "知覚する", "ex": "How do you perceive this?"}, {"en": "persist", "ja": "持続する・粘る", "ex": "Persist in your efforts."}, {"en": "phenomenon", "ja": "現象", "ex": "This is a strange phenomenon."}, {"en": "plausible", "ja": "もっともらしい", "ex": "A plausible explanation."}, {"en": "pragmatic", "ja": "実用的な", "ex": "Take a pragmatic approach."}, {"en": "preliminary", "ja": "予備的な", "ex": "A preliminary study."}, {"en": "presume", "ja": "推定する", "ex": "I presume you agree."}, {"en": "priority", "ja": "優先事項", "ex": "Health is my top priority."}, {"en": "prohibit", "ja": "禁止する", "ex": "Smoking is prohibited here."}, {"en": "promote", "ja": "推進する・昇進させる", "ex": "Promote healthy habits."}, {"en": "propose", "ja": "提案する", "ex": "She proposed a new plan."}, {"en": "rational", "ja": "合理的な", "ex": "Make a rational decision."}, {"en": "reinforce", "ja": "強化する", "ex": "Reinforce good behavior."}, {"en": "relevant", "ja": "関連のある", "ex": "Give a relevant example."}, {"en": "reluctant", "ja": "気が進まない", "ex": "She was reluctant to go."}, {"en": "resemble", "ja": "似ている", "ex": "She resembles her mother."}, {"en": "resist", "ja": "抵抗する", "ex": "Resist the temptation."}, {"en": "restore", "ja": "回復させる", "ex": "Restore the old building."}, {"en": "retain", "ja": "保持する", "ex": "Retain useful information."}, {"en": "reveal", "ja": "明らかにする", "ex": "The test revealed a problem."}, {"en": "revise", "ja": "修正する", "ex": "Revise your essay carefully."}]}, "h3": {"label": "高校3年・受験", "color": "#ef5350", "accent": "#b71c1c", "words": [{"en": "abolish", "ja": "廃止する", "ex": "They abolished the law."}, {"en": "accessible", "ja": "アクセスしやすい", "ex": "Education should be accessible to all."}, {"en": "accommodate", "ja": "収容する・適応させる", "ex": "The hotel can accommodate 200 guests."}, {"en": "accountability", "ja": "説明責任", "ex": "Leaders must have accountability."}, {"en": "advocate", "ja": "主張する・提唱者", "ex": "She advocates for equal rights."}, {"en": "alleviate", "ja": "和らげる", "ex": "Medicine can alleviate pain."}, {"en": "ambivalent", "ja": "相反する感情を持つ", "ex": "I feel ambivalent about the decision."}, {"en": "analogy", "ja": "類推・比喩", "ex": "He used an analogy to explain."}, {"en": "anecdote", "ja": "逸話", "ex": "She shared an amusing anecdote."}, {"en": "apathy", "ja": "無関心", "ex": "Political apathy is growing."}, {"en": "articulate", "ja": "明確に述べる", "ex": "Articulate your thoughts clearly."}, {"en": "aspiration", "ja": "熱望・夢", "ex": "She has high aspirations."}, {"en": "autonomous", "ja": "自律的な", "ex": "Autonomous vehicles are coming."}, {"en": "benevolent", "ja": "親切な・慈善的な", "ex": "A benevolent ruler."}, {"en": "catalyst", "ja": "触媒・きっかけ", "ex": "She was a catalyst for change."}, {"en": "coherence", "ja": "一貫性", "ex": "The essay lacks coherence."}, {"en": "collaborate", "ja": "協力する", "ex": "Let's collaborate on this project."}, {"en": "concede", "ja": "認める・譲歩する", "ex": "He conceded the point."}, {"en": "confront", "ja": "直面する", "ex": "Confront your fears."}, {"en": "consensus", "ja": "合意", "ex": "We reached a consensus."}, {"en": "consolidate", "ja": "統合する・強化する", "ex": "Consolidate your learning."}, {"en": "contemplate", "ja": "熟考する", "ex": "Contemplate your future."}, {"en": "contend", "ja": "主張する・競争する", "ex": "She contends it was unfair."}, {"en": "contradict", "ja": "矛盾する", "ex": "Don't contradict yourself."}, {"en": "convey", "ja": "伝える", "ex": "Convey your message clearly."}, {"en": "corroborate", "ja": "裏付ける", "ex": "Evidence corroborates his claim."}, {"en": "cultivate", "ja": "耕す・育てる", "ex": "Cultivate good habits."}, {"en": "cynical", "ja": "皮肉な", "ex": "Don't be cynical about life."}, {"en": "decipher", "ja": "解読する", "ex": "Can you decipher this code?"}, {"en": "delegate", "ja": "委任する・代表者", "ex": "Delegate tasks to others."}, {"en": "demographic", "ja": "人口統計の", "ex": "Demographic changes are occurring."}, {"en": "deplete", "ja": "使い果たす", "ex": "We are depleting natural resources."}, {"en": "deter", "ja": "思いとどまらせる", "ex": "Fear should not deter you."}, {"en": "dichotomy", "ja": "二分法", "ex": "The dichotomy of good and evil."}, {"en": "dilemma", "ja": "ジレンマ", "ex": "Face a moral dilemma."}, {"en": "discourse", "ja": "談話・議論", "ex": "Academic discourse is rigorous."}, {"en": "disparity", "ja": "格差", "ex": "Address economic disparity."}, {"en": "distinguish", "ja": "区別する", "ex": "Distinguish fact from opinion."}, {"en": "diverge", "ja": "分岐する", "ex": "Our opinions diverge here."}, {"en": "eloquent", "ja": "雄弁な", "ex": "She gave an eloquent speech."}, {"en": "embody", "ja": "具現化する", "ex": "She embodies kindness."}, {"en": "encompass", "ja": "包含する", "ex": "The plan encompasses all areas."}, {"en": "endeavor", "ja": "努力する・試み", "ex": "Endeavor to do your best."}, {"en": "endorse", "ja": "支持する・推薦する", "ex": "She endorsed the candidate."}, {"en": "enigma", "ja": "謎", "ex": "The universe is an enigma."}, {"en": "enumerate", "ja": "列挙する", "ex": "Enumerate your reasons."}, {"en": "epidemic", "ja": "伝染病・流行", "ex": "The epidemic spread quickly."}, {"en": "equitable", "ja": "公平な", "ex": "An equitable distribution."}, {"en": "exacerbate", "ja": "悪化させる", "ex": "Stress can exacerbate illness."}, {"en": "exemplify", "ja": "例示する", "ex": "Exemplify your argument."}, {"en": "exhaustive", "ja": "徹底的な", "ex": "An exhaustive search."}, {"en": "extrapolate", "ja": "外挿する・推測する", "ex": "Extrapolate from the data."}, {"en": "fabricate", "ja": "でっち上げる・製造する", "ex": "He fabricated the story."}, {"en": "fallacy", "ja": "誤謬", "ex": "That is a logical fallacy."}, {"en": "feasible", "ja": "実現可能な", "ex": "Is this plan feasible?"}, {"en": "formidable", "ja": "恐るべき", "ex": "She is a formidable opponent."}, {"en": "fragile", "ja": "壊れやすい", "ex": "Handle the glass carefully."}, {"en": "framework", "ja": "枠組み", "ex": "Develop a theoretical framework."}, {"en": "gregarious", "ja": "社交的な", "ex": "She is very gregarious."}, {"en": "groundbreaking", "ja": "画期的な", "ex": "A groundbreaking discovery."}, {"en": "hinder", "ja": "妨げる", "ex": "Don't let fear hinder you."}, {"en": "holistic", "ja": "全体的な", "ex": "Take a holistic approach."}, {"en": "ideology", "ja": "思想・イデオロギー", "ex": "Political ideology shapes policy."}, {"en": "illuminate", "ja": "照らす・解明する", "ex": "Illuminate the dark corners."}, {"en": "implicit", "ja": "暗黙の", "ex": "There is an implicit rule."}, {"en": "unprecedented", "ja": "前例のない", "ex": "An unprecedented event occurred."}, {"en": "invariably", "ja": "常に・例外なく", "ex": "She invariably arrives early."}, {"en": "jeopardize", "ja": "危険にさらす", "ex": "Don't jeopardize your future."}, {"en": "legitimate", "ja": "正当な", "ex": "Is this a legitimate claim?"}, {"en": "lucid", "ja": "明晰な", "ex": "Give a lucid explanation."}, {"en": "mandate", "ja": "権限・命令", "ex": "Follow the government mandate."}, {"en": "meticulous", "ja": "細心の", "ex": "She is meticulous in her work."}, {"en": "mitigate", "ja": "緩和する", "ex": "Mitigate the risks."}, {"en": "nuance", "ja": "ニュアンス", "ex": "Understand the nuances of language."}, {"en": "obsolete", "ja": "時代遅れの", "ex": "This technology is obsolete."}, {"en": "paradigm", "ja": "パラダイム・典型", "ex": "A paradigm shift in science."}, {"en": "peculiar", "ja": "奇妙な・独特の", "ex": "That is peculiar behavior."}, {"en": "perpetuate", "ja": "永続させる", "ex": "Don't perpetuate stereotypes."}, {"en": "pragmatic", "ja": "実用的な", "ex": "Take a pragmatic approach."}, {"en": "profound", "ja": "深い・深遠な", "ex": "A profound impact on society."}, {"en": "proliferate", "ja": "急増する", "ex": "Social media has proliferated."}, {"en": "reconcile", "ja": "和解させる・調和させる", "ex": "Reconcile the two views."}, {"en": "reformulate", "ja": "再構成する", "ex": "Reformulate the argument."}, {"en": "rhetoric", "ja": "修辞・言葉巧み", "ex": "Political rhetoric can be misleading."}, {"en": "scrutinize", "ja": "詳細に調べる", "ex": "Scrutinize every detail."}, {"en": "skeptical", "ja": "懐疑的な", "ex": "I'm skeptical about that claim."}, {"en": "sovereignty", "ja": "主権", "ex": "Protect national sovereignty."}, {"en": "stereotype", "ja": "固定観念", "ex": "Avoid stereotypes."}, {"en": "stimulus", "ja": "刺激・景気刺激策", "ex": "The stimulus boosted the economy."}, {"en": "subordinate", "ja": "従属的な・下位の", "ex": "A subordinate role."}, {"en": "substantiate", "ja": "実証する", "ex": "Substantiate your argument."}, {"en": "subtle", "ja": "微妙な", "ex": "There is a subtle difference."}, {"en": "sustainable", "ja": "持続可能な", "ex": "We need sustainable energy."}, {"en": "tangible", "ja": "有形の・具体的な", "ex": "Tangible results are needed."}, {"en": "transparent", "ja": "透明な", "ex": "Be transparent with your data."}, {"en": "ubiquitous", "ja": "至る所にある", "ex": "Smartphones are ubiquitous."}, {"en": "undermine", "ja": "蝕む・弱体化させる", "ex": "Don't undermine your team."}, {"en": "uniform", "ja": "均一な・制服", "ex": "A uniform standard is needed."}, {"en": "validate", "ja": "有効と認める", "ex": "Validate your hypothesis."}, {"en": "virtue", "ja": "美徳", "ex": "Patience is a virtue."}, {"en": "volatile", "ja": "不安定な・揮発性の", "ex": "The market is volatile."}]}};
+
+const GRADE_KEYS = ['g1','g2','g3','h1','h2','h3'];
+
+/* ── STORAGE ── */
+const SK = 'eigo_vocab_v2';
+let ST = {};
+try{ const s=localStorage.getItem(SK); if(s) ST=JSON.parse(s); }catch(e){}
+function save(){ try{ localStorage.setItem(SK,JSON.stringify(ST)); }catch(e){} }
+
+function getGradeST(gk){
+  if(!ST[gk]) ST[gk]={mastered:{},seen:{}};
+  return ST[gk];
+}
+// mastered[idx]=true : 正解済み
+// seen[idx]=true : 1度見た
+
+function masteredCount(gk){
+  return Object.keys(getGradeST(gk).mastered).length;
+}
+function totalCount(gk){ return GRADES[gk].words.length; }
+
+/* ── OVERALL PROGRESS ── */
+function overallPct(){
+  let tot=0,mas=0;
+  GRADE_KEYS.forEach(gk=>{ tot+=totalCount(gk); mas+=masteredCount(gk); });
+  return tot?Math.round(mas/tot*100):0;
+}
+function updateNav(){
+  const p=overallPct();
+  document.getElementById('navBar').style.width=p+'%';
+  document.getElementById('navPct').textContent=p+'%';
+}
+
+/* ── HOME MAP ── */
+function renderHome(){
+  const c=document.getElementById('gradeMap');
+  c.innerHTML='';
+  GRADE_KEYS.forEach(gk=>{
+    const g=GRADES[gk];
+    const tot=totalCount(gk), mas=masteredCount(gk);
+    const pct=tot?Math.round(mas/tot*100):0;
+    const b=document.createElement('div');
+    b.className='grade-block';
+    b.innerHTML=`
+      <div class="grade-hd">
+        <div class="grade-dot" style="background:${g.color}"></div>
+        <div class="grade-lbl" style="color:${g.color}">${g.label}</div>
+      </div>
+      <div class="grade-cards">
+        <div class="grade-card" style="border-color:${g.color}33">
+          <div class="gc-words">${tot}語収録</div>
+          <div class="gc-title">${g.label} 単語帳</div>
+          <div class="gc-bar-bg"><div class="gc-bar-fill" style="width:${pct}%;background:${g.color}"></div></div>
+          <div class="gc-pct">${mas}/${tot}語 習得 (${pct}%)</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlash('${gk}')">📖 暗記</div>
+            <div class="gc-mode-btn" onclick="startQuiz('${gk}')">✏️ テスト</div>
+          </div>
+        </div>
+        <div class="grade-card" style="border-color:#ff475733;cursor:default">
+          <div class="gc-words" style="color:var(--coral)">要復習</div>
+          <div class="gc-title">未習得単語</div>
+          <div style="font-size:24px;font-weight:700;color:var(--coral);margin:8px 0">${tot-mas}語</div>
+          <div class="gc-mode-row">
+            <div class="gc-mode-btn" onclick="startFlashWeak('${gk}')" style="${(tot-mas)===0?'opacity:.4;pointer-events:none':''}">🔁 弱点のみ</div>
+            <div class="gc-mode-btn" onclick="startQuizWeak('${gk}')" style="${(tot-mas)===0?'opacity:.4;pointer-events:none':''}">🎯 弱点テスト</div>
+          </div>
+        </div>
+      </div>`;
+    c.appendChild(b);
+  });
+  updateNav();
+}
+
+/* ─────────────────────────────────────────
+   FLASH CARD
+───────────────────────────────────────── */
+let fc={gk:'',words:[],idxMap:[],cur:0,flipped:false,results:[]};
+// idxMap: original indices of words in queue
+
+function startFlash(gk, weakOnly=false){
+  const g=GRADES[gk]; const st=getGradeST(gk);
+  let idxMap;
+  if(weakOnly){
+    idxMap=g.words.map((_,i)=>i).filter(i=>!st.mastered[i]);
+    if(idxMap.length===0){ alert('未習得単語がありません！'); return; }
+  } else {
+    // 未習得を先、習得済みを後ろに
+    const ng=g.words.map((_,i)=>i).filter(i=>!st.mastered[i]);
+    const ok=g.words.map((_,i)=>i).filter(i=>st.mastered[i]);
+    shuffle(ng); shuffle(ok);
+    idxMap=[...ng,...ok];
+  }
+  fc={gk,words:g.words,idxMap,cur:0,flipped:false,results:[]};
+  showFlashScreen();
+  renderFlashCard();
+}
+function startFlashWeak(gk){ startFlash(gk,true); }
+
+function showFlashScreen(){
+  document.getElementById('screenHome').classList.remove('active');
+  document.getElementById('screenFlash').classList.add('active');
+  document.getElementById('screenQuiz').classList.remove('active');
+  document.getElementById('btnBack').style.display='block';
+  document.getElementById('fcBadge').textContent=GRADES[fc.gk].label;
+  document.getElementById('fcBadge').style.background=GRADES[fc.gk].color;
+  window.scrollTo(0,0);
+}
+
+function renderFlashCard(){
+  const {words,idxMap,cur,results}=fc;
+  if(cur>=idxMap.length){ showFlashResult(); return; }
+  const wi=idxMap[cur];
+  const w=words[wi];
+  document.getElementById('fcInfo').textContent=`${cur+1} / ${idxMap.length}`;
+
+  // progress dots
+  const pd=document.getElementById('fcProgress');
+  pd.innerHTML=idxMap.map((_,i)=>{
+    let cls='fc-dot';
+    if(i<cur){ cls+=(results[i]==='ok')?' ok':' ng'; }
+    else if(i===cur) cls+=' cur';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+
+  // reset card
+  fc.flipped=false;
+  document.getElementById('cardInner').classList.remove('flipped');
+  document.getElementById('cardEn').textContent=w.en;
+  document.getElementById('cardJa').textContent=w.ja;
+  document.getElementById('cardEx').textContent=w.ex;
+
+  // buttons (hidden until flipped)
+  document.getElementById('fcActions').innerHTML=
+    `<div id="fcBtns" style="display:none">
+      <div class="fc-btns">
+        <button class="fc-btn fc-btn-ng" onclick="fcAnswer('ng')">😓 もう一度</button>
+        <button class="fc-btn fc-btn-ok" onclick="fcAnswer('ok')">✅ 覚えた！</button>
+      </div>
+      <div style="text-align:center;margin-top:8px">
+        <button class="fc-btn fc-btn-skip" onclick="fcAnswer('skip')">スキップ</button>
+      </div>
+    </div>`;
+}
+
+function flipCard(){
+  if(fc.flipped) return;
+  fc.flipped=true;
+  document.getElementById('cardInner').classList.add('flipped');
+  setTimeout(()=>{ document.getElementById('fcBtns').style.display='block'; },300);
+}
+
+function fcAnswer(res){
+  const wi=fc.idxMap[fc.cur];
+  const st=getGradeST(fc.gk);
+  fc.results[fc.cur]=res;
+  if(res==='ok'){
+    st.mastered[wi]=true;
+  } else if(res==='ng'){
+    delete st.mastered[wi];
+  }
+  st.seen[wi]=true;
+  save(); updateNav();
+  fc.cur++;
+  renderFlashCard();
+}
+
+function showFlashResult(){
+  const ok=fc.results.filter(r=>r==='ok').length;
+  const tot=fc.idxMap.length;
+  const pct=Math.round(ok/tot*100);
+  const st=getGradeST(fc.gk);
+  const wrongWords=fc.idxMap
+    .map((wi,i)=>({wi,res:fc.results[i]}))
+    .filter(x=>x.res==='ng')
+    .map(x=>fc.words[x.wi]);
+
+  let wrongHtml='';
+  if(wrongWords.length>0){
+    wrongHtml=`<div class="result-wrong-list">
+      <h4>もう一度覚えよう (${wrongWords.length}語)</h4>
+      ${wrongWords.map(w=>`<div class="wrong-word"><span class="ww-en">${w.en}</span><span class="ww-ja">${w.ja}</span></div>`).join('')}
+    </div>`;
+  }
+
+  document.getElementById('screenFlash').innerHTML=`
+    <div class="result-wrap">
+      <div class="result-circle ${pct<70?'fail':''}">
+        <div class="result-score">${ok}/${tot}</div>
+        <div class="result-lbl">${pct}%</div>
+      </div>
+      <div class="result-msg">${pct>=90?'🎉 パーフェクト！':pct>=70?'👍 よくできました！':'💪 もう一度！'}</div>
+      <div class="result-sub">習得済み: ${masteredCount(fc.gk)}/${totalCount(fc.gk)}語</div>
+      ${wrongHtml}
+      ${wrongWords.length>0?`<button class="rbtn" onclick="retryWrong()">🔁 間違えた単語を再学習</button><br>`:''}
+      <button class="rbtn" onclick="startQuiz('${fc.gk}')">✏️ テストに挑戦</button>
+      <button class="rbtn sec" onclick="goHome()">一覧へ戻る</button>
+    </div>`;
+}
+
+function retryWrong(){
+  const gk=fc.gk;
+  const wrongIdxMap=fc.idxMap.filter((_,i)=>fc.results[i]==='ng');
+  const g=GRADES[gk];
+  fc={gk,words:g.words,idxMap:wrongIdxMap,cur:0,flipped:false,results:[]};
+  document.getElementById('screenFlash').innerHTML=`
+    <div class="fc-header">
+      <span class="fc-grade-badge" id="fcBadge" style="background:${g.color}">${g.label}</span>
+      <span class="fc-info" id="fcInfo">0 / 0</span>
+    </div>
+    <div class="fc-progress" id="fcProgress"></div>
+    <div class="card-wrap" id="cardWrap" onclick="flipCard()">
+      <div class="card-inner" id="cardInner">
+        <div class="card-face card-front">
+          <div class="card-en" id="cardEn">word</div>
+          <div class="tap-hint">タップして意味を見る</div>
+        </div>
+        <div class="card-face card-back">
+          <div class="card-ja" id="cardJa">意味</div>
+          <div class="card-ex" id="cardEx">例文</div>
+        </div>
+      </div>
+    </div>
+    <div id="fcActions"></div>`;
+  renderFlashCard();
+}
+
+/* ─────────────────────────────────────────
+   QUIZ (4択: 日本語→英語を選ぶ)
+───────────────────────────────────────── */
+let qz={gk:'',questions:[],cur:0,answers:[],done:false};
+
+function makeQuizQuestions(words, allWords, count=20){
+  // 問題になる単語を選ぶ（未習得を優先）
+  const st=getGradeST(qz.gk);
+  const ng=words.filter((_,i)=>!st.mastered[i]);
+  const ok=words.filter((_,i)=>st.mastered[i]);
+  shuffle(ng); shuffle(ok);
+  const pool=[...ng,...ok].slice(0,count);
+
+  return pool.map(w=>{
+    // 不正解の選択肢（全単語プールから）
+    let wrongs=allWords.filter(x=>x.en!==w.en);
+    shuffle(wrongs);
+    wrongs=wrongs.slice(0,3).map(x=>x.en);
+    const choices=shuffle([w.en,...wrongs]);
+    return {q:w.ja, ans:w.en, choices, en:w.en, ja:w.ja, ex:w.ex};
+  });
+}
+
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+function buildAllWords(){
+  // 全学年の単語を不正解候補プールに
+  let all=[];
+  GRADE_KEYS.forEach(gk=>{ all=[...all,...GRADES[gk].words]; });
+  return all;
+}
+
+function startQuiz(gk, weakOnly=false){
+  qz.gk=gk;
+  const g=GRADES[gk]; const st=getGradeST(gk);
+  let wordPool;
+  if(weakOnly){
+    wordPool=g.words.filter((_,i)=>!st.mastered[i]);
+    if(wordPool.length<4){ alert('未習得単語が少なすぎます（4語以上必要）'); return; }
+  } else {
+    wordPool=g.words;
+  }
+  const allWords=buildAllWords();
+  qz.questions=makeQuizQuestions(g.words, allWords, Math.min(20, wordPool.length));
+  qz.cur=0; qz.answers=[]; qz.done=false;
+
+  document.getElementById('screenHome').classList.remove('active');
+  document.getElementById('screenFlash').classList.remove('active');
+  document.getElementById('screenQuiz').classList.add('active');
+  document.getElementById('btnBack').style.display='block';
+
+  const badge=GRADES[gk];
+  document.getElementById('qzTitle').textContent=badge.label+' 小テスト'+(weakOnly?' (弱点)':'');
+  document.getElementById('qzSub').textContent=`日本語の意味に合う英単語を選ぼう (${qz.questions.length}問)`;
+  renderQuizQ();
+  window.scrollTo(0,0);
+}
+function startQuizWeak(gk){ startQuiz(gk,true); }
+
+function renderQuizDots(){
+  const d=document.getElementById('qzDots');
+  d.innerHTML=qz.questions.map((_,i)=>{
+    let cls='qz-dot';
+    if(i<qz.cur){
+      cls+=qz.answers[i]===qz.questions[i].ans?' done-ok':' done-ng';
+    } else if(i===qz.cur) cls+=' cur';
+    return `<div class="${cls}"></div>`;
+  }).join('');
+}
+
+function renderQuizQ(){
+  if(qz.done||qz.cur>=qz.questions.length){ showQuizResult(); return; }
+  const q=qz.questions[qz.cur];
+  const answered=qz.answers[qz.cur]!==undefined;
+  const chosen=qz.answers[qz.cur];
+  renderQuizDots();
+
+  const choices=q.choices.map(c=>{
+    let cls='qz-choice';
+    if(answered){ if(c===q.ans) cls+=' qc-ok'; else if(c===chosen) cls+=' qc-ng'; }
+    return `<button class="${cls}" onclick="qzAnswer('${c.replace(/'/g,"\\'")}') " ${answered?'disabled':''}>${c}</button>`;
+  }).join('');
+
+  const fb=answered?`<div class="qz-feedback ${chosen===q.ans?'':'fb-ng'}">
+    ${chosen===q.ans?'✅ 正解！':'❌ 正解は <strong style="color:var(--yellow)">${q.ans}</strong>'}
+    <br><span style="color:var(--text2);font-size:12px;font-style:italic">${q.ex}</span>
+  </div>`:'';
+
+  const nb=answered?`<button class="btn-next" onclick="qzNext()">次へ →</button>`:'';
+
+  document.getElementById('qzContent').innerHTML=`
+    <div class="qz-card">
+      <div class="qz-num">問 ${qz.cur+1} / ${qz.questions.length}</div>
+      <div class="qz-q">${q.q}</div>
+    </div>
+    <div class="qz-choices">${choices}</div>
+    ${fb}${nb}`;
+}
+
+function qzAnswer(choice){
+  if(qz.answers[qz.cur]!==undefined) return;
+  qz.answers[qz.cur]=choice;
+  // update mastered
+  const q=qz.questions[qz.cur];
+  const st=getGradeST(qz.gk);
+  const wi=GRADES[qz.gk].words.findIndex(w=>w.en===q.en);
+  if(wi>=0){
+    if(choice===q.ans) st.mastered[wi]=true;
+    else delete st.mastered[wi];
+    st.seen[wi]=true;
+  }
+  save(); updateNav();
+  renderQuizQ();
+}
+function qzNext(){ qz.cur++; renderQuizQ(); }
+
+function showQuizResult(){
+  const tot=qz.questions.length;
+  const ok=qz.answers.filter((a,i)=>a===qz.questions[i].ans).length;
+  const pct=Math.round(ok/tot*100);
+  const wrongQs=qz.questions.filter((q,i)=>qz.answers[i]!==q.ans);
+
+  let wrongHtml='';
+  if(wrongQs.length>0){
+    wrongHtml=`<div class="result-wrong-list">
+      <h4>間違えた単語 (${wrongQs.length}語)</h4>
+      ${wrongQs.map(q=>`<div class="wrong-word"><span class="ww-en">${q.en}</span><span class="ww-ja">${q.ja}</span></div>`).join('')}
+    </div>`;
+  }
+
+  document.getElementById('qzDots').innerHTML='';
+  document.getElementById('qzContent').innerHTML=`
+    <div class="result-wrap">
+      <div class="result-circle ${pct<60?'fail':''}">
+        <div class="result-score">${ok}/${tot}</div>
+        <div class="result-lbl">${pct}%</div>
+      </div>
+      <div class="result-msg">${pct>=90?'🏆 素晴らしい！':pct>=70?'👍 いい調子！':pct>=50?'💪 もう少し！':'😓 もう一度！'}</div>
+      <div class="result-sub">習得済み: ${masteredCount(qz.gk)}/${totalCount(qz.gk)}語</div>
+      ${wrongHtml}
+      ${wrongQs.length>0?`<button class="rbtn" onclick="startFlashWeak('${qz.gk}')">📖 間違えた単語を暗記</button><br>`:''}
+      <button class="rbtn" onclick="startQuiz('${qz.gk}')">🔁 もう一度テスト</button>
+      <button class="rbtn sec" onclick="goHome()">一覧へ戻る</button>
+    </div>`;
+}
+
+/* ── NAV ── */
+function goHome(){
+  document.getElementById('screenHome').classList.add('active');
+  document.getElementById('screenFlash').classList.remove('active');
+  document.getElementById('screenQuiz').classList.remove('active');
+  document.getElementById('btnBack').style.display='none';
+  // restore flash screen structure if needed
+  if(!document.getElementById('fcBadge')){
+    document.getElementById('screenFlash').innerHTML=`
+      <div class="fc-header">
+        <span class="fc-grade-badge" id="fcBadge">中学1年</span>
+        <span class="fc-info" id="fcInfo">0 / 0</span>
+      </div>
+      <div class="fc-progress" id="fcProgress"></div>
+      <div class="card-wrap" id="cardWrap" onclick="flipCard()">
+        <div class="card-inner" id="cardInner">
+          <div class="card-face card-front">
+            <div class="card-en" id="cardEn">word</div>
+            <div class="tap-hint">タップして意味を見る</div>
+          </div>
+          <div class="card-face card-back">
+            <div class="card-ja" id="cardJa">意味</div>
+            <div class="card-ex" id="cardEx">例文</div>
+          </div>
+        </div>
+      </div>
+      <div id="fcActions"></div>`;
+  }
+  renderHome();
+}
+
+renderHome();
+</script>
+
+
+</body></html>
